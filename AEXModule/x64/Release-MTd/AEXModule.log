@@ -1,14 +1,14 @@
 ﻿  Doubles.cpp
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(255,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(257,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(361,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(361,29): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(395,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(396,29): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(396,25): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(857,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(883,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(891,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(344,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(346,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(449,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(449,29): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(490,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(491,29): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(491,25): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(952,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(978,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(986,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   Inject.cpp
 D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(236,8): warning C4311: “类型强制转换”: 从“LPCSTR”到“DWORD”的指针截断
 D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(236,8): warning C4302: “类型强制转换”: 从“LPCSTR”到“DWORD”截断
@@ -125,6 +125,16 @@ D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”
   (编译源文件“AEXModule/cpp/Thread.cpp”)
   
   main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(474,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“main.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(14,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(102,8):
+      参见“Memory::R3”的声明
+  
 D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
   (编译源文件“main.cpp”)
   

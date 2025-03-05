@@ -1,4 +1,140 @@
-﻿  main.cpp
+﻿  Doubles.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(344,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(346,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(449,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(449,29): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(490,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(491,29): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(491,25): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(952,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(978,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(986,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  Inject.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(236,8): warning C4311: “类型强制转换”: 从“LPCSTR”到“DWORD”的指针截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(236,8): warning C4302: “类型强制转换”: 从“LPCSTR”到“DWORD”截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(240,24): warning C4311: “类型强制转换”: 从“LPCSTR”到“DWORD”的指针截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\Inject.cpp(240,24): warning C4302: “类型强制转换”: 从“LPCSTR”到“DWORD”截断
+  R3HOOK.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3HOOK.cpp(70,46): warning C4311: “类型强制转换”: 从“PVOID”到“int”的指针截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3HOOK.cpp(70,46): warning C4302: “类型强制转换”: 从“PVOID”到“int”截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3HOOK.cpp(85,50): warning C4311: “类型强制转换”: 从“PVOID”到“int”的指针截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3HOOK.cpp(85,50): warning C4302: “类型强制转换”: 从“PVOID”到“int”截断
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3HOOK.cpp(88,54): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+  AEXStore.cpp
+  kernel32.cpp
+  ntdll.cpp
+  Byteset.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(203,13): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(219,17): warning C4018: “>”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(224,35): warning C4018: “<=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(252,13): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(273,13): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(291,13): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Byteset.cpp(295,19): warning C4018: “>”: 有符号/无符号不匹配
+  Encryption.cpp
+  File.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\File.cpp(166,67): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\File.cpp(199,41): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\File.cpp(206,57): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\File.cpp(209,63): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+  WinGui.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(383,32): warning C4311: “类型强制转换”: 从“HMENU”到“unsigned int”的指针截断
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(383,32): warning C4302: “类型强制转换”: 从“HMENU”到“unsigned int”截断
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(507,20): warning C4244: “初始化”: 从“LONG_PTR”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(618,9): warning C4312: “类型强制转换”: 从“int”转换到更大的“HMENU”
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(657,9): warning C4312: “类型强制转换”: 从“int”转换到更大的“HMENU”
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(709,9): warning C4312: “类型强制转换”: 从“int”转换到更大的“HMENU”
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(840,9): warning C4312: “类型强制转换”: 从“int”转换到更大的“HMENU”
+  WinGuiPlus.cpp
+  Button.cpp
+  CheckBox.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\CheckBox.cpp(22,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Edit.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(187,60): warning C4244: “参数”: 从“LPARAM”转换到“UINT”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(187,48): warning C4244: “参数”: 从“WPARAM”转换到“UINT”，可能丢失数据
+  Label.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Label.cpp(20,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  panel.cpp
+  panel_msg.cpp
+  Picture.cpp
+  _msg.cpp
+  EmbeddedCall.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\EmbeddedCall.cpp(30,39): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\EmbeddedCall.cpp(37,39): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\EmbeddedCall.cpp(40,47): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  正在编译...
+  VEHhook.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(205,70): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(247,42): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(248,41): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(260,37): warning C4244: “=”: 从“DWORD64”转换到“uint32_t”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(261,37): warning C4244: “=”: 从“DWORD64”转换到“uint32_t”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(311,42): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(312,41): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(323,37): warning C4244: “=”: 从“DWORD64”转换到“uint32_t”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(324,37): warning C4244: “=”: 从“DWORD64”转换到“uint32_t”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp(385,70): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
+  R3.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(22,30): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(145,74): warning C4244: “参数”: 从“SIZE_T”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(188,30): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  Network.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp(194,63): warning C4244: “参数”: 从“__int64”转换到“double”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp(251,54): warning C4244: “参数”: 从“__int64”转换到“double”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp(263,28): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp(428,50): warning C4244: “参数”: 从“__int64”转换到“double”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp(482,50): warning C4244: “参数”: 从“__int64”转换到“double”，可能丢失数据
+  PortableExecutable.cpp
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_IMPORT_FUNCTION”的左侧
+  (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(352,27): warning C4267: “+=”: 从“size_t”转换到“DWORD”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(468,33): warning C4244: “=”: 从“DWORD”转换到“WORD”，可能丢失数据
+  Process.cpp
+  Sqlite.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Sqlite.cpp(113,37): warning C4244: “return”: 从“sqlite3_int64”转换到“int”，可能丢失数据
+  System.cpp
+  Text.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(84,71): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(84,71): warning C4267:         with
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(84,71): warning C4267:         [
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(84,71): warning C4267:             _Ty=int
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(84,71): warning C4267:         ]
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(98,71): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(98,71): warning C4267:         with
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(98,71): warning C4267:         [
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(98,71): warning C4267:             _Ty=int
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(98,71): warning C4267:         ]
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(112,71): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(112,71): warning C4267:         with
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(112,71): warning C4267:         [
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(112,71): warning C4267:             _Ty=int
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(112,71): warning C4267:         ]
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(126,71): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(126,71): warning C4267:         with
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(126,71): warning C4267:         [
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(126,71): warning C4267:             _Ty=int
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(126,71): warning C4267:         ]
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(196,52): warning C4267: “=”: 从“size_t”转换到“unsigned char”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Text.cpp(215,48): warning C4267: “=”: 从“size_t”转换到“unsigned char”，可能丢失数据
+  Thread.cpp
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“AEXModule/cpp/Thread.cpp”)
+  
+  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(474,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“main.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(14,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(102,8):
+      参见“Memory::R3”的声明
+  
 D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
   (编译源文件“main.cpp”)
   
@@ -8,4 +144,6 @@ D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C40
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“main.cpp”)
   
+  shell.c
+  sqlite3.c
   AEXModule.vcxproj -> D:\Project\C\AEXModule\AEXModule\libs\AEXModule_MDd_64.lib
