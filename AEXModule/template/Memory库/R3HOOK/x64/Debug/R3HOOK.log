@@ -1,0 +1,27 @@
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(1,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(4,6): warning C4326: “main”的返回类型应为“int”而非“void”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 2 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 3 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 4 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 5 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 6 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 7 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 8 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 9 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 10 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 11 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 12 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 13 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 14 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 15 拥有了类型“unsigned __int64”
+D:\Project\C\AEXModule\AEXModule\template\Memory库\R3HOOK\main.cpp(19,4): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 16 拥有了类型“unsigned __int64”
+  AEXModule_64.lib(Process.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
+LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
+  正在生成代码
+  已完成代码的生成
+  R3HOOK.vcxproj -> D:\Project\C\AEXModule\AEXModule\template\Memory库\x64\Debug\R3HOOK.exe

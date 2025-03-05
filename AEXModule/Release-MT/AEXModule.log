@@ -1,0 +1,11 @@
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_IMPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+  AEXModule.vcxproj -> D:\Project\C\AEXModule\AEXModule\libs\AEXModule_MT.lib

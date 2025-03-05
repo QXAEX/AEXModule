@@ -1,0 +1,9 @@
+﻿  PortableExecutable.cpp
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_IMPORT_FUNCTION”的左侧
+  (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(468,33): warning C4244: “=”: 从“DWORD”转换到“WORD”，可能丢失数据
+  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe

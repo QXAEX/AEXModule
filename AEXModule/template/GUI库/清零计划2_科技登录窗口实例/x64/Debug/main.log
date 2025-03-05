@@ -1,0 +1,61 @@
+﻿  fnc.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(412,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“fnc.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(12,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(100,8):
+      参见“Memory::R3”的声明
+  
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“fnc.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\GUI库\清零计划2_科技登录窗口实例\fnc.h(15,14): warning C4091: “static ”: 没有声明变量时忽略“Fnc”的左侧
+  (编译源文件“fnc.cpp”)
+  
+  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(412,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“main.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(12,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(100,8):
+      参见“Memory::R3”的声明
+  
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\GUI库\清零计划2_科技登录窗口实例\fnc.h(15,14): warning C4091: “static ”: 没有声明变量时忽略“Fnc”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\GUI库\清零计划2_科技登录窗口实例\win.h(5,14): warning C4091: “static ”: 没有声明变量时忽略“win”的左侧
+  (编译源文件“main.cpp”)
+  
+  win.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(412,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“win.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(12,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(100,8):
+      参见“Memory::R3”的声明
+  
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“win.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\GUI库\清零计划2_科技登录窗口实例\fnc.h(15,14): warning C4091: “static ”: 没有声明变量时忽略“Fnc”的左侧
+  (编译源文件“win.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\GUI库\清零计划2_科技登录窗口实例\win.h(5,14): warning C4091: “static ”: 没有声明变量时忽略“win”的左侧
+  (编译源文件“win.cpp”)
+  
+  正在生成代码...
+  AEXModule_MTd_64.lib(Process.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
+LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
+  正在生成代码
+  已完成代码的生成
+AEXModule_MTd_64.lib(Process.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Process.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(Byteset.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Byteset.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(Memory.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Memory.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(Gui.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Gui.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(Thread.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Thread.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(Text.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(Text.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+AEXModule_MTd_64.lib(System.obj) : warning LNK4099: 未找到 PDB“”(使用“AEXModule_MTd_64.lib(System.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+  main.vcxproj -> D:\Project\C\AEXModule\AEXModule\template\GUI库\x64\Debug\清零计划2_科技登录窗口实例.exe

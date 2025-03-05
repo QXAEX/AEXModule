@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="AEXModule">
+      <UniqueIdentifier>{52c9c48c-e1fe-4106-89ab-0b4c1712b1f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h">
+      <UniqueIdentifier>{bd2b97ff-4a28-4b1d-a821-4bb656e4ab04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\api">
+      <UniqueIdentifier>{4170aca8-7332-4456-87e1-ce606465a929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\sqlite3">
+      <UniqueIdentifier>{d7edc0df-b9fa-4479-bdf3-c089261850f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp">
+      <UniqueIdentifier>{55f511d8-71e5-49be-8214-1946e0bf27a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Gui">
+      <UniqueIdentifier>{51694210-0ca4-436e-9d24-dd8442557e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\api">
+      <UniqueIdentifier>{5f2b412f-8381-4fab-ad4c-f17a1593fb75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\sqlite3">
+      <UniqueIdentifier>{e5a445de-9bb1-4b86-b1e1-8615064b10b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\api\data">
+      <UniqueIdentifier>{30f0ee03-9d9e-4e1e-8521-6a96ea55a483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Gui">
+      <UniqueIdentifier>{2ff7a82a-2ef9-4cd5-bb6c-c219dca442ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Gui\WinGuiPlus">
+      <UniqueIdentifier>{2fa0b9d1-d047-467d-b6d0-9acd01483136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Gui\WinGuiPlus">
+      <UniqueIdentifier>{923dced5-d2ec-4331-9389-b25d98b69f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Gui\WinGuiPlus\panel">
+      <UniqueIdentifier>{adfc0f4a-d0ea-4b4c-af6d-ff71b1a91b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Gui\WinGuiPlus\panel">
+      <UniqueIdentifier>{741686c2-75f4-49b3-81cf-337d4da908c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Memory">
+      <UniqueIdentifier>{98fc0fb1-2a5c-4dc4-968b-88ba17c2a1cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Memory">
+      <UniqueIdentifier>{978e9eb0-9084-4021-a9f7-ace4100708c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\PortableExecutable">
+      <UniqueIdentifier>{26b2e8b1-b3f2-4c4b-bf05-fee9f8d0937f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AEXModule\h\sqlite3\sqlite3.h">
+      <Filter>AEXModule\h\sqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\sqlite3\sqlite3ext.h">
+      <Filter>AEXModule\h\sqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\api\api.h">
+      <Filter>AEXModule\h\api</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\AEXStore.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Byteset.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Encryption.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\File.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Network.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Process.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Sqlite.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\System.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Text.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Thread.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule.h">
+      <Filter>AEXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\api\data\ntdll.h">
+      <Filter>AEXModule\h\api\data</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\api\data\kernel32.h">
+      <Filter>AEXModule\h\api\data</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus.h">
+      <Filter>AEXModule\h\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\_msg.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\panel\panel.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\panel\panel_msg.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\data.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Label.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Edit.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Picture.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Button.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGui.h">
+      <Filter>AEXModule\h\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory\R3.h">
+      <Filter>AEXModule\h\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory\R3HOOK.h">
+      <Filter>AEXModule\h\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory\EmbeddedCall.h">
+      <Filter>AEXModule\h\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory\VEHhook.h">
+      <Filter>AEXModule\h\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\CheckBox.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Memory\Inject.h">
+      <Filter>AEXModule\h\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\PortableExecutable.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\sqlite3\shell.c">
+      <Filter>AEXModule\cpp\sqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\sqlite3\sqlite3.c">
+      <Filter>AEXModule\cpp\sqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp">
+      <Filter>AEXModule\cpp\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\AEXStore.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Byteset.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Encryption.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\File.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Network.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Process.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Sqlite.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\System.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Text.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Thread.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\api\ntdll.cpp">
+      <Filter>AEXModule\cpp\api</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\api\kernel32.cpp">
+      <Filter>AEXModule\cpp\api</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\_msg.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\panel\panel.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus\panel</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\panel\panel_msg.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus\panel</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Label.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Picture.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Button.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGui.cpp">
+      <Filter>AEXModule\cpp\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Memory\R3.cpp">
+      <Filter>AEXModule\cpp\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Memory\EmbeddedCall.cpp">
+      <Filter>AEXModule\cpp\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Memory\VEHhook.cpp">
+      <Filter>AEXModule\cpp\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\CheckBox.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Memory\R3HOOK.cpp">
+      <Filter>AEXModule\cpp\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Memory\Inject.cpp">
+      <Filter>AEXModule\cpp\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\PortableExecutable.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Doubles.cpp">
+      <Filter>AEXModule\cpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

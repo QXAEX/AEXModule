@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AEXModule", "AEXModule.vcxproj", "{EAE3C610-ECE7-4923-B16A-58A56FBF956E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Release-MD|x64 = Release-MD|x64
+		Release-MD|x86 = Release-MD|x86
+		Release-MDd|x64 = Release-MDd|x64
+		Release-MDd|x86 = Release-MDd|x86
+		Release-MT|x64 = Release-MT|x64
+		Release-MT|x86 = Release-MT|x86
+		Release-MTd|x64 = Release-MTd|x64
+		Release-MTd|x86 = Release-MTd|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Debug|x64.ActiveCfg = Debug|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Debug|x64.Build.0 = Debug|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Debug|x86.ActiveCfg = Debug|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Debug|x86.Build.0 = Debug|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release|x64.ActiveCfg = Release|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release|x64.Build.0 = Release|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release|x86.ActiveCfg = Release|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release|x86.Build.0 = Release|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MD|x64.ActiveCfg = Release-MD|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MD|x64.Build.0 = Release-MD|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MD|x86.ActiveCfg = Release-MD|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MD|x86.Build.0 = Release-MD|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MDd|x64.ActiveCfg = Release-MDd|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MDd|x64.Build.0 = Release-MDd|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MDd|x86.ActiveCfg = Release-MDd|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MDd|x86.Build.0 = Release-MDd|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MT|x64.Build.0 = Release-MT|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MTd|x64.ActiveCfg = Release-MTd|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MTd|x64.Build.0 = Release-MTd|x64
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MTd|x86.ActiveCfg = Release-MTd|Win32
+		{EAE3C610-ECE7-4923-B16A-58A56FBF956E}.Release-MTd|x86.Build.0 = Release-MTd|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AB54265-3DBA-4E17-9F43-0AE84A6DA4BD}
+	EndGlobalSection
+EndGlobal
