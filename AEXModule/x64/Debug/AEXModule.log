@@ -1,1 +1,26 @@
-﻿  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Memory.h(474,26): warning C4584: “Memory::VEHHook”: 基类“Memory::API”已是“Memory::R3”的基类
+  (编译源文件“main.cpp”)
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(14,8):
+      参见“Memory::API”的声明
+      D:\Project\C\AEXModule\AEXModule\h\Memory.h(102,8):
+      参见“Memory::R3”的声明
+  
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_IMPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\main.cpp(67,17): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,28): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,40): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。

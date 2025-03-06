@@ -3,6 +3,7 @@
 #include "../h/Text.h"
 #include <vector>
 #include <string>
+#include <sstream>
 #include <iostream>
 typedef struct SQLITE_RESULT {
     std::vector<std::string> tabName; // ±íÃû
@@ -53,9 +54,17 @@ public:
     template<typename... Args>
     bool execs(const std::string& sql, Args... args) {
         std::string temp = sql;
-        for (std::string arg : { args... }) {
-            temp = Text::text_replace(temp, "?", "'" + arg + "'", 1);
-        };
+        size_t count = 0;
+        ([&](const auto& arg) {
+            std::ostringstream oss;
+            oss << arg;
+            const size_t pos = temp.find('?', count);
+            if (pos != std::string::npos) {
+                temp.replace(pos, 1, "'" + oss.str() + "'");
+                count = pos + oss.str().length() + 2;
+            }
+            }(args), ...);
+
         return this->exec(temp);
     }
     /*
@@ -73,9 +82,16 @@ public:
     template<typename... Args>
     SQLITE_RESULT querys(const std::string& sql, Args... args) {
         std::string temp = sql;
-        for (std::string arg : { args... }) {
-            temp = Text::text_replace(temp, "?", "'" + arg + "'", 1);
-        };
+        size_t count = 0;
+        ([&](const auto& arg) {
+            std::ostringstream oss;
+            oss << arg;
+            const size_t pos = temp.find('?', count);
+            if (pos != std::string::npos) {
+                temp.replace(pos, 1, "'" + oss.str() + "'");
+                count = pos + oss.str().length() + 2;
+            }
+            }(args), ...);
         return this->query(temp);
     }
     /*
