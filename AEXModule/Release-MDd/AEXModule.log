@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  Doubles.cpp
   Inject.cpp
   R3HOOK.cpp
@@ -84,6 +85,18 @@ D:\Project\C\AEXModule\AEXModule\h\Memory.h(474,26): warning C4584: “Memory::V
       D:\Project\C\AEXModule\AEXModule\h\Memory.h(102,8):
       参见“Memory::R3”的声明
   
+=======
+﻿  WinGuiPlus.cpp
+  Button.cpp
+  Edit.cpp
+  Label.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Label.cpp(20,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Picture.cpp
+  _msg.cpp
+  Sqlite.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Sqlite.cpp(114,37): warning C4244: “return”: 从“sqlite3_int64”转换到“int”，可能丢失数据
+  main.cpp
+>>>>>>> Stashed changes
 D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
   (编译源文件“main.cpp”)
   
@@ -93,6 +106,12 @@ D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C40
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“main.cpp”)
   
+<<<<<<< Updated upstream
   shell.c
   sqlite3.c
+=======
+D:\Project\C\AEXModule\main.cpp(67,17): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,28): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,40): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+>>>>>>> Stashed changes
   AEXModule.vcxproj -> D:\Project\C\AEXModule\AEXModule\libs\AEXModule_MDd.lib

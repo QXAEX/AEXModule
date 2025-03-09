@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  Doubles.cpp
 D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(344,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 D:\Project\C\AEXModule\AEXModule\cpp\Doubles.cpp(346,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
@@ -49,11 +50,16 @@ D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGui.cpp(840,9): warning C4312: “�
   Button.cpp
   CheckBox.cpp
 D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\CheckBox.cpp(22,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+=======
+﻿  WinGuiPlus.cpp
+  Button.cpp
+>>>>>>> Stashed changes
   Edit.cpp
 D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(187,60): warning C4244: “参数”: 从“LPARAM”转换到“UINT”，可能丢失数据
 D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(187,48): warning C4244: “参数”: 从“WPARAM”转换到“UINT”，可能丢失数据
   Label.cpp
 D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Label.cpp(20,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+<<<<<<< Updated upstream
   panel.cpp
   panel_msg.cpp
   Picture.cpp
@@ -135,6 +141,13 @@ D:\Project\C\AEXModule\AEXModule\h\Memory.h(474,26): warning C4584: “Memory::V
       D:\Project\C\AEXModule\AEXModule\h\Memory.h(102,8):
       参见“Memory::R3”的声明
   
+=======
+  Picture.cpp
+  _msg.cpp
+  Sqlite.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Sqlite.cpp(114,37): warning C4244: “return”: 从“sqlite3_int64”转换到“int”，可能丢失数据
+  main.cpp
+>>>>>>> Stashed changes
 D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
   (编译源文件“main.cpp”)
   
@@ -144,6 +157,12 @@ D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(73,16): warning C40
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(81,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“main.cpp”)
   
+<<<<<<< Updated upstream
   shell.c
   sqlite3.c
+=======
+D:\Project\C\AEXModule\main.cpp(67,17): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,28): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+D:\Project\C\AEXModule\main.cpp(67,40): warning C4244: “初始化”: 从“float”转换到“long”，可能丢失数据
+>>>>>>> Stashed changes
   AEXModule.vcxproj -> D:\Project\C\AEXModule\AEXModule\libs\AEXModule_MD_64.lib
