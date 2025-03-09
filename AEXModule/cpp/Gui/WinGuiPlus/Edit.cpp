@@ -192,6 +192,9 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
                         }
                     }
                 }
+                if (this->text->length() == 0) {
+                    this->CursorPos[1] = 0;
+                }
                 this->text->insert(this->CursorPos[1], 1, outputChar);
                 this->CursorPos[1]++;
                 break;

@@ -20,7 +20,7 @@ public:
     * @param id 数据库标识符，默认为NULL
     * @return 成功返回true，失败返回false,如果已经打开了数据库，也返回false
     */
-    bool open(const std::string np,int id = NULL);
+    bool open(const std::string np, int id = NULL);
     /*
     * 关闭数据库
     * @param id 数据库标识符，默认为NULL,如果有多个数据库对象被设定为同一个id,则关闭该id对应的所有数据库
@@ -51,20 +51,11 @@ public:
     * @param args 可变参数，用于替换SQL中的?占位符
     * @return 成功返回true，失败返回false
     */
-    template<typename... Args>
-    bool execs(const std::string& sql, Args... args) {
+    bool execs(const std::string& sql, std::initializer_list<std::string> args = {}) {
         std::string temp = sql;
-        size_t count = 0;
-        ([&](const auto& arg) {
-            std::ostringstream oss;
-            oss << arg;
-            const size_t pos = temp.find('?', count);
-            if (pos != std::string::npos) {
-                temp.replace(pos, 1, "'" + oss.str() + "'");
-                count = pos + oss.str().length() + 2;
-            }
-            }(args), ...);
-
+        for (std::string arg : args) {
+            temp = Text::text_replace(temp, "?", arg);
+        }
         return this->exec(temp);
     }
     /*
@@ -79,19 +70,11 @@ public:
      * @param args 可变参数，用于替换SQL中的?占位符
      * @return 如果成功，返回查询结果；如果失败，返回空
     */
-    template<typename... Args>
-    SQLITE_RESULT querys(const std::string& sql, Args... args) {
+    SQLITE_RESULT querys(const std::string& sql, std::initializer_list<std::string> args = {}) {
         std::string temp = sql;
-        size_t count = 0;
-        ([&](const auto& arg) {
-            std::ostringstream oss;
-            oss << arg;
-            const size_t pos = temp.find('?', count);
-            if (pos != std::string::npos) {
-                temp.replace(pos, 1, "'" + oss.str() + "'");
-                count = pos + oss.str().length() + 2;
-            }
-            }(args), ...);
+        for (std::string arg : args) {
+            temp = Text::text_replace(temp, "?", arg);
+        }
         return this->query(temp);
     }
     /*
@@ -101,7 +84,7 @@ public:
     std::string getError();
     /*
     * 添加获取最后插入ID的方法
-    */ 
+    */
     int lastInsertRowid() const;
 private:
     typedef struct sqlite3_content {
