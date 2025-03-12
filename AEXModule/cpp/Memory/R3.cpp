@@ -101,63 +101,68 @@ bool __stdcall MemoryR3::R3::Free(PVOID address, SIZE_T size) const
     return  NTDLL::ZwFreeVirtualMemory(this->hProcess, address, &size, MEM_RELEASE) == NULL;
 }
 
-std::vector<PVOID> __stdcall MemoryR3::R3::Search(Byteset buffer, Byteset vagueContent, PVOID startAddress, PVOID endAddress, int type, size_t limit, bool isVirtual) const
+std::vector<PVOID> __stdcall MemoryR3::R3::Search(std::string buffer, PVOID startAddress, PVOID endAddress, R3_SEARCH_TYPE type, size_t limit, bool isVirtual) const
 {
-    if (buffer.empty()) return std::vector<PVOID>();
-    std::vector<PVOID> addresses{};
+    std::vector<std::string> buffer_ = Text::text_split(buffer, " ");
+    while (buffer_.front() == "??") buffer_.erase(buffer_.begin());
+    while (buffer_.back() == "??") buffer_.erase(buffer_.end() - 1);
+    Byteset data;
+    Byteset vagueContent;
+    data.resize(buffer_.size());
+    vagueContent.resize(buffer_.size());
+    for (int i = 0; i < buffer_.size(); i++) {
+        if (buffer_[i] == "??") {
+            data[i] = 0x0;
+            vagueContent[i] = 0xFF;
+        } else {
+            data[i] = (UCHAR)Text::text_16_to_10(buffer_[i]);
+            vagueContent[i] = 0x0;
+        }
+    }
+    std::vector<PVOID> addrList{};
     size_t address = (size_t)startAddress;
     MEMORY_BASIC_INFORMATION MemoryInfoMation{};
-    bool vague = !vagueContent.empty();
-    while (NTDLL::ZwQueryVirtualMemory(this->hProcess, (LPCVOID)address, NTDLL::MemoryBasicInformation, &MemoryInfoMation, sizeof(MemoryInfoMation), nullptr) == 0) {
-        bool flag = false;
-        switch (type)
-        {
-        case 0: // 可读可写可执行
-            flag = (MemoryInfoMation.Protect == PAGE_EXECUTE_READWRITE);
-            break;
-        case 1: // 可读写
-            flag = (MemoryInfoMation.Protect == PAGE_READWRITE);
-            break;
-        case 2: // 只读
-            flag = (MemoryInfoMation.Protect == PAGE_READONLY);
-            break;
-        case 3: // 可写可执行
-            flag = (MemoryInfoMation.Protect == PAGE_EXECUTE_WRITECOPY);
-            break;
-        case 4: // 可读可执行
-            flag = (MemoryInfoMation.Protect == PAGE_EXECUTE_READ);
-            break;
-        case 5: // 可执行
-            flag = (MemoryInfoMation.Protect == PAGE_EXECUTE);
-            break;
-        case -1: // ALL
-            flag = true;
-            break;
-        default:
-            flag = false;
-            break;
-        }
-
-        if (MemoryInfoMation.State == MEM_COMMIT && flag &&
-            MemoryInfoMation.BaseAddress >= startAddress &&
-            (MemoryInfoMation.BaseAddress <= endAddress || endAddress == nullptr)) {
-            Byteset data;
-            if (Read(MemoryInfoMation.BaseAddress, data, MemoryInfoMation.RegionSize, isVirtual)) {
-                __int64 index = data.find(buffer, NULL, vague, vagueContent);
-                while (index != -1) {
-                    addresses.push_back((PVOID)((size_t)(MemoryInfoMation.BaseAddress) + index));
-                    if (limit != NULL && addresses.size() >= limit) break;
-                    index = data.find(buffer, index + 1, vague, vagueContent);
+    DWORD ProtectStatus = NULL;
+    switch (type) {
+    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_RW: ProtectStatus = PAGE_EXECUTE_READWRITE; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_RW: ProtectStatus = PAGE_READWRITE; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_READ: ProtectStatus = PAGE_READONLY; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_WRITE: ProtectStatus = PAGE_EXECUTE_WRITECOPY; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_READ: ProtectStatus = PAGE_EXECUTE_READ; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE: ProtectStatus = PAGE_EXECUTE; break;
+    case R3_SEARCH_TYPE::R3_SEARCH_ALL: ProtectStatus = -1; break;
+    };
+    bool flag;
+    Byteset readData;
+    PVOID preadData = nullptr;
+    __int64 index[2]{}, size[2]{};
+    while (NTDLL::ZwQueryVirtualMemory(this->hProcess, (LPCVOID)address, NTDLL::MemoryBasicInformation, &MemoryInfoMation, sizeof(MemoryInfoMation), nullptr) == NULL) {
+        flag = ProtectStatus == MemoryInfoMation.Protect || ProtectStatus == -1;
+        if (MemoryInfoMation.State == MEM_COMMIT && flag && MemoryInfoMation.BaseAddress >= startAddress && (MemoryInfoMation.BaseAddress <= endAddress || endAddress == nullptr)) {
+            readData.resize(MemoryInfoMation.RegionSize);
+            if (Read(MemoryInfoMation.BaseAddress, readData, MemoryInfoMation.RegionSize, isVirtual)) {
+                preadData = (PVOID)readData.data();
+                for (index[0] = 0, size[0] = readData.size() - data.size(); index[0] < size[0]; index[0]++) {
+                    if ((UCHAR)readData[index[0]] == (UCHAR)data[0]) {
+                        bool isVague = true;
+                        for (index[1] = 1, size[1] = data.size() - 1; index[1] < size[1]; index[1]++) {
+                            if ((UCHAR)readData[index[0] + index[1]] != (UCHAR)data[index[1]] && (UCHAR)vagueContent[index[1]] != 0xFF) {
+                                isVague = false;
+                                break;
+                            }
+                        }
+                        if (isVague) {
+                            addrList.push_back((PVOID)((size_t)(MemoryInfoMation.BaseAddress) + index[0]));
+                            if (limit != NULL && addrList.size() == limit) break;
+                        }
+                    }
                 }
             }
-
-            if (limit != NULL && addresses.size() >= limit) break;
+            if (limit != NULL && addrList.size() >= limit) break;
         }
-
         address += MemoryInfoMation.RegionSize;
     }
-
-    return addresses;
+    return addrList;
 }
 
 bool __stdcall MemoryR3::R3::hookJump(PVOID address, PVOID newAddress, Byteset complement, bool isVirtual) const

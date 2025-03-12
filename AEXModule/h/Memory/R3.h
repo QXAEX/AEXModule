@@ -3,6 +3,16 @@
 #include "../Text.h"
 #include <Windows.h>
 namespace MemoryR3 {
+	typedef enum _R3_SEARCH_TYPE {
+		R3_SEARCH_ALL = -1,//全部
+		R3_SEARCH_READ,//只读
+		R3_SEARCH_WRITE,//只写
+		R3_SEARCH_RW,//可读可写
+		R3_SEARCH_EXECUTE,//可执行
+		R3_SEARCH_EXECUTE_READ,//可执行可读
+		R3_SEARCH_EXECUTE_WRITE,//可执行可写
+		R3_SEARCH_EXECUTE_RW,//可执行可读可写
+	} R3_SEARCH_TYPE, *PR3_SEARCH_TYPE;
 	/*
 	* 内存读写类
 	*/
@@ -89,12 +99,13 @@ namespace MemoryR3 {
 		* @param vagueContent 模糊查找的忽略字节集,默认为nullptr
 		* @param startAddress 内存地址(起始), 默认NULL
 		* @param endAddress 内存地址(结束), 默认-1(搜索整个进程)
-		* @param type 查询内存属性(默认-1),-1:All,0:可读可写可执行,1:可读写,2:只读,3:可写可执行,4:可读可执行,5:可执行
+		* @param type 查询内存属性(默认R3_SEARCH_TYPE::R3_SEARCH_ALL),类型请参考R3_SEARCH_TYPE 【enum】
 		* @param limit 查找数量 0:不限制, 默认10
 		* @param isVirtual 是否破虚拟保护, 默认false
 		* @return 找到的内存地址集合
 		*/
-		std::vector<PVOID> WINAPI Search(Byteset buffer, Byteset vagueContent = nullptr, PVOID startAddress = nullptr, PVOID endAddress = nullptr, int type = -1, size_t limit = 10, bool isVirtual = false) const;
+		std::vector<PVOID> WINAPI Search(std::string buffer, PVOID startAddress = nullptr, PVOID endAddress = nullptr, R3_SEARCH_TYPE type = R3_SEARCH_TYPE::R3_SEARCH_ALL, size_t limit = 10, bool isVirtual = false) const;
+
 		/*
 		* hook跳转(64位hook的字节码长度为14字节,32位hook的字节码长度为5字节,注意补码)
 		* @param address 内存地址

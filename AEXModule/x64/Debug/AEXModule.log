@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  PortableExecutable.cpp
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
@@ -14,25 +15,16 @@ D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16): warning C44
       请考虑在格式字符串中使用“%Id”
       D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16):
       请考虑在格式字符串中使用“%I64d”
+=======
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
+  (编译源文件“main.cpp”)
+>>>>>>> 1、Text库删除原先的进制任意转换方法，换成了固定进制转换方法
   
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(674,29): warning C4267: “初始化”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(693,36): warning C4244: “初始化”: 从“unsigned __int64”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(700,82): warning C4244: “参数”: 从“__int64”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(723,83): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(724,57): warning C4244: “=”: 从“__int64”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(767,16): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(767,16):
-      请考虑在格式字符串中使用“%lld”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(767,16):
-      请考虑在格式字符串中使用“%Id”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(767,16):
-      请考虑在格式字符串中使用“%I64d”
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
   
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(858,33): warning C4244: “=”: 从“DWORD”转换到“WORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(962,46): warning C4267: “+=”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(972,26): warning C4267: “+=”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(989,45): warning C4244: “return”: 从“__int64”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(772,1): warning C4715: “PE::AddImportTable”: 不是所有的控件路径都返回值
+D:\Project\C\AEXModule\main.cpp(81,6): warning C4326: “main”的返回类型应为“int”而非“void”
   AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
 =======
 ﻿  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe

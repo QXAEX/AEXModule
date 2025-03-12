@@ -1,6 +1,3 @@
-//// AEXModule.cpp : ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ "main" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½ï¿½ï¿½Ú´Ë´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-////
-
 #include "AEXModule.h" 
 #include <iostream>
 #include <thread>
@@ -87,11 +84,10 @@ void main() {
 		printf("Î´ÕÒµ½Ä¿±ê³ÌÐò\n");
 		return;
 	}
-	size_t addr = r3.Allocate();
-	if (!addr) {
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
-		return;
+	__int64 time = System::GetRunTime();
+	std::vector<PVOID> addrList = r3.Search("?? 89 ?? 24 08 48 83 EC 28 E8 52 FD FF FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC");
+	for (auto addr : addrList) {
+		printf("µØÖ·£º%p\n", addr);
 	}
-	r3.Write((PVOID)addr, { 0x11, 0x45, 0x14 });
-	r3.Free((PVOID)addr);
+	printf("ºÄÊ±:%lldºÁÃë\n", System::GetRunTime() - time);
 }
