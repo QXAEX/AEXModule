@@ -54,6 +54,10 @@ static void PictureDraw(WinGuiPlusPanel::Panel::PPanelData panelData, Gdiplus::G
     graphics->FillRectangle(&brush, 0, 0, panelData->width, panelData->height);
     LoadImageFromResource(picture, graphics, panelData);
 }
+WinGuiPlusPicture::Picture::Picture(HWND parent, HINSTANCE hInstance, int top, int left, int width, int height, DWORD Id, std::string suffix, bool isLayered, bool visible)
+{
+    this->create(parent, hInstance, top, left, width, height, Id, suffix, isLayered, visible);
+}
 WinGuiPlusPicture::Picture::~Picture()
 {
 }

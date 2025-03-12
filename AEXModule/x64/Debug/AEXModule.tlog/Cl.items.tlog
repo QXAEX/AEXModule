@@ -21,6 +21,9 @@ D:\Project\C\AEXModule\AEXModule\cpp\Memory\EmbeddedCall.cpp;D:\Project\C\AEXMod
 D:\Project\C\AEXModule\AEXModule\cpp\Memory\VEHhook.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\VEHhook.obj
 D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\R3.obj
 D:\Project\C\AEXModule\AEXModule\cpp\Network.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\Network.obj
+D:\Project\C\AEXModule\AEXModule\cpp\Network\TCPPlus\Client\client.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\client.obj
+D:\Project\C\AEXModule\AEXModule\cpp\Network\TCPPlus\Server\server.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\server.obj
+D:\Project\C\AEXModule\AEXModule\cpp\Network\TCP\tcp.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\tcp.obj
 D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\PortableExecutable.obj
 D:\Project\C\AEXModule\AEXModule\cpp\Process.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\Process.obj
 D:\Project\C\AEXModule\AEXModule\cpp\Sqlite.cpp;D:\Project\C\AEXModule\AEXModule\x64\Debug\Sqlite.obj

@@ -47,6 +47,13 @@ public:
 
     //从short类型构造
     Byteset(short num);
+    
+    /*
+    * 初始内存大小
+    * @param initSize 初始内存大小
+    * @param initValue 初始值
+    */
+    Byteset(unsigned long long initSize, unsigned char initValue);
 
     // 拷贝构造函数
     Byteset(const Byteset& other);

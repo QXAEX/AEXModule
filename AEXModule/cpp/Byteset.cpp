@@ -84,6 +84,11 @@ Byteset::Byteset(short num)
     std::memcpy(this->data_.data(), &num, sizeof(short));
 }
 
+Byteset::Byteset(unsigned long long initSize, unsigned char initValue)
+{
+    this->data_.resize(initSize, initValue);
+}
+
 Byteset::Byteset(const Byteset& other)
 {
     this->data_ = other.data_;

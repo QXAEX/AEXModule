@@ -28,7 +28,10 @@ typedef enum PE_ERROR : DWORD {
     EXPORT_ORDINAL_OUT_OF_RANGE = 20,
     IMPORT_FUNCTION_INVALID = 21,
     INVALID_IMPORT_NAME = 22,
-    IMPORT_DESCRIPTOR_INVALID = 23
+    IMPORT_DESCRIPTOR_INVALID = 23,
+    NO_RESOURCE_TABLE = 24,
+    INVALID_RVA = 25,
+    READ_FILE = 26,
 } PE_ERROR;
 
 #pragma pack(push, 1)
@@ -51,24 +54,80 @@ typedef struct PE_HEADER {
         } Optional;
     } H_NT;
 } *PPE_HEADER;
+// ---------------------------- 节区属性标志位 ----------------------------
+// 标准 PE 节区属性标志位定义 (完整列表)
+#define PE_SECTION_FLAG_CNT_CODE              0x00000020  // 节区包含可执行代码
+#define PE_SECTION_FLAG_CNT_INITIALIZED_DATA  0x00000040  // 节区包含已初始化数据
+#define PE_SECTION_FLAG_CNT_UNINITIALIZED_DATA 0x00000080 // 节区包含未初始化数据
+#define PE_SECTION_FLAG_MEM_DISCARDABLE       0x02000000  // 可丢弃
+#define PE_SECTION_FLAG_MEM_NOT_CACHED        0x04000000  // 不可缓存
+#define PE_SECTION_FLAG_MEM_NOT_PAGED         0x08000000  // 不可分页
+#define PE_SECTION_FLAG_MEM_SHARED            0x10000000  // 可共享
+#define PE_SECTION_FLAG_MEM_EXECUTE           0x20000000  // 可执行
+#define PE_SECTION_FLAG_MEM_READ              0x40000000  // 可读
+#define PE_SECTION_FLAG_MEM_WRITE             0x80000000  // 可写
 
-// ---------------------------- 节区头（完整字段） ----------------------------
+// ---------------------------- 节区属性包装器 ----------------------------
+typedef struct PE_SECTION_ATTRIBUTES {
+    DWORD Flags;  // 实际存储的位掩码
+    // 属性：可执行
+    void SetExecutable(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_EXECUTE : Flags &= ~PE_SECTION_FLAG_MEM_EXECUTE; }
+    // 是否 可执行
+    bool IsExecutable() const { return Flags & PE_SECTION_FLAG_MEM_EXECUTE; }
+    // 属性：可写
+    void SetWritable(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_WRITE : Flags &= ~PE_SECTION_FLAG_MEM_WRITE; }
+    // 是否 可写
+    bool IsWritable() const { return Flags & PE_SECTION_FLAG_MEM_WRITE; }
+    // 属性：可读
+    void SetReadable(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_READ : Flags &= ~PE_SECTION_FLAG_MEM_READ; }
+    // 是否 可读
+    bool IsReadable() const { return Flags & PE_SECTION_FLAG_MEM_READ; }
+    // 属性：共享
+    void SetShared(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_SHARED : Flags &= ~PE_SECTION_FLAG_MEM_SHARED; }
+    // 是否 可共享
+    bool IsShared() const { return Flags & PE_SECTION_FLAG_MEM_SHARED; }
+    // 属性：不可分页
+    void SetNotPaged(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_NOT_PAGED : Flags &= ~PE_SECTION_FLAG_MEM_NOT_PAGED; }
+    // 是否 非分页
+    bool IsNotPaged() const { return Flags & PE_SECTION_FLAG_MEM_NOT_PAGED; }
+    // 属性：不可缓存
+    void SetNotCached(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_NOT_CACHED : Flags &= ~PE_SECTION_FLAG_MEM_NOT_CACHED; }
+    // 是否 非缓存
+    bool IsNotCached() const { return Flags & PE_SECTION_FLAG_MEM_NOT_CACHED; }
+    // 属性：可丢弃
+    void SetDiscardable(bool val) { val ? Flags |= PE_SECTION_FLAG_MEM_DISCARDABLE : Flags &= ~PE_SECTION_FLAG_MEM_DISCARDABLE; }
+    // 是否 可丢弃
+    bool IsDiscardable() const { return Flags & PE_SECTION_FLAG_MEM_DISCARDABLE; }
+    // 属性：包含代码
+    void SetContainsCode(bool val) { val ? Flags |= PE_SECTION_FLAG_CNT_CODE : Flags &= ~PE_SECTION_FLAG_CNT_CODE; }
+    // 是否 包含代码
+    bool ContainsCode() const { return Flags & PE_SECTION_FLAG_CNT_CODE; }
+    // 属性：包含已初始化数据
+    void SetContainsInitializedData(bool val) { val ? Flags |= PE_SECTION_FLAG_CNT_INITIALIZED_DATA : Flags &= ~PE_SECTION_FLAG_CNT_INITIALIZED_DATA; }
+    // 是否 包含已初始化数据
+    bool ContainsInitializedData() const { return Flags & PE_SECTION_FLAG_CNT_INITIALIZED_DATA; }
+    // 属性：包含未初始化数据
+    void SetContainsUninitializedData(bool val) { val ? Flags |= PE_SECTION_FLAG_CNT_UNINITIALIZED_DATA : Flags &= ~PE_SECTION_FLAG_CNT_UNINITIALIZED_DATA; }
+    // 是否 包含未初始化数据
+    bool ContainsUninitializedData() const { return Flags & PE_SECTION_FLAG_CNT_UNINITIALIZED_DATA; }
+} *PPE_SECTION_ATTRIBUTES;
+
+// ---------------------------- 节区头 ----------------------------
 typedef struct PE_SECTION_HEADER {
-    BYTE    Name[8];                     // 节区名称（ASCII）
+    BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];  // 使用标准定义
     union {
-        DWORD   PhysicalAddress;         // 物理地址（已弃用）
-        DWORD   VirtualSize;             // 内存中的总大小
+        DWORD   PhysicalAddress;  // 物理地址（已弃用）
+        DWORD   VirtualSize;       // 内存中的总大小
     } Misc;
-    DWORD   VirtualAddress;              // 内存中的起始 RVA（DWORD 为 PE 规范定义）
-    DWORD   SizeOfRawData;               // 文件中的实际大小
-    DWORD   PointerToRawData;            // 文件偏移（DWORD 为 PE 规范定义）
-    DWORD   PointerToRelocations;        // 重定位表偏移（已弃用）
-    DWORD   PointerToLinenumbers;        // 行号表偏移（已弃用）
-    WORD    NumberOfRelocations;         // 重定位项数（已弃用）
-    WORD    NumberOfLinenumbers;         // 行号项数（已弃用）
-    DWORD   Characteristics;             // 节区属性标志
+    DWORD   VirtualAddress;        // 内存中的起始 RVA
+    DWORD   SizeOfRawData;         // 文件中的实际大小
+    DWORD   PointerToRawData;      // 文件偏移
+    DWORD   PointerToRelocations;  // 重定位表偏移（已弃用）
+    DWORD   PointerToLinenumbers;   // 行号表偏移（已弃用）
+    WORD    NumberOfRelocations;   // 重定位项数（已弃用）
+    WORD    NumberOfLinenumbers;   // 行号项数（已弃用）
+    DWORD   Characteristics;       // 使用标准 DWORD 类型存储标志位
 } *PPE_SECTION_HEADER;
-
 // ---------------------------- 导入函数结构体（完整字段） ----------------------------
 typedef struct PE_IMPORT_FUNCTION {
     bool    IsOrdinal;                  // 是否为序号导入
@@ -118,67 +177,36 @@ typedef struct PE_EXPORT_DIRECTORY {
     std::string ModuleName;             // 通过 NameRVA 解析
     std::vector<PE_EXPORT_FUNCTION> Functions;
 } *PPE_EXPORT_DIRECTORY;
-// ---------------------------- 资源目录结构体 ----------------------------
+
+// 资源目录条目
+typedef struct PE_RESOURCE_DIRECTORY_ENTRY {
+    union {
+        struct {
+            DWORD NameOffset : 31;
+            DWORD NameIsString : 1;
+        };
+        DWORD Id;
+    };
+    union {
+        DWORD OffsetToData;
+        DWORD OffsetToDirectory;
+    };
+
+    std::wstring NameString;    // UNICODE字符串名称
+    bool IsDirectory;           // 是否为子目录
+    bool IsNamed;               // 是否为命名资源
+} *PPE_RESOURCE_DIRECTORY_ENTRY;
+
+// 资源目录表
 typedef struct PE_RESOURCE_DIRECTORY {
-    DWORD   Characteristics;        // 资源目录特征（通常为0）
-    DWORD   TimeDateStamp;          // 资源目录时间戳
-    WORD    MajorVersion;           // 主版本号（资源格式版本）
-    WORD    MinorVersion;           // 次版本号（资源格式版本）
-    WORD    NumberOfNamedEntries;   // 以名称命名的条目数量
-    WORD    NumberOfIdEntries;      // 以ID命名的条目数量
-    //  IMAGE_RESOURCE_DIRECTORY_ENTRY DirectoryEntries[]; // 目录条目数组（动态长度）
+    DWORD Characteristics;
+    DWORD TimeDateStamp;
+    WORD MajorVersion;
+    WORD MinorVersion;
+    WORD NumberOfNamedEntries;
+    WORD NumberOfIdEntries;
+
+    std::vector<PE_RESOURCE_DIRECTORY_ENTRY> Entries;
 } *PPE_RESOURCE_DIRECTORY;
 
-// ---------------------------- 基址重定位结构体 ----------------------------
-typedef struct PE_BASE_RELOCATION {
-    DWORD   VirtualAddress;         // 重定位块的起始 RVA
-    DWORD   SizeOfBlock;            // 重定位块总大小（包含此结构体和后续TypeOffset数组）
-    //  WORD    TypeOffset[1];       // 重定位项数组（高4位类型，低12位偏移）
-} *PPE_BASE_RELOCATION;
-
-// ---------------------------- 调试目录结构体 ----------------------------
-typedef struct PE_DEBUG_DIRECTORY {
-    DWORD   Characteristics;        // 调试信息特征（保留字段，通常为0）
-    DWORD   TimeDateStamp;          // 调试信息生成时间戳
-    WORD    MajorVersion;           // 调试格式主版本号
-    WORD    MinorVersion;           // 调试格式次版本号
-    DWORD   Type;                   // 调试信息类型（如 IMAGE_DEBUG_TYPE_CODEVIEW）
-    DWORD   SizeOfData;             // 调试数据大小（字节）
-    DWORD   AddressOfRawData;       // 调试数据 RVA（内存地址）
-    DWORD   PointerToRawData;       // 调试数据文件偏移（若存在）
-} *PPE_DEBUG_DIRECTORY;
-
-// ---------------------------- 32位 TLS 目录结构体 ----------------------------
-typedef struct PE_TLS_DIRECTORY32 {
-    DWORD   StartAddressOfRawData;  // TLS 初始化数据的起始文件偏移
-    DWORD   EndAddressOfRawData;    // TLS 初始化数据的结束文件偏移（独占）
-    DWORD   AddressOfIndex;         // TLS 索引变量的 RVA（指向 DWORD）
-    DWORD   AddressOfCallBacks;     // TLS 回调函数数组的 RVA（PIMAGE_TLS_CALLBACK*）
-    DWORD   SizeOfZeroFill;         // 零填充区域大小
-    union {
-        DWORD Characteristics;      // TLS 目录属性（位标志）
-        struct {
-            DWORD Reserved0 : 20;   // 保留位（必须为0）
-            DWORD Alignment : 4;    // 内存对齐方式（2^Alignment，如 3 表示 8 字节对齐）
-            DWORD Reserved1 : 8;    // 保留位（必须为0）
-        } DUMMYSTRUCTNAME;          // 位域命名
-    } DUMMYUNIONNAME;               // 联合体命名
-} *PPE_TLS_DIRECTORY32;
-
-// ---------------------------- 64位 TLS 目录结构体 ----------------------------
-typedef struct PE_TLS_DIRECTORY64 {
-    ULONGLONG StartAddressOfRawData;// TLS 初始化数据的起始文件偏移（64位扩展）
-    ULONGLONG EndAddressOfRawData;  // TLS 初始化数据的结束文件偏移（64位扩展）
-    ULONGLONG AddressOfIndex;       // TLS 索引变量的 RVA（64位指针）
-    ULONGLONG AddressOfCallBacks;   // TLS 回调函数数组的 RVA（64位指针）
-    DWORD SizeOfZeroFill;           // 零填充区域大小（与32位相同）
-    union {
-        DWORD Characteristics;      // TLS 目录属性（位标志，同32位）
-        struct {
-            DWORD Reserved0 : 20;   // 保留位（必须为0）
-            DWORD Alignment : 4;    // 内存对齐方式（2^Alignment）
-            DWORD Reserved1 : 8;    // 保留位（必须为0）
-        } DUMMYSTRUCTNAME;          // 位域命名
-    } DUMMYUNIONNAME;               // 联合体命名
-} *PPE_TLS_DIRECTORY64;
 #pragma pack(pop)

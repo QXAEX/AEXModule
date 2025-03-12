@@ -1,3 +1,10 @@
+==================================================【version：1.4.2】
+BUG/优化:
+	1、微调了Gui++的编辑框代码
+更新:
+	1、Byteset类型新增 Byteset(unsigned long long initSize, unsigned char initValue); 初始化内存方法
+	2、
+
 ==================================================【version：1.4.1】
 BUG/优化:
 	1、优化读写类的功能的地址类型，从原本的size_t改变为PVOID任意指针类型

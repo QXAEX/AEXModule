@@ -1,8 +1,6 @@
 #include "../../../h/Gui/WinGuiPlus/Edit.h"
 #include "../../../h/Gui/WinGuiPlus/panel/panel_msg.h"
 #include <string>
-#include <imm.h>
-#pragma comment(lib, "imm32.lib")
 static float MeasureTextWidth(const std::string& text, const Gdiplus::Font& font, Gdiplus::Graphics* graphics) {
     std::wstring wtext(text.begin(), text.end());
     Gdiplus::RectF rect;
@@ -70,7 +68,6 @@ static void EditCursorDraw(WinGuiPlusEdit::Edit* edit, WinGuiPlusPanel::Panel::P
 static void EditDraw(WinGuiPlusPanel::Panel::PPanelData panelData, Gdiplus::Graphics* graphics) {
     WinGuiPlusEdit::Edit* edit = reinterpret_cast<WinGuiPlusEdit::Edit*>(panelData->params1);
     if (!edit) return;
-
     Gdiplus::SolidBrush brush(edit->style.bkcolor);
     graphics->FillRectangle(&brush, 0, 0, panelData->width, panelData->height);
 
@@ -79,9 +76,8 @@ static void EditDraw(WinGuiPlusPanel::Panel::PPanelData panelData, Gdiplus::Grap
     Gdiplus::Font font(edit->style.name.c_str(), static_cast<float>(edit->style.size), Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
     Gdiplus::SolidBrush textBrush(edit->style.color);
 
-    std::string* text = edit->text;
-    if (text) {
-        std::wstring wtext(text->begin(), text->end());
+    if (edit->text) {
+        std::wstring wtext = Text::text_to_wstr(*edit->text);
         Gdiplus::RectF textRect;
         graphics->MeasureString(wtext.c_str(), static_cast<int>(wtext.length()), &font, Gdiplus::PointF(0, 0), &textRect);
 
@@ -102,16 +98,13 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
     this->lb_border.style.radius = this->style.radius;
     this->lb_border.style.bkcolor = this->style.bdcolor;
     this->lb_border.style.padding = NULL;
-    this->lb_border.create(parent, hInstance, top, left, width, height,"", isLayered, visible);
+    this->lb_border.create(parent, hInstance, top, left, width, height, "", isLayered, visible);
     this->panel.callback = EditDraw;
     this->panel.panelData.params1 = this;
     this->panel.panelData.componentType = COMPONENT_TYPE::EDIT;
     this->text = text;
     this->CursorPos[1] = text->length();
     this->panel.create(parent, "AEXEdit", hInstance, top + this->style.borderWidth, left + this->style.borderWidth, width - this->style.borderWidth * 2, height - this->style.borderWidth * 2, isLayered, visible);
-    HIMC hImc = ImmGetContext(this->panel.panelData.hwnd);
-    ImmSetOpenStatus(hImc, TRUE);
-    ImmReleaseContext(this->panel.panelData.hwnd, hImc);
     this->panel.Event()->event.setCursor = [&]() {//设置鼠标光标
         SetCursor(LoadCursor(NULL, IDC_IBEAM));
         };
@@ -119,14 +112,14 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
         if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_UP) {
             this->panel.panelData.params[0] = TRUE;//定义鼠标光标焦点状态
             this->panel.panelData.params[1] = TRUE;//定义输入光标显示状态,FALSE为显示光标,TRUE为不显示光标
-            SetTimer(this->panel.panelData.hwnd,0, 500, (TIMERPROC)this->TimerProc);//启动编辑光标定时器
+            SetTimer(this->panel.panelData.hwnd, 0, 500, (TIMERPROC)this->TimerProc);//启动编辑光标定时器
             InvalidateRect(this->panel.panelData.hwnd, NULL, TRUE);
         }
         };
     this->panel.Event()->event.killFocus = [&]() {//失去焦点
         this->panel.panelData.params[0] = FALSE;
         this->panel.panelData.params[1] = FALSE;
-        KillTimer(this->panel.panelData.hwnd,NULL);
+        KillTimer(this->panel.panelData.hwnd, NULL);
         InvalidateRect(this->panel.panelData.hwnd, NULL, TRUE);
         };
     this->panel.Event()->event.key = [&](int state, WPARAM& key, LPARAM& lParam) {
@@ -156,29 +149,33 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
                     }
                 }
                 break;
+            case VK_UP: //上箭头键
+                break;
+            case VK_DOWN: //下箭头键
+                break;
             case VK_HOME: // Home键
                 this->CursorPos[1] = 0;
                 break;
             case VK_END: // End键
                 this->CursorPos[1] = this->text->length();
                 break;
-                case VK_CONTROL: // 控制键
-                    break;
+            case VK_CONTROL: // 控制键
+                break;
             default:
                 bool isShiftPressed = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
                 char outputChar{};
                 switch (key) {
                 case VK_OEM_4: outputChar = isShiftPressed ? '{' : '['; break;
-                case VK_OEM_6: outputChar = isShiftPressed ? '}' : ']';break;
-                case VK_OEM_1: outputChar = isShiftPressed ? ':' : ';';break;
-                case VK_OEM_7: outputChar = isShiftPressed ? '"' : '\'';break;
-                case VK_OEM_COMMA: outputChar = isShiftPressed ? '<' : ',';break;
-                case VK_OEM_PERIOD: outputChar = isShiftPressed ? '>' : '.';break;
-                case VK_OEM_MINUS: outputChar = isShiftPressed ? '_' : '-';break;
-                case VK_OEM_PLUS: outputChar = isShiftPressed ? '+' : '=';break;
-                case VK_OEM_2: outputChar = isShiftPressed ? '?' : '/';break;
-                case VK_OEM_5: outputChar = isShiftPressed ? '|' : '\\';break;
-                case VK_OEM_3: outputChar = isShiftPressed ? '~' : '`';break;
+                case VK_OEM_6: outputChar = isShiftPressed ? '}' : ']'; break;
+                case VK_OEM_1: outputChar = isShiftPressed ? ':' : ';'; break;
+                case VK_OEM_7: outputChar = isShiftPressed ? '"' : '\''; break;
+                case VK_OEM_COMMA: outputChar = isShiftPressed ? '<' : ','; break;
+                case VK_OEM_PERIOD: outputChar = isShiftPressed ? '>' : '.'; break;
+                case VK_OEM_MINUS: outputChar = isShiftPressed ? '_' : '-'; break;
+                case VK_OEM_PLUS: outputChar = isShiftPressed ? '+' : '='; break;
+                case VK_OEM_2: outputChar = isShiftPressed ? '?' : '/'; break;
+                case VK_OEM_5: outputChar = isShiftPressed ? '|' : '\\'; break;
+                case VK_OEM_3: outputChar = isShiftPressed ? '~' : '`'; break;
                 default:
                     // 处理其他可打印字符
                     BYTE keyboardState[256];
@@ -199,12 +196,11 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
                 this->CursorPos[1]++;
                 break;
             }
-            if(!this->CursorPos[0]) this->CursorPos[1] = strlen(this->text->c_str());
+            if (!this->CursorPos[0]) this->CursorPos[1] = strlen(this->text->c_str());
             this->panel.panelData.params[1] = TRUE;
             InvalidateRect(this->panel.panelData.hwnd, NULL, TRUE);
         }
         };
-
 }
 void WinGuiPlusEdit::Edit::SetVisible(bool visible)
 {
@@ -225,3 +221,4 @@ void WinGuiPlusEdit::Edit::TimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWO
         }
     }
 }
+
