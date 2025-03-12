@@ -303,6 +303,15 @@ Byteset Byteset::subBytes(long long pos, long long len) const
     return Byteset(this->data_.data() + pos, len);
 }
 
+Byteset& Byteset::insert(long long pos, const Byteset& other, long long len)
+{
+    if (pos > this->data_.size()) return *this;
+    if (len == -1)  len = other.size();
+    if (pos + len > this->data_.size())len = this->data_.size() - pos;
+    this->data_.insert(this->data_.begin() + pos, other.data_.begin(), other.data_.begin() + len);
+    return *this;
+}
+
 std::vector<unsigned char>::iterator Byteset::begin()
 {
     return data_.begin();

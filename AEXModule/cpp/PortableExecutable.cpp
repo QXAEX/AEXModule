@@ -1,6 +1,7 @@
 #include "../h/PortableExecutable.h"
 #include <algorithm>
 #include <winnt.h>
+#include <cstring> // 添加此行
 
 PE::PE(LPCSTR filename)
 {
@@ -37,6 +38,8 @@ std::string PE::ErrorToString(PE_ERROR error)
     case PE_ERROR::NO_RESOURCE_TABLE: return "资源表不存在";
     case PE_ERROR::INVALID_RVA: return "RVA转换失败";
     case PE_ERROR::READ_FILE: return "文件读取错误";
+    case PE_ERROR::DUPLICATE_IMPORT: return "重复的导入";
+    case PE_ERROR::INVALID_ALIGNMENT: return "对齐方式无效";
     default: return "未知错误";
     }
 }
@@ -58,6 +61,11 @@ auto __stdcall PE::Import(LPCSTR filename) -> BOOL
 auto __stdcall PE::Export(LPCSTR filename) -> BOOL
 {
     return this->file.Copy(this->dstFilename, filename);
+}
+
+auto __stdcall PE::is64bit(const PE_HEADER& header) -> bool
+{
+    return (header.H_NT.Optional.H32.Magic == IMAGE_NT_OPTIONAL_HDR64_MAGIC);
 }
 
 auto __stdcall PE::Validate() -> PE_ERROR {
@@ -120,69 +128,49 @@ auto __stdcall PE::Validate() -> PE_ERROR {
 }
 auto __stdcall PE::GetHeader() -> PE_HEADER {
     PE_HEADER header = { 0 };
-
     if (!this->file.is_open || this->file.hfile == INVALID_HANDLE_VALUE) {
         return header;
     }
-
-    // 1. 读取 DOS 头
     this->file.Seek(0);
     Byteset bytes = this->file.Read(sizeof(IMAGE_DOS_HEADER));
-    if (bytes.size() != sizeof(IMAGE_DOS_HEADER) ||
-        ((IMAGE_DOS_HEADER*)bytes.data())->e_magic != IMAGE_DOS_SIGNATURE) {
+    if (bytes.size() != sizeof(IMAGE_DOS_HEADER)) {
         return header;
     }
     memcpy(&header.H_DOS, bytes.data(), sizeof(IMAGE_DOS_HEADER));
-
-    // 2. 定位到 NT 头 (e_lfanew)
     if (!this->file.Seek(header.H_DOS.e_lfanew)) {
         return header;
     }
-
-    // 3. 读取 NT 头签名
     bytes = this->file.Read(sizeof(DWORD));
-    if (bytes.size() != sizeof(DWORD) ||
-        *(DWORD*)bytes.data() != IMAGE_NT_SIGNATURE) {
+    if (bytes.size() != sizeof(DWORD) || *(DWORD*)bytes.data() != IMAGE_NT_SIGNATURE) {
         return header;
     }
     header.H_NT.Signature = *(DWORD*)bytes.data();
-
-    // 4. 读取 PE 文件头 (IMAGE_FILE_HEADER)
     bytes = this->file.Read(sizeof(IMAGE_FILE_HEADER));
     if (bytes.size() != sizeof(IMAGE_FILE_HEADER)) {
         return header;
     }
     memcpy(&header.H_NT.FileHeader, bytes.data(), sizeof(IMAGE_FILE_HEADER));
-
-    // 5. 读取可选头 (根据 SizeOfOptionalHeader)
     DWORD optionalHeaderSize = header.H_NT.FileHeader.SizeOfOptionalHeader;
     if (optionalHeaderSize == 0) {
-        return header; // 无可选头（非标准PE文件）
+        return header;
     }
-
     bytes = this->file.Read(optionalHeaderSize);
     if (bytes.size() != optionalHeaderSize) {
         return header;
     }
-
-    // 解析 Magic 字段
     WORD magic = *(WORD*)bytes.data();
     if (magic == IMAGE_NT_OPTIONAL_HDR32_MAGIC) {
         if (optionalHeaderSize != sizeof(IMAGE_OPTIONAL_HEADER32)) {
             return header;
         }
-        header.H_NT.Optional.H32 = *(IMAGE_OPTIONAL_HEADER32*)bytes.data();
+        memcpy(&header.H_NT.Optional.H32, bytes.data(), sizeof(IMAGE_OPTIONAL_HEADER32));
     }
     else if (magic == IMAGE_NT_OPTIONAL_HDR64_MAGIC) {
         if (optionalHeaderSize != sizeof(IMAGE_OPTIONAL_HEADER64)) {
             return header;
         }
-        header.H_NT.Optional.H64 = *(IMAGE_OPTIONAL_HEADER64*)bytes.data();
+        memcpy(&header.H_NT.Optional.H64, bytes.data(), sizeof(IMAGE_OPTIONAL_HEADER64));
     }
-    else {
-        return header; // Magic 无效
-    }
-
     return header;
 }
 auto __stdcall PE::GetSectionHeaders(PE_ERROR* error) -> std::vector<PE_SECTION_HEADER> {
@@ -236,10 +224,13 @@ auto __stdcall PE::GetSectionHeaders(PE_ERROR* error) -> std::vector<PE_SECTION_
     }
     return sections;
 }
-// ---------------------------- AddSectionHeader 实现 ----------------------------
 auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD rawSize, DWORD characteristics, PE_ERROR* error) -> BOOL
 {
-    // --------------- 参数验证 ---------------
+    if (error) *error = PE_ERROR::SUCCESS;
+    if (!this->file.is_open || this->file.hfile == INVALID_HANDLE_VALUE) {
+        if (error) *error = PE_ERROR::FILE_NOT_OPEN;
+        return FALSE;
+    }
     if (strlen(sectionName) > IMAGE_SIZEOF_SHORT_NAME) {
         if (error) *error = PE_ERROR::INVALID_SECTION_NAME;
         return FALSE;
@@ -249,7 +240,6 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
         return FALSE;
     }
 
-    // --------------- 获取PE信息 ---------------
     PE_HEADER header = GetHeader();
     PE_ERROR tmpErr;
     auto sections = GetSectionHeaders(&tmpErr);
@@ -258,29 +248,22 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
         return FALSE;
     }
 
-    // --------------- 对齐参数 ---------------
     DWORD sectionAlignment = header.H_NT.Optional.H32.SectionAlignment;
     DWORD fileAlignment = header.H_NT.Optional.H32.FileAlignment;
 
-    // --------------- 计算新节区地址 ---------------
     DWORD newVirtualAddress = 0;
     DWORD newPointerToRaw = 0;
     if (!sections.empty()) {
         const auto& last = sections.back();
-        // 内存地址对齐: (last_end + align - 1) & ~(align - 1)
         newVirtualAddress = (last.VirtualAddress + last.Misc.VirtualSize + sectionAlignment - 1)
             & ~(sectionAlignment - 1);
-        // 文件偏移对齐
         newPointerToRaw = (last.PointerToRawData + last.SizeOfRawData + fileAlignment - 1)
             & ~(fileAlignment - 1);
     }
     else {
-        // 第一个节区从对齐位置开始
         newVirtualAddress = sectionAlignment;
         newPointerToRaw = fileAlignment;
     }
-
-    // --------------- 构建新节区头 ---------------
     IMAGE_SECTION_HEADER newSection = { 0 };
     memcpy(newSection.Name, sectionName, IMAGE_SIZEOF_SHORT_NAME);
     newSection.Misc.VirtualSize = virtualSize;
@@ -289,23 +272,17 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
     newSection.PointerToRawData = newPointerToRaw;
     newSection.Characteristics = characteristics;
 
-    // --------------- 写入节区头表 ---------------
-    // 计算节区头表结束位置
-    DWORD sectionTableOffset = header.H_DOS.e_lfanew          // NT头起始
-        + sizeof(DWORD)                 // Signature
-        + sizeof(IMAGE_FILE_HEADER)     // FileHeader
-        + header.H_NT.FileHeader.SizeOfOptionalHeader; // OptionalHeader
-
+    DWORD sectionTableOffset = header.H_DOS.e_lfanew 
+        + sizeof(DWORD)
+        + sizeof(IMAGE_FILE_HEADER)  
+        + header.H_NT.FileHeader.SizeOfOptionalHeader; 
     DWORD newSectionOffset = sectionTableOffset + sections.size() * sizeof(IMAGE_SECTION_HEADER);
-
     if (!file.Seek(newSectionOffset) ||
         !file.Write(Byteset(&newSection, sizeof(IMAGE_SECTION_HEADER))))
     {
         if (error) *error = PE_ERROR::SECTION_HEADER_INVALID;
         return FALSE;
     }
-
-    // --------------- 更新节区数量 ---------------
     WORD newNumberOfSections = header.H_NT.FileHeader.NumberOfSections + 1;
     DWORD numberOfSectionsOffset = header.H_DOS.e_lfanew
         + offsetof(IMAGE_NT_HEADERS32, FileHeader.NumberOfSections);
@@ -317,13 +294,10 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
         return FALSE;
     }
 
-    // --------------- 更新SizeOfImage ---------------
     DWORD newSizeOfImage = newVirtualAddress + virtualSize;
     newSizeOfImage = (newSizeOfImage + sectionAlignment - 1) & ~(sectionAlignment - 1);
-
     DWORD sizeOfImageOffset = header.H_DOS.e_lfanew
         + offsetof(IMAGE_NT_HEADERS32, OptionalHeader.SizeOfImage);
-
     if (header.H_NT.Optional.H32.Magic == IMAGE_NT_OPTIONAL_HDR32_MAGIC)
     {
         if (!file.Seek(sizeOfImageOffset) ||
@@ -344,7 +318,6 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
         }
     }
 
-    // --------------- 扩展文件大小 ---------------
     LARGE_INTEGER oldFileSize;
     GetFileSizeEx(file.hfile, &oldFileSize);
     DWORD newFileSize = newPointerToRaw + rawSize;
@@ -360,10 +333,13 @@ auto __stdcall PE::AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD
 
     return TRUE;
 }
-
-// ---------------------------- DeleteSectionHeader 实现 ----------------------------
 auto __stdcall PE::DeleteSectionHeader(LPCSTR sectionName, PE_ERROR* error) -> BOOL
 {
+    if (error) *error = PE_ERROR::SUCCESS;
+    if (!this->file.is_open || this->file.hfile == INVALID_HANDLE_VALUE) {
+        if (error) *error = PE_ERROR::FILE_NOT_OPEN;
+        return FALSE;
+    }
     PE_ERROR tmpErr;
     auto sections = GetSectionHeaders(&tmpErr);
     if (tmpErr != PE_ERROR::SUCCESS) {
@@ -432,9 +408,50 @@ auto __stdcall PE::DeleteSectionHeader(LPCSTR sectionName, PE_ERROR* error) -> B
 
     return TRUE;
 }
-
+auto __stdcall PE::GetSectionByName(LPCSTR name, PE_SECTION_HEADER* section, PE_ERROR* error) -> BOOL
+{
+    std::vector<PE_SECTION_HEADER> sections = GetSectionHeaders();
+    for (const auto& sec : sections) {
+        if (strncmp((LPCSTR)sec.Name, name, IMAGE_SIZEOF_SHORT_NAME) == 0) {
+            *section = sec;
+            return TRUE;
+        }
+    }
+    if (error) *error = PE_ERROR::SECTION_HEADER_INVALID;
+    return FALSE;
+}
+auto __stdcall PE::FindMaxSectionIndex(const std::string& baseName) -> int
+{
+    int maxIndex = -1;
+    std::vector<PE_SECTION_HEADER> sections = GetSectionHeaders();
+    for (const auto& sec : sections) {
+        std::string name(reinterpret_cast<const char*>(sec.Name), IMAGE_SIZEOF_SHORT_NAME);
+        if (name.find(baseName) == 0) {
+            size_t suffixStart = baseName.length();
+            std::string suffix = name.substr(suffixStart);
+            if (!suffix.empty()) {
+                try {
+                    int index = std::stoi(suffix);
+                    maxIndex = (((maxIndex) > (index)) ? (maxIndex) : (index));
+                }
+                catch (...) {
+                    // 忽略非数字后缀
+                }
+            }
+            else {
+                maxIndex = (((maxIndex) > (0)) ? (maxIndex) : (0)); // 处理 ".aexdt" 这种情况
+            }
+        }
+    }
+    return maxIndex;
+}
 auto __stdcall PE::ModifySectionHeader(LPCSTR oldName, LPCSTR newName, DWORD newVirtualSize, DWORD newRawSize, DWORD newCharacteristics, PE_ERROR* error) -> BOOL
 {
+    if (error) *error = PE_ERROR::SUCCESS;
+    if (!this->file.is_open || this->file.hfile == INVALID_HANDLE_VALUE) {
+        if (error) *error = PE_ERROR::FILE_NOT_OPEN;
+        return FALSE;
+    }
     PE_ERROR tmpErr;
     auto sections = GetSectionHeaders(&tmpErr);
     if (tmpErr != PE_ERROR::SUCCESS) {
@@ -691,4 +708,151 @@ PE_SECTION_HEADER PE::IMAGE_to_PE_SECTION_HEADER(const IMAGE_SECTION_HEADER& img
     PE_SECTION_HEADER peSec = { 0 };
     memcpy(&peSec, &imgSec, sizeof(PE_SECTION_HEADER));
     return peSec;
+}
+
+BOOL PE::AllocateSpace(DWORD neededSize, DWORD* outOffset, PE_ERROR* error)
+{
+    auto sections = GetSectionHeaders();
+    for (const auto& sec : sections) {
+        DWORD endOffset = sec.PointerToRawData + sec.SizeOfRawData;
+        DWORD fileSize = (DWORD)file.Size();
+        if (endOffset < fileSize) {
+            DWORD available = fileSize - endOffset;
+            if (available >= neededSize) {
+                *outOffset = endOffset;
+                return TRUE;
+            }
+        }
+    }
+    *outOffset = (DWORD)file.Size();
+    if (!file.Seek(*outOffset + neededSize) || !SetEndOfFile(file.hfile)) {
+        if (error) *error = PE_ERROR::SECTION_SIZE_INVALID;
+        return FALSE;
+    }
+    return TRUE;
+}
+
+DWORD PE::AlignValue(DWORD value, DWORD alignment, PE_ERROR* error) {
+    if ((alignment == 0) || (alignment & (alignment - 1)) != 0) {
+        if (error) *error = PE_ERROR::INVALID_ALIGNMENT;
+        return 0;
+    }
+    return (value + alignment - 1) & ~(alignment - 1);
+}
+
+DWORD PE::FileOffsetToRva(DWORD fileOffset) {
+    for (const auto& section : GetSectionHeaders()) {
+        if (fileOffset >= section.PointerToRawData &&
+            fileOffset < section.PointerToRawData + section.SizeOfRawData)
+        {
+            // 重点：使用节区的VirtualAddress而非直接计算
+            return (fileOffset - section.PointerToRawData) + section.VirtualAddress;
+        }
+    }
+    return 0;
+}
+
+BOOL PE::UpdateDataDirectory(int index, IMAGE_DATA_DIRECTORY* dir, PE_ERROR* error)
+{
+    PE_HEADER header = GetHeader();
+    DWORD dirOffset = header.H_DOS.e_lfanew
+        + sizeof(DWORD)
+        + sizeof(IMAGE_FILE_HEADER)
+        + offsetof(IMAGE_OPTIONAL_HEADER32, DataDirectory)
+        + index * sizeof(IMAGE_DATA_DIRECTORY);
+
+    file.Seek(dirOffset);
+    return file.Write(Byteset(dir, sizeof(IMAGE_DATA_DIRECTORY)));
+}
+
+DWORD PE::CalculateImportTableSize(LPCSTR dllName) {
+    std::vector<PE_IMPORT_DESCRIPTOR> imports = GetImportTable();
+    DWORD totalSize = 0;
+
+    for (const auto& descPtr : imports) {
+        const PE_IMPORT_DESCRIPTOR& desc = descPtr; // 解引用指针
+
+        // 1. 基础结构体大小
+        totalSize += sizeof(PE_IMPORT_DESCRIPTOR);
+
+        // 2. 动态数据计算
+        // DLL名称字符串（仅当存在非序号导入时需要）
+        if (!desc.DLLName.empty()) {
+            totalSize += desc.DLLName.size() + 1; // +1 包含终止符
+        }
+
+        // 3. 导入函数列表大小
+        for (const auto& func : desc.Functions) {
+            // 根据导入类型计算函数描述符大小
+            size_t funcSize = sizeof(PE_IMPORT_FUNCTION);
+            if (!func.IsOrdinal) {
+                funcSize += func.Name.size() + 1; // 函数名称字符串
+            }
+            totalSize += funcSize;
+        }
+    }
+
+    return totalSize;
+}
+
+DWORD PE::FindImportDescriptorEnd(const Byteset& data)
+{
+    const IMAGE_IMPORT_DESCRIPTOR* p = reinterpret_cast<const IMAGE_IMPORT_DESCRIPTOR*>(data.data());
+    while (p->Characteristics != 0 ||
+        p->TimeDateStamp != 0 ||
+        p->ForwarderChain != 0 ||
+        p->Name != 0 ||
+        p->FirstThunk != 0) {
+        p++;
+    }
+    return reinterpret_cast<const BYTE*>(p) - data.data();
+}
+
+// 辅助函数：分配导入表空间
+BOOL PE::AllocateImportSpace(DWORD size, DWORD* outOffset, PE_ERROR* error) {
+    // 优先使用.idata节区
+    PE_SECTION_HEADER idataSection;
+    if (GetSectionByName(".idata", &idataSection, nullptr)) {
+        *outOffset = idataSection.PointerToRawData + idataSection.SizeOfRawData;
+        return TRUE;
+    }
+
+    // 次优选择：使用指定sectionName或默认.aexdt
+    char sectionName[IMAGE_SIZEOF_SHORT_NAME] = ".aexdt";
+    int maxIndex = FindMaxSectionIndex(sectionName);
+    _snprintf_s(sectionName, IMAGE_SIZEOF_SHORT_NAME, _TRUNCATE, "%s%d", sectionName, maxIndex + 1);
+
+    // 创建新节区
+    DWORD sectAlign = is64bit(GetHeader()) ?
+        GetHeader().H_NT.Optional.H64.SectionAlignment :
+        GetHeader().H_NT.Optional.H32.SectionAlignment;
+    DWORD fileAlign = 0x200; // 默认文件对齐
+
+    PE_SECTION_ATTRIBUTES attr;
+    attr.SetReadable(true);
+    attr.SetContainsInitializedData(true);
+
+    if (!AddSectionHeader(
+        sectionName,
+        sectAlign,
+        fileAlign,
+        attr.Flags,
+        error
+    )) {
+        return FALSE;
+    }
+
+    // 获取新节区位置
+    if (!GetSectionByName(sectionName, &idataSection, error)) {
+        return FALSE;
+    }
+    *outOffset = idataSection.PointerToRawData;
+    return TRUE;
+}
+
+IMAGE_DATA_DIRECTORY& PE::GetDataDirectory(int index)
+{
+    return is64bit(GetHeader()) ?
+        GetHeader().H_NT.Optional.H64.DataDirectory[index] :
+        GetHeader().H_NT.Optional.H32.DataDirectory[index];
 }

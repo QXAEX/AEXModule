@@ -163,6 +163,15 @@ public:
     */
     Byteset subBytes(long long pos, long long len) const;
 
+    /*
+    * 插入字节集
+    * @param pos 插入位置
+    * @param other 要插入的字节集
+    * @param len 插入字节集长度,默认-1,表示插入整个other
+    * @return 插入成功返回true,否则返回false
+    */
+    Byteset& insert(long long pos, const Byteset& other, long long len = -1);
+
     //字节集的开始位置
     std::vector<unsigned char>::iterator begin();
 

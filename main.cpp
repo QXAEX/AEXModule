@@ -87,37 +87,18 @@ static void 输出区段() {
 		printf("节名称：%s，起始地址：0x%08X，大小：0x%08X\n", dir.Name, dir.VirtualAddress, dir.SizeOfRawData);
 	}
 }
+static void 输出导入表() {
+	std::vector<PE_IMPORT_DESCRIPTOR> table = pe.GetImportTable();
+	for (auto& dir : table) {
+		printf("DLL名：%s，方法数量：%d\n",dir.DLLName.c_str(), dir.Functions.size());
+		if (dir.DLLName.find("Network.dll") != std::string::npos) {
+			for (PE_IMPORT_FUNCTION&  data :dir.Functions) {
+				printf("-------> 函数名：%s，序号：%d\n", data.Name.c_str(), data.Ordinal);
+			}
+		}
+	}
+}
 void main() {
 	//WinGuiPlus::window login = loginWin(L"AEX登录器1.0", "AEX：登录", "当前版本1.0\nQ群: 165820307", &key);
 	//WinGuiPlus::run();
-	//Network::TCP::
-	if (!pe.Import("C:\\Users\\QX\\Desktop\\注入器测试.dll")) {
-		printf("导入失败\n");
-		return;
-	}
-	输出区段();
-	PE_SECTION_ATTRIBUTES section{};
-	section.SetExecutable(true);
-	section.SetReadable(true);
-	section.SetWritable(true);
-	section.SetContainsUninitializedData(true);
-	if (pe.AddSectionHeader("QXAEX1", 0x1000, 0x1000, section.Flags)) {
-		printf("添加节成功\n");
-	}
-	else {
-		printf("添加节失败\n");
-	}
-	输出区段();
-	if (pe.ModifySectionHeader("QXAEX1", "QXAEX2")) {
-		printf("修改节名称成功\n");
-	} else {
-		printf("修改节名称失败\n");
-	}
-	输出区段();
-	if (pe.DeleteSectionHeader("QXAEX1")) {
-		printf("删除节成功\n");
-	} else {
-		printf("删除节失败\n");
-	}
-	输出区段();
 }

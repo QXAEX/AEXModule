@@ -32,6 +32,9 @@ typedef enum PE_ERROR : DWORD {
     NO_RESOURCE_TABLE = 24,
     INVALID_RVA = 25,
     READ_FILE = 26,
+    DUPLICATE_IMPORT = 27,
+    WRITE_FAILED = 28,
+    INVALID_ALIGNMENT = 29,
 } PE_ERROR;
 
 #pragma pack(push, 1)
@@ -130,34 +133,31 @@ typedef struct PE_SECTION_HEADER {
 } *PPE_SECTION_HEADER;
 // ---------------------------- 导入函数结构体（完整字段） ----------------------------
 typedef struct PE_IMPORT_FUNCTION {
-    bool    IsOrdinal;                  // 是否为序号导入
-    WORD    Ordinal;                    // 序号值
-    WORD    Hint;                       // 提示值
-    std::string Name;                   // 函数名称（若按名称导入）
-};
-
+    bool IsOrdinal;   // 是否为序号导入
+    WORD Ordinal;      // 序号值
+    WORD Hint;         // 提示值
+    std::string Name;  // 函数名称（若按名称导入）
+} PE_IMPORT_FUNCTION, * PPE_IMPORT_FUNCTION;
 // ---------------------------- 导出函数结构体（完整字段） ----------------------------
 typedef struct PE_EXPORT_FUNCTION {
     std::string Name;                   // 函数名称（可能为空）
     WORD        Ordinal;                // 导出序号（相对 Base）
     PE_RVA      AddressRVA;             // 函数 RVA（兼容 32/64 位）
 };
-
 // ---------------------------- 导入表结构体（完整字段） ----------------------------
 typedef struct PE_IMPORT_DESCRIPTOR {
     union {
-        DWORD   Characteristics;        // 0 表示终止
-        PE_RVA  OriginalFirstThunk;     // 原始 IAT RVA（兼容 32/64 位）
+        DWORD Characteristics;        // 0 表示终止
+        PE_RVA OriginalFirstThunk;     // 原始 IAT RVA
     };
-    DWORD   TimeDateStamp;              // 时间戳
-    DWORD   ForwarderChain;             // 转发链（-1 表示无转发）
-    PE_RVA  NameRVA;                    // DLL 名称的 RVA（兼容 32/64 位）
-    PE_RVA  FirstThunk;                 // IAT RVA（兼容 32/64 位）
-
+    DWORD TimeDateStamp;              // 时间戳
+    DWORD ForwarderChain;             // 转发链
+    PE_RVA NameRVA;                    // DLL 名称 RVA
+    PE_RVA FirstThunk;                 // IAT RVA
     // 解析后的运行时数据（不参与二进制布局）
     std::string DLLName;                // 通过 NameRVA 解析
     std::vector<PE_IMPORT_FUNCTION> Functions;
-} *PPE_IMPORT_DESCRIPTOR;
+} PE_IMPORT_DESCRIPTOR, * PPE_IMPORT_DESCRIPTOR;
 
 // ---------------------------- 导出表结构体（完整字段） ----------------------------
 typedef struct PE_EXPORT_DIRECTORY {
