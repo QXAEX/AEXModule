@@ -74,7 +74,7 @@ namespace MemoryR3 {
 		* @param size 申请大小, 默认1024字节
 		* @return 申请到的内存地址
 		*/
-		size_t WINAPI Allocate(DWORD size = 1024) const;
+		size_t WINAPI Allocate(SIZE_T size = 1024) const;
 		/*
 		* 释放内存空间
 		* @param address 内存地址
@@ -82,7 +82,7 @@ namespace MemoryR3 {
 		* @return 是否释放成功
 		* 注意: 释放的内存必须是由Allocate申请的
 		*/
-		bool WINAPI Free(PVOID address, DWORD size = 1024) const;
+		bool WINAPI Free(PVOID address, SIZE_T size = 1024) const;
 		/*
 		* 搜索内存
 		* @param buffer 要搜索的字节串

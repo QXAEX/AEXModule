@@ -51,19 +51,19 @@ NTSTATUS NTDLL::ZwProtectVirtualMemory(HANDLE ProcessHandle, LPCVOID address, UL
 		return NTDLL_ERROR;
 }
 
-NTSTATUS NTDLL::ZwFreeVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, DWORD* RegionSize, size_t FreeType)
+NTSTATUS NTDLL::ZwFreeVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, PSIZE_T RegionSize, ULONG FreeType)
 {
-	typedef NTSTATUS(NTAPI* call)(HANDLE ProcessHandle, PVOID BaseAddress, DWORD* RegionSize, size_t FreeType);
+	typedef NTSTATUS(NTAPI* call)(HANDLE ProcessHandle, PVOID* BaseAddress, PSIZE_T RegionSize, ULONG FreeType);
 	static call callBack = (call)GetProcAddress(Ntdll, "ZwFreeVirtualMemory");
 	if (callBack)
-		return callBack(ProcessHandle, BaseAddress, RegionSize, FreeType);
+		return callBack(ProcessHandle, &BaseAddress, RegionSize, FreeType);
 	else
 		return NTDLL_ERROR;
 }
 
-NTSTATUS NTDLL::ZwAllocateVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, DWORD* RegionSize, size_t AllocationType, size_t Protect)
+NTSTATUS NTDLL::ZwAllocateVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, SIZE_T* RegionSize, size_t AllocationType, size_t Protect)
 {
-	typedef NTSTATUS(NTAPI* call)(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, DWORD* RegionSize, size_t AllocationType, size_t Protect);
+	typedef NTSTATUS(NTAPI* call)(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, SIZE_T* RegionSize, size_t AllocationType, size_t Protect);
 	static call callBack = (call)GetProcAddress(Ntdll, "ZwAllocateVirtualMemory");
 	if (callBack)
 		return callBack(ProcessHandle, BaseAddress, ZeroBits, RegionSize, AllocationType, Protect);

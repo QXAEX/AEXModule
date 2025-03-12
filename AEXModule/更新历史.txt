@@ -1,6 +1,7 @@
 ==================================================【version：1.4.2】
 BUG/优化:
 	1、微调了Gui++的编辑框代码
+	2、修复Memory库R3类的Free方法无法释放申请的内存的问题
 更新:
 	1、Byteset类型新增 Byteset(unsigned long long initSize, unsigned char initValue); 初始化内存方法
 	2、

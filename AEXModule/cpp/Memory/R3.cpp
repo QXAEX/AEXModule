@@ -89,14 +89,14 @@ bool __stdcall MemoryR3::R3::VirtualProtect(PVOID address, ULONG_PTR size, DWORD
     return  NTDLL::ZwProtectVirtualMemory(this->hProcess, &address, &size, protection, oldProtection) == NULL;
 }
 
-size_t __stdcall MemoryR3::R3::Allocate(DWORD size) const
+size_t __stdcall MemoryR3::R3::Allocate(SIZE_T size) const
 {
     PVOID address{ 0 };
     NTDLL::ZwAllocateVirtualMemory(this->hProcess, &address, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     return (size_t)address;
 }
 
-bool __stdcall MemoryR3::R3::Free(PVOID address, DWORD size) const
+bool __stdcall MemoryR3::R3::Free(PVOID address, SIZE_T size) const
 {
     return  NTDLL::ZwFreeVirtualMemory(this->hProcess, address, &size, MEM_RELEASE) == NULL;
 }

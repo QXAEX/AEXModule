@@ -80,25 +80,18 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 		});
 	return win;
 }
-static PE pe;
-static void 输出区段() {
-	std::vector<PE_SECTION_HEADER> table = pe.GetSectionHeaders();
-	for (auto& dir : table) {
-		printf("节名称：%s，起始地址：0x%08X，大小：0x%08X\n", dir.Name, dir.VirtualAddress, dir.SizeOfRawData);
-	}
-}
-static void 输出导入表() {
-	std::vector<PE_IMPORT_DESCRIPTOR> table = pe.GetImportTable();
-	for (auto& dir : table) {
-		printf("DLL名：%s，方法数量：%d\n",dir.DLLName.c_str(), dir.Functions.size());
-		if (dir.DLLName.find("Network.dll") != std::string::npos) {
-			for (PE_IMPORT_FUNCTION&  data :dir.Functions) {
-				printf("-------> 函数名：%s，序号：%d\n", data.Name.c_str(), data.Ordinal);
-			}
-		}
-	}
-}
+
 void main() {
-	//WinGuiPlus::window login = loginWin(L"AEX登录器1.0", "AEX：登录", "当前版本1.0\nQ群: 165820307", &key);
-	//WinGuiPlus::run();
+	Memory::R3 r3;
+	if (!r3.Open(Process::ProcessGetID("清零计划2_科技登录窗口实例.exe"))) {
+		printf("未找到目标程序\n");
+		return;
+	}
+	size_t addr = r3.Allocate();
+	if (!addr) {
+		printf("内存分配失败\n");
+		return;
+	}
+	r3.Write((PVOID)addr, { 0x11, 0x45, 0x14 });
+	r3.Free((PVOID)addr);
 }
