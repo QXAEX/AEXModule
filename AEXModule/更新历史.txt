@@ -3,9 +3,10 @@ BUG/优化:
 	1、微调了Gui++的编辑框代码
 	2、修复Memory库R3类的Free方法无法释放申请的内存的问题
 	3、Text库删除原先的进制任意转换方法，换成了固定进制转换方法
-	4、Memory库优化Search查询方法：std::vector<PVOID> addrList = r3.Search("?? 89 ?? 24 08 48 83 EC 28 E8 52 FD FF FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC");，64位程序从0x0到0xffffffffffffffff地址3秒查询速度
+	4、Memory库优化Search查询方法：std::vector<PVOID> addrList = r3.Search("?? 89 ?? 24 08 48 83 EC 28 E8 52 FD FF FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC");，64位程序从0x0到0xffffffffffffffff地址1秒查询速度,参数二提供了线程模式查询，测试查询效率提升至331秒【根据个人电脑配置为准】
 更新:
 	1、Byteset类型新增 Byteset(unsigned long long initSize, unsigned char initValue); 初始化内存方法
+	2、重写Thread库，更优化代码，更高效的线程方法写法
 
 ==================================================【version：1.4.1】
 BUG/优化:

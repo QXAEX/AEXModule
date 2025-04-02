@@ -1,33 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿  PortableExecutable.cpp
-D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
-  (编译源文件“AEXModule/cpp/PortableExecutable.cpp”)
-  
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(279,28): warning C4267: “初始化”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(490,51): warning C4267: “初始化”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(490,30): warning C4267: “初始化”: 从“size_t”转换到“const DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(585,27): warning C4267: “+=”: 从“size_t”转换到“DWORD”，可能丢失数据
-D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16):
-      请考虑在格式字符串中使用“%lld”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16):
-      请考虑在格式字符串中使用“%Id”
-      D:\Project\C\AEXModule\AEXModule\cpp\PortableExecutable.cpp(653,16):
-      请考虑在格式字符串中使用“%I64d”
-=======
-﻿  main.cpp
-D:\Project\C\AEXModule\AEXModule\h\Thread.h(5,15): warning C4091: “typedef ”: 没有声明变量时忽略“Thread”的左侧
-  (编译源文件“main.cpp”)
->>>>>>> 1、Text库删除原先的进制任意转换方法，换成了固定进制转换方法
-  
+﻿  R3.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(28,30): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
+D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(252,30): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  Thread.cpp
+  main.cpp
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“main.cpp”)
   
 D:\Project\C\AEXModule\main.cpp(81,6): warning C4326: “main”的返回类型应为“int”而非“void”
+  正在生成代码...
   AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
-=======
-﻿  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
->>>>>>> 修复Memory库R3类的Free方法无法释放申请的内存的问题
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

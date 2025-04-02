@@ -84,10 +84,21 @@ void main() {
 		printf("未找到目标程序\n");
 		return;
 	}
-	__int64 time = System::GetRunTime();
-	std::vector<PVOID> addrList = r3.Search("?? 89 ?? 24 08 48 83 EC 28 E8 52 FD FF FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC");
-	for (auto addr : addrList) {
-		printf("地址：%p\n", addr);
+	{
+		__int64 time = System::GetRunTime();
+		std::vector<PVOID> addrList = r3.Search("24 08 48 83 EC 28 E8 52 FD ?? FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC");
+		for (auto addr : addrList) {
+			printf("地址：%p\n", addr);
+		}
+		printf("普通查询耗时:%lld毫秒\n", System::GetRunTime() - time);
 	}
-	printf("耗时:%lld毫秒\n", System::GetRunTime() - time);
+	{
+		__int64 time = System::GetRunTime();
+		std::vector<PVOID> addrList = r3.Search("24 08 48 83 EC 28 E8 52 FD ?? FF 48 83 C4 28 C3 CC CC CC CC CC CC CC CC CC", true);
+		for (auto addr : addrList) {
+			printf("地址：%p\n", addr);
+		}
+		printf("【VIP】查询耗时:%lld毫秒\n", System::GetRunTime() - time);
+	}
+
 }

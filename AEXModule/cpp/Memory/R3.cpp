@@ -1,7 +1,13 @@
 #include "../../h/Memory/R3.h"
-#include <winternl.h>
 #include "../../h/api/data/ntdll.h"
+#include "../../h/Thread.h"
+#include <winternl.h>
 #include <TlHelp32.h>
+#include <immintrin.h>
+#include <emmintrin.h>
+#include <mutex>
+#include <algorithm>
+
 MemoryR3::R3::R3(DWORD pid)
 {
     this->Open(pid);
@@ -91,7 +97,7 @@ bool __stdcall MemoryR3::R3::VirtualProtect(PVOID address, ULONG_PTR size, DWORD
 
 size_t __stdcall MemoryR3::R3::Allocate(SIZE_T size) const
 {
-    PVOID address{ 0 };
+    PVOID address{ nullptr };
     NTDLL::ZwAllocateVirtualMemory(this->hProcess, &address, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     return (size_t)address;
 }
@@ -101,66 +107,117 @@ bool __stdcall MemoryR3::R3::Free(PVOID address, SIZE_T size) const
     return  NTDLL::ZwFreeVirtualMemory(this->hProcess, address, &size, MEM_RELEASE) == NULL;
 }
 
-std::vector<PVOID> __stdcall MemoryR3::R3::Search(std::string buffer, PVOID startAddress, PVOID endAddress, R3_SEARCH_TYPE type, size_t limit, bool isVirtual) const
+std::vector<PVOID> __stdcall MemoryR3::R3::Search(std::string buffer, bool ifThread, PVOID startAddress, PVOID endAddress, R3_SEARCH_TYPE type, size_t limit, bool isVirtual) const
 {
     std::vector<std::string> buffer_ = Text::text_split(buffer, " ");
-    while (buffer_.front() == "??") buffer_.erase(buffer_.begin());
-    while (buffer_.back() == "??") buffer_.erase(buffer_.end() - 1);
-    Byteset data;
-    Byteset vagueContent;
-    data.resize(buffer_.size());
-    vagueContent.resize(buffer_.size());
-    for (int i = 0; i < buffer_.size(); i++) {
-        if (buffer_[i] == "??") {
-            data[i] = 0x0;
-            vagueContent[i] = 0xFF;
-        } else {
-            data[i] = (UCHAR)Text::text_16_to_10(buffer_[i]);
-            vagueContent[i] = 0x0;
+    while (!buffer_.empty() && buffer_.front() == "??") buffer_.erase(buffer_.begin());
+    while (!buffer_.empty() && buffer_.back() == "??") buffer_.erase(buffer_.end() - 1);
+    const size_t patternSize = buffer_.size();
+    if (patternSize == 0) return {};
+    std::vector<uint8_t> pattern;
+    std::vector<uint8_t> mask;
+    pattern.reserve(patternSize);
+    mask.reserve(patternSize);
+    for (const auto& byte : buffer_) {
+        if (byte == "??") {
+            pattern.emplace_back(0);
+            mask.emplace_back(0);
+        }
+        else {
+            pattern.emplace_back(static_cast<uint8_t>(Text::text_16_to_10(byte)));
+            mask.emplace_back(0xFF);
         }
     }
-    std::vector<PVOID> addrList{};
-    size_t address = (size_t)startAddress;
-    MEMORY_BASIC_INFORMATION MemoryInfoMation{};
-    DWORD ProtectStatus = NULL;
-    switch (type) {
-    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_RW: ProtectStatus = PAGE_EXECUTE_READWRITE; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_RW: ProtectStatus = PAGE_READWRITE; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_READ: ProtectStatus = PAGE_READONLY; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_WRITE: ProtectStatus = PAGE_EXECUTE_WRITECOPY; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE_READ: ProtectStatus = PAGE_EXECUTE_READ; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_EXECUTE: ProtectStatus = PAGE_EXECUTE; break;
-    case R3_SEARCH_TYPE::R3_SEARCH_ALL: ProtectStatus = -1; break;
-    };
-    bool flag;
-    Byteset readData;
-    PVOID preadData = nullptr;
-    __int64 index[2]{}, size[2]{};
-    while (NTDLL::ZwQueryVirtualMemory(this->hProcess, (LPCVOID)address, NTDLL::MemoryBasicInformation, &MemoryInfoMation, sizeof(MemoryInfoMation), nullptr) == NULL) {
-        flag = ProtectStatus == MemoryInfoMation.Protect || ProtectStatus == -1;
-        if (MemoryInfoMation.State == MEM_COMMIT && flag && MemoryInfoMation.BaseAddress >= startAddress && (MemoryInfoMation.BaseAddress <= endAddress || endAddress == nullptr)) {
-            readData.resize(MemoryInfoMation.RegionSize);
-            if (Read(MemoryInfoMation.BaseAddress, readData, MemoryInfoMation.RegionSize, isVirtual)) {
-                preadData = (PVOID)readData.data();
-                for (index[0] = 0, size[0] = readData.size() - data.size(); index[0] < size[0]; index[0]++) {
-                    if ((UCHAR)readData[index[0]] == (UCHAR)data[0]) {
-                        bool isVague = true;
-                        for (index[1] = 1, size[1] = data.size() - 1; index[1] < size[1]; index[1]++) {
-                            if ((UCHAR)readData[index[0] + index[1]] != (UCHAR)data[index[1]] && (UCHAR)vagueContent[index[1]] != 0xFF) {
-                                isVague = false;
-                                break;
+    const __m128i patternReg = _mm_loadu_si128(reinterpret_cast<const __m128i*>(pattern.data()));
+    const __m128i maskReg = _mm_loadu_si128(reinterpret_cast<const __m128i*>(mask.data()));
+    std::vector<PVOID> addrList;
+    std::mutex listMutex;
+    size_t address = reinterpret_cast<size_t>(startAddress);
+    const size_t endAddr = reinterpret_cast<size_t>(endAddress);
+    MEMORY_BASIC_INFORMATION mbi{};
+    const DWORD protectStatus = [&] {
+        switch (type) {
+        case R3_SEARCH_EXECUTE_RW: return PAGE_EXECUTE_READWRITE;
+        case R3_SEARCH_RW: return PAGE_READWRITE;
+        case R3_SEARCH_READ: return PAGE_READONLY;
+        case R3_SEARCH_EXECUTE_WRITE: return PAGE_EXECUTE_WRITECOPY;
+        case R3_SEARCH_EXECUTE_READ: return PAGE_EXECUTE_READ;
+        case R3_SEARCH_EXECUTE: return PAGE_EXECUTE;
+        default: return -1;
+        }
+        }();
+    if (ifThread) {
+        DWORD threadCode = 0;
+        while (NTDLL::ZwQueryVirtualMemory(hProcess, reinterpret_cast<LPCVOID>(address), NTDLL::MemoryBasicInformation, &mbi, sizeof(mbi), nullptr) == 0)
+        {
+            const auto baseAddr = mbi.BaseAddress;
+            const auto regionSize = mbi.RegionSize;
+            const auto currentProtect = mbi.Protect;
+            const auto currentState = mbi.State;
+            Thread::add(threadCode++, [=, &addrList, &listMutex](PThread thread) {
+                Byteset regionData;
+                if (currentState == MEM_COMMIT &&
+                    (protectStatus == static_cast<DWORD>(-1) || currentProtect == protectStatus) &&
+                    reinterpret_cast<size_t>(baseAddr) >= address &&
+                    (endAddr == 0 || reinterpret_cast<size_t>(baseAddr) <= endAddr))
+                {
+                    regionData.resize(regionSize);
+                    if (Read(baseAddr, regionData, static_cast<DWORD>(regionSize), isVirtual)) {
+                        const uint8_t* scanStart = regionData.data();
+                        const uint8_t* scanEnd = scanStart + regionSize - patternSize;
+                        for (; scanStart <= scanEnd; ++scanStart) {
+                            if (mask[0] && (*scanStart != pattern[0])) continue;
+                            const __m128i target = _mm_loadu_si128(reinterpret_cast<const __m128i*>(scanStart));
+                            const __m128i matched = _mm_cmpeq_epi8(_mm_and_si128(target, maskReg), patternReg);
+                            if (_mm_movemask_epi8(matched) == 0xFFFF) {
+                                const size_t offset = scanStart - regionData.data();
+                                {
+                                    std::lock_guard<std::mutex> lock(listMutex);
+                                    addrList.emplace_back(
+                                        reinterpret_cast<uint8_t*>(baseAddr) + offset);
+                                }
+                                if (limit && addrList.size() >= limit) return;
                             }
                         }
-                        if (isVague) {
-                            addrList.push_back((PVOID)((size_t)(MemoryInfoMation.BaseAddress) + index[0]));
-                            if (limit != NULL && addrList.size() == limit) break;
+                    }
+                }
+                });
+            address += mbi.RegionSize;
+            if (endAddr && address > endAddr) break;
+        }
+        Thread::wait();
+        std::sort(addrList.begin(), addrList.end());
+        addrList.erase(std::unique(addrList.begin(), addrList.end()), addrList.end());
+    }
+    else {
+        while (NTDLL::ZwQueryVirtualMemory(hProcess, reinterpret_cast<LPCVOID>(address), NTDLL::MemoryBasicInformation, &mbi, sizeof(mbi), nullptr) == 0)
+        {
+            if (mbi.State == MEM_COMMIT &&
+                (protectStatus == static_cast<DWORD>(-1) || mbi.Protect == protectStatus) &&
+                reinterpret_cast<size_t>(mbi.BaseAddress) >= address &&
+                (endAddr == 0 || reinterpret_cast<size_t>(mbi.BaseAddress) <= endAddr))
+            {
+                Byteset regionData;
+                const size_t regionSize = mbi.RegionSize;
+                regionData.resize(regionSize);
+                if (Read(mbi.BaseAddress, regionData, static_cast<DWORD>(regionSize), isVirtual)) {
+                    const uint8_t* scanStart = regionData.data();
+                    const uint8_t* scanEnd = scanStart + regionSize - patternSize;
+                    for (; scanStart <= scanEnd; ++scanStart) {
+                        if (mask[0] && (*scanStart != pattern[0])) continue;
+                        const __m128i target = _mm_loadu_si128(reinterpret_cast<const __m128i*>(scanStart));
+                        const __m128i matched = _mm_cmpeq_epi8(_mm_and_si128(target, maskReg), patternReg);
+                        if (_mm_movemask_epi8(matched) == 0xFFFF) {
+                            const size_t offset = scanStart - regionData.data();
+                            addrList.emplace_back(reinterpret_cast<uint8_t*>(mbi.BaseAddress) + offset);
+                            if (limit && addrList.size() >= limit) return addrList;
                         }
                     }
                 }
             }
-            if (limit != NULL && addrList.size() >= limit) break;
+            address += mbi.RegionSize;
+            if (endAddr && address > endAddr) break;
         }
-        address += MemoryInfoMation.RegionSize;
     }
     return addrList;
 }

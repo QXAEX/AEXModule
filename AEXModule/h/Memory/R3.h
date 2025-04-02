@@ -96,6 +96,7 @@ namespace MemoryR3 {
 		/*
 		* 搜索内存
 		* @param buffer 要搜索的字节串
+		* @param ifThread 是否线程查询,默认为false
 		* @param vagueContent 模糊查找的忽略字节集,默认为nullptr
 		* @param startAddress 内存地址(起始), 默认NULL
 		* @param endAddress 内存地址(结束), 默认-1(搜索整个进程)
@@ -104,7 +105,7 @@ namespace MemoryR3 {
 		* @param isVirtual 是否破虚拟保护, 默认false
 		* @return 找到的内存地址集合
 		*/
-		std::vector<PVOID> WINAPI Search(std::string buffer, PVOID startAddress = nullptr, PVOID endAddress = nullptr, R3_SEARCH_TYPE type = R3_SEARCH_TYPE::R3_SEARCH_ALL, size_t limit = 10, bool isVirtual = false) const;
+		std::vector<PVOID> WINAPI Search(std::string buffer, bool ifThread = false, PVOID startAddress = nullptr, PVOID endAddress = nullptr, R3_SEARCH_TYPE type = R3_SEARCH_TYPE::R3_SEARCH_ALL, size_t limit = 10, bool isVirtual = false) const;
 
 		/*
 		* hook跳转(64位hook的字节码长度为14字节,32位hook的字节码长度为5字节,注意补码)
