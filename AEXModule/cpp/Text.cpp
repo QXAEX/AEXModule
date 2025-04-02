@@ -311,7 +311,6 @@ std::string __stdcall Text::text_10_to_16(__int64 num)
 
 __int64 __stdcall Text::text_16_to_10(std::string hex)
 {
-    // 移除可能存在的十六进制前缀
     hex.erase(std::remove(hex.begin(), hex.end(), ' '), hex.end());
     if (hex.find("0x") == 0 || hex.find("0X") == 0) {
         hex = hex.substr(2);
@@ -334,7 +333,6 @@ std::string __stdcall Text::text_10_to_2(size_t num)
 
 size_t __stdcall Text::text_2_to_10(std::string bin)
 {
-    // 移除可能存在的空格
     bin.erase(std::remove(bin.begin(), bin.end(), ' '), bin.end());
     return static_cast<size_t>(std::stoull(bin, nullptr, 2));
 }

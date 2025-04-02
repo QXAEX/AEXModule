@@ -31,6 +31,18 @@ enum THREAD_CODE {
     THREAD_STOPPED,//线程已停止
     THREAD_ERROR,//线程错误
 };
+typedef struct _THREAD_INFO {
+    DWORD code;//线程标识
+    THREAD_CALLBACK callback;//线程回调函数
+    THREAD_TYPE type;//线程类型
+    __int64 interval;//线程间隔时间
+    HANDLE hThread;//线程句柄
+    bool isRunning;//线程是否运行
+    bool isJoin;//线程是否等待
+    bool isStop;//线程是否停止
+    std::mutex* mtx;//线程锁
+} THREAD_INFO, * PTHREAD_INFO;
+
 
 class Thread {
 public:
@@ -43,37 +55,40 @@ public:
     * @param interval 线程间隔时间,单位毫秒,仅在type为THREAD_TYPE_LOOP时有效,默认为0
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI add(DWORD code, THREAD_CALLBACK callback, THREAD_TYPE type = THREAD_TYPE_ONE_SHOT, __int64 interval = 0);
+    THREAD_CODE WINAPI add(DWORD code, THREAD_CALLBACK callback, THREAD_TYPE type = THREAD_TYPE_ONE_SHOT, __int64 interval = 0);
     /*
     * @brief 移除线程
     * @param code 线程代码
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI remove(DWORD code);
+    THREAD_CODE WINAPI remove(DWORD code);
     /*
     * @brief 启动线程
     * @param code 线程代码
     * @param join 是否等待线程结束,默认为false
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI start(DWORD code, bool join = false);
+    THREAD_CODE WINAPI start(DWORD code, bool join = false);
     /*
     * @brief 停止线程
     * @param code 线程代码
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI stop(DWORD code);
+    THREAD_CODE WINAPI stop(DWORD code);
     /*
     * @brief 等待所有线程
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI wait();
+    THREAD_CODE WINAPI wait();
     /*
     * @brief 等待指定线程
     * @param code 线程代码
     * @return 线程状态
     */
-    static THREAD_CODE WINAPI wait(DWORD code);
+    THREAD_CODE WINAPI wait(DWORD code);
 private:
     static DWORD WINAPI ThreadProc(LPVOID lpParam);
+private:
+    std::mutex mtx;
+    std::map<DWORD, THREAD_INFO> threads;
 };

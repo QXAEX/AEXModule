@@ -148,13 +148,14 @@ std::vector<PVOID> __stdcall MemoryR3::R3::Search(std::string buffer, bool ifThr
         }();
     if (ifThread) {
         DWORD threadCode = 0;
+        Thread thread;
         while (NTDLL::ZwQueryVirtualMemory(hProcess, reinterpret_cast<LPCVOID>(address), NTDLL::MemoryBasicInformation, &mbi, sizeof(mbi), nullptr) == 0)
         {
             const auto baseAddr = mbi.BaseAddress;
             const auto regionSize = mbi.RegionSize;
             const auto currentProtect = mbi.Protect;
             const auto currentState = mbi.State;
-            Thread::add(threadCode++, [=, &addrList, &listMutex](PThread thread) {
+            thread.add(threadCode++, [=, &addrList, &listMutex](PThread thread) {
                 Byteset regionData;
                 if (currentState == MEM_COMMIT &&
                     (protectStatus == static_cast<DWORD>(-1) || currentProtect == protectStatus) &&
@@ -185,7 +186,7 @@ std::vector<PVOID> __stdcall MemoryR3::R3::Search(std::string buffer, bool ifThr
             address += mbi.RegionSize;
             if (endAddr && address > endAddr) break;
         }
-        Thread::wait();
+        thread.wait();
         std::sort(addrList.begin(), addrList.end());
         addrList.erase(std::unique(addrList.begin(), addrList.end()), addrList.end());
     }
@@ -242,7 +243,7 @@ Byteset __stdcall MemoryR3::R3::pointerChain(PVOID address, std::initializer_lis
 {
     Byteset buffer;
     bool flag = true;
-    int readSize = (this->Is64() ? 8 : 4);
+    int readSize  = this->Is64() ? sizeof(uint64_t) : sizeof(uint32_t);
     size_t pointer = (size_t)address;
     this->Read(address, buffer, readSize, isVirtual);
     pointer = *(size_t*)buffer.data();

@@ -1,24 +1,13 @@
 #include "../h/Thread.h"
 #include <chrono>
-typedef struct _THREAD_INFO {
-    DWORD code;//线程标识
-    THREAD_CALLBACK callback;//线程回调函数
-    THREAD_TYPE type;//线程类型
-    __int64 interval;//线程间隔时间
-    HANDLE hThread;//线程句柄
-    bool isRunning;//线程是否运行
-    bool isJoin;//线程是否等待
-    bool isStop;//线程是否停止
-} THREAD_INFO, * PTHREAD_INFO;
-
-static std::mutex mtx;
-static std::map<DWORD, THREAD_INFO> threads;
 
 DWORD WINAPI Thread::ThreadProc(LPVOID lpParam) {
     THREAD_INFO* pInfo = static_cast<THREAD_INFO*>(lpParam);
     do {
         try {
             if (pInfo->callback) pInfo->callback(reinterpret_cast<PThread>(pInfo));
+            pInfo->isRunning = false;
+            pInfo->isStop = true;
         }
         catch (...) {
             return THREAD_ERROR;
@@ -26,9 +15,7 @@ DWORD WINAPI Thread::ThreadProc(LPVOID lpParam) {
         if (pInfo->type == THREAD_TYPE_LOOP) std::this_thread::sleep_for(std::chrono::milliseconds(pInfo->interval));
     } while (pInfo->type == THREAD_TYPE_LOOP && !pInfo->isStop);
     {
-        std::lock_guard<std::mutex> lock(mtx);
-        pInfo->isRunning = false;
-        pInfo->isStop = true;
+        std::lock_guard<std::mutex> lock(*pInfo->mtx);
     }
     return THREAD_OK;
 }
@@ -41,7 +28,7 @@ THREAD_CODE __stdcall Thread::add(DWORD code, THREAD_CALLBACK callback, THREAD_T
     {
         std::lock_guard<std::mutex> lock(mtx);
         if (threads.find(code) != threads.end()) return THREAD_EXIST;
-        THREAD_INFO info = { code, callback, type, interval, nullptr, false, false, false };
+        THREAD_INFO info = { code, callback, type, interval, nullptr, false, false, false, &this->mtx };
         threads[code] = info;
     }
     if (type == THREAD_TYPE::THREAD_TYPE_ONE_SHOT) return start(code, false);
