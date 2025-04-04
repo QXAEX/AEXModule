@@ -23,6 +23,12 @@ public:
     */
     auto WINAPI Export(LPCSTR filename)->BOOL;
     /*
+    * @brief 是否是64位PE文件
+    * @param header PE文件头信息
+    * @return 64位返回true，否则返回false
+    */
+    auto WINAPI is64bit(const PE_HEADER& header) -> bool;
+    /*
     * @brief 验证 PE 文件是否有效
     * @return 返回错误码 0则为有效
     */
@@ -39,101 +45,68 @@ public:
     */
     auto WINAPI GetSectionHeaders(PE_ERROR* error = nullptr)->std::vector<PE_SECTION_HEADER>;
     /*
+    * @brief PE加文件节区信息
+    * @param sectionName 节区名称, 最大长度为 8 字节
+    * @param virtualSize 节区虚拟大小, 最大4 GB
+    * @param rawSize 节区大小, 最大4 GB
+    * @param characteristics 节区属性
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return PE 文件节区信息
+    */
+    auto WINAPI AddSectionHeader(LPCSTR sectionName, DWORD virtualSize, DWORD rawSize, DWORD characteristics, PE_ERROR* error = nullptr)->BOOL;
+    /*
+    * @brief PE删除文件节区信息
+    * @param sectionName 节区名称, 最大长度为 8 字节
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return PE 文件节区信息
+    */
+    auto WINAPI DeleteSectionHeader(LPCSTR sectionName, PE_ERROR* error = nullptr)->BOOL;
+    /*
+    * @brief 获取 PE 文件节区信息
+    * @param name 节区名称
+    * @param section 节区信息指针
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return 成功返回 TRUE，失败返回 FALSE
+    */
+    auto WINAPI GetSectionByName(LPCSTR name, PE_SECTION_HEADER* section, PE_ERROR* error)->BOOL;
+    /*
+    * @brief 寻找最大节区索引
+    * @param baseName 节区名称前缀
+    * @return 最大节区索引
+    */
+    auto WINAPI FindMaxSectionIndex(const std::string& baseName) -> int;
+    /*
+    * @brief PE修改文件节区信息
+    * @param oldName 旧节区名称，最大长度为 8 字节
+    * @param newName 新节区名称，最大长度为 8 字节，传 nullptr 则不修改名称
+    * @param newVirtualSize 新节区虚拟大小，最大4 GB，传 0 则不修改大小
+    * @param newRawSize 新节区大小，最大4 GB，传 0 则不修改大小
+    * @param newCharacteristics 新节区属性，传 0 则不修改属性
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return PE 文件节区信息
+    */
+    auto WINAPI ModifySectionHeader(LPCSTR oldName, LPCSTR newName = nullptr, DWORD newVirtualSize = NULL, DWORD newRawSize = NULL, DWORD newCharacteristics = NULL, PE_ERROR* error = nullptr)->BOOL;
+    /*
     * @brief 获取 PE 文件导入表信息
     * @param error 错误码指针，若为 nullptr 则不返回错误信息
     * @return PE 文件导入表信息
     */
     auto WINAPI GetImportTable(PE_ERROR* error = nullptr)->std::vector<PE_IMPORT_DESCRIPTOR>;
     /*
+    * @brief PE添加导入表信息
+    * @param dllName 导入库名，最大长度为 260 字节
+    * @param Functions 导入函数列表，若为空则无函数导入dll
+    * @param sectionName 节区名称，最大长度为 8 字节，传 nullptr 则使用默认节区名称 ".aexdt"
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return PE 文件导入表信息
+    */
+    //auto WINAPI AddImportTable(LPCSTR dllName, std::vector<PE_IMPORT_FUNCTION> Functions =   std::vector<PE_IMPORT_FUNCTION>(), LPCSTR sectionName = ".aexdt", PE_ERROR* error = nullptr)->BOOL;
+    /*
     * @brief 获取 PE 文件导出表信息
     * @param error 错误码指针，若为 nullptr 则不返回错误信息
     * @return PE 文件导出表信息
     */
     auto WINAPI GetExportTable(PE_ERROR* error = nullptr)->std::vector<PE_EXPORT_DIRECTORY>;
-    /*
-    * @brief 获取 PE 文件资源表信息
-    * @param error 错误码指针，若为 nullptr 则不返回错误信息
-    * @return PE 文件资源表信息
-    */
-    auto WINAPI GetResourceTable(PE_ERROR* error = nullptr)->std::vector<PE_RESOURCE_DIRECTORY>;
-    /*
-    * @brief 获取 PE 文件重定位表信息
-    * @param error 错误码指针，若为 nullptr 则不返回错误信息
-    * @return PE 文件重定位表信息
-    */
-    auto WINAPI GetRelocationTable(PE_ERROR* error = nullptr)->std::vector<PE_BASE_RELOCATION>;
-    /*
-    * @brief 获取 PE 文件调试信息
-    * @param error 错误码指针，若为 nullptr 则不返回错误信息
-    * @return PE 文件调试信息
-    */
-    auto WINAPI GetDebugInfo(PE_ERROR* error = nullptr)->PE_DEBUG_DIRECTORY;
-    /*
-    * @brief 获取 PE 文件 TLS 表信息
-    * @param error 错误码指针，若为 nullptr 则不返回错误信息
-    * @return PE 文件 TLS 表信息
-    */
-    auto WINAPI GetTlsTable(PE_ERROR* error = nullptr)->PE_TLS_DIRECTORY32;
-    /*
-    * @brief 获取 PE 文件 TLS 表信息
-    * @param error 错误码指针，若为 nullptr 则不返回错误信息
-    * @return PE 文件 TLS 表信息
-    */
-    auto WINAPI GetTlsTable64(PE_ERROR* error = nullptr)->PE_TLS_DIRECTORY64;
-    //// ----------------- 新增方法声明 -----------------
-    //// 基础信息获取
-    ///// @brief 获取入口点 RVA 地址
-    //auto WINAPI GetEntryPointRVA() const->DWORD;
-    ///// @brief 获取镜像基址 (ImageBase)
-    //auto WINAPI GetImageBase() const->ULONGLONG;
-    ///// @brief 判断是否为 64 位 PE 文件
-    //auto WINAPI Is64Bit() const->BOOL;
-    ///// @brief 获取子系统类型 (GUI/CUI 等)
-    //auto WINAPI GetSubsystem() const->WORD;
-    //// 数据目录操作
-    ///// @brief 获取指定数据目录项 (导入表/导出表/资源表等)
-    ///// @param index 目录项索引 (如 IMAGE_DIRECTORY_ENTRY_IMPORT)
-    //auto WINAPI GetDataDirectory(DWORD index) const->IMAGE_DATA_DIRECTORY;
-    //// 资源操作
-    ///// @brief 提取指定资源数据
-    ///// @param type 资源类型 (如 RT_ICON)
-    ///// @param id 资源 ID
-    //auto WINAPI ExtractResource(LPCSTR type, WORD id) const->Byteset;
-    ///// @brief 替换指定资源数据
-    //auto WINAPI ReplaceResource(LPCSTR type, WORD id, const Byteset& newData)->BOOL;
-    //// 导入表操作
-    ///// @brief 获取所有导入函数信息 (DLL名称 -> 函数列表)
-    //auto WINAPI GetImports() const->std::map<std::string, std::vector<std::string>>;
-    ///// @brief 添加新的导入函数
-    //auto WINAPI AddImportFunction(LPCSTR dllName, LPCSTR funcName)->BOOL;
-    //// 导出表操作
-    ///// @brief 获取导出函数列表
-    //auto WINAPI GetExports() const->std::vector<std::string>;
-    //// 重定位操作
-    ///// @brief 获取重定位表信息
-    //auto WINAPI GetRelocations() const->std::vector<IMAGE_BASE_RELOCATION>;
-    //// 调试信息
-    ///// @brief 获取调试信息目录 (如 PDB 路径)
-    //auto WINAPI GetDebugInfo() const->IMAGE_DEBUG_DIRECTORY;
-    //// TLS 操作
-    ///// @brief 获取 TLS 回调函数地址列表
-    //auto WINAPI GetTlsCallbacks() const->std::vector<DWORD>;
-    //// 校验和与签名
-    ///// @brief 计算并修复 PE 校验和
-    //auto WINAPI FixChecksum()->BOOL;
-    ///// @brief 验证数字签名有效性
-    //auto WINAPI VerifyDigitalSignature() const->BOOL;
-    //// 节区操作
-    ///// @brief 添加新节区 (用于代码注入/数据扩展)
-    ///// @param name 节区名 (8字符限制)
-    ///// @param size 节区大小
-    ///// @param characteristics 节区属性
-    //auto WINAPI AddSection(LPCSTR name, DWORD size, DWORD characteristics)->BOOL;
-    ///// @brief 按名称查找节区头
-    //auto WINAPI FindSection(LPCSTR name) const->PE_SECTION_HEADER;
-    //// 地址转换
-    ///// @brief 将 RVA 转换为文件偏移
-    //auto WINAPI RvaToFileOffset(DWORD rva) const->DWORD;
     /*
     * RVA 转换为文件偏移
     * @param rva RVA 地址
@@ -144,4 +117,74 @@ private:
     File file;
     std::string filename;
     std::string dstFilename;
+private:
+    BOOL ErrorCheck(PE_ERROR* error, PE_ERROR code) {
+        if (error) *error = code;
+        return FALSE;
+    }
+    /*
+    * @brief 转换 PE 文件头信息
+    * @param peHeader PE 文件头信息
+    * @return IMAGE_FILE_HEADER
+    */
+    static IMAGE_SECTION_HEADER PE_SECTION_HEADER_to_IMAGE(const PE_SECTION_HEADER& peSec);
+    /*
+    * @brief 转换 IMAGE_SECTION_HEADER
+    * @param imgSec IMAGE_SECTION_HEADER
+    * @return PE_SECTION_HEADER
+    */
+    static PE_SECTION_HEADER IMAGE_to_PE_SECTION_HEADER(const IMAGE_SECTION_HEADER& imgSec);
+    /*
+    * @brief 分配空间
+    * @param neededSize 需要分配的空间大小
+    * @param outOffset 输出分配的偏移地址
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return 成功返回 TRUE，失败返回 FALSE
+    */
+    BOOL AllocateSpace(DWORD neededSize, DWORD* outOffset, PE_ERROR* error = nullptr);
+    /*
+    * @brief 计算对齐值
+    * @param value 值
+    * @param alignment 对齐值
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return 对齐后的值
+    */
+    DWORD AlignValue(DWORD value, DWORD alignment, PE_ERROR* error = nullptr);
+    /*
+    * @brief 文件偏移到rva
+    * @param fileOffset 文件偏移地址
+    * @return RVA地址
+    */
+    DWORD FileOffsetToRva(DWORD fileOffset);
+    /*
+    * @brief 更新数据目录
+    * @param index 数据目录索引
+    * @param dir 数据目录
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return 成功返回 TRUE，失败返回 FALSE
+    */
+    BOOL UpdateDataDirectory(int index, IMAGE_DATA_DIRECTORY* dir, PE_ERROR* error);
+    /*
+    * @brief 计算导入表大小
+    * @param dllName 导入库名
+    * @return 导入表大小
+    */
+    DWORD CalculateImportTableSize(LPCSTR dllName);
+    /*
+    * @brief 寻找导入表结束位置
+    * @param data 字节集
+    * @return 导入表结束位置
+    */
+    DWORD FindImportDescriptorEnd(const Byteset& data);
+    /*
+    * @brief 分配 PE 文件导入表空间
+    * @param size 导入表大小
+    * @param outOffset 输出分配的偏移地址
+    * @param error 错误码指针，若为 nullptr 则不返回错误信息
+    * @return 成功返回 TRUE，失败返回 FALSE
+    */
+    BOOL AllocateImportSpace(DWORD size, DWORD* outOffset, PE_ERROR* error);
+
+    // 集成数据目录获取
+    IMAGE_DATA_DIRECTORY& GetDataDirectory(int index);
 };

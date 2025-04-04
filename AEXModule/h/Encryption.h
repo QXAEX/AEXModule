@@ -1,7 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "../h/Byteset.h"
+#include <unordered_map>
 namespace Encryption {
-	//×ÖµäËã·¨ÃÜ³×
+	//å­—å…¸ç®—æ³•å¯†åŒ™
 	static const Byteset dictionaries = {
 		 0xF1, 0x8B, 0x4D, 0x26, 0x13, 0x09, 0x84, 0xC2, 0x61, 0x30, 0x98, 0x4C, 0x26, 0x13, 0x09, 0x84,
 		 0xC2, 0x61, 0x30, 0x98, 0x4C, 0x26, 0x13, 0x09, 0x84, 0xC2, 0x61, 0x30, 0x98, 0x4C, 0x26, 0x13,	
@@ -12,34 +13,46 @@ namespace Encryption {
 		 0x84, 0xC2, 0x61, 0x30, 0x98, 0x4C, 0x26, 0x13, 0x09, 0x84, 0xC2, 0x61, 0x30, 0x98, 0x4C, 0x26
 	};
 	/*
-	* ×Öµä_¼ÓÃÜ
-	* @param data ´ı¼ÓÃÜ×Ö·û´®
-	* @param key ¼ÓÃÜÃÜÔ¿(×Öµä), Ä¬ÈÏÎª¹Ù·½×Öµä
-	* @return ¼ÓÃÜºóµÄ×Ö·û´®
+	* å­—å…¸_åŠ å¯†
+	* @param data å¾…åŠ å¯†å­—ç¬¦ä¸²
+	* @param key åŠ å¯†å¯†é’¥(å­—å…¸), é»˜è®¤ä¸ºå®˜æ–¹å­—å…¸
+	* @return åŠ å¯†åçš„å­—ç¬¦ä¸²
 	*/
 	Byteset DictionariesEncrypt(const Byteset& data, const Byteset& key = dictionaries);
 	/*
-	* ×Öµä_½âÃÜ
-	* @param data ´ı½âÃÜ×Ö·û´®
-	* @param key ½âÃÜÃÜÔ¿(×Öµä), Ä¬ÈÏÎª¹Ù·½×Öµä
-	* @return ½âÃÜºóµÄ×Ö·û´®
+	* å­—å…¸_è§£å¯†
+	* @param data å¾…è§£å¯†å­—ç¬¦ä¸²
+	* @param key è§£å¯†å¯†é’¥(å­—å…¸), é»˜è®¤ä¸ºå®˜æ–¹å­—å…¸
+	* @return è§£å¯†åçš„å­—ç¬¦ä¸²
 	*/
 	Byteset DictionariesDecrypt(const Byteset& data, const Byteset& key = dictionaries);
 
-	//¾ØÕóËã·¨ÃÜ³×
+	//çŸ©é˜µç®—æ³•å¯†åŒ™
 	static const Byteset matrixKey = {0x6C, 0x5B, 0x4A, 0x39, 0x28, 0x17, 0x06, 0x75, 0x44, 0x33, 0x22, 0x11, 0x80, 0x5F, 0x4E, 0x3D};
 	/*
-	* ÕóÁĞ_¼ÓÃÜ
-	* @param data ´ı¼ÓÃÜ×Ö·û´®
-	* @param matrix 2Î¬Êı×é,Ä¬ÈÏ,{ 2, 3 },Ö»ÄÜ2×Ö½Ú³¤¶È
-	* @param key ¼ÓÃÜÃÜÔ¿(Êı×é), ³¤¶È±ØĞëÎª16, Ä¬ÈÏÎª¹Ù·½ÃÜÔ¿
+	* é˜µåˆ—_åŠ å¯†
+	* @param data å¾…åŠ å¯†å­—ç¬¦ä¸²
+	* @param matrix 2ç»´æ•°ç»„,é»˜è®¤,{ 2, 3 },åªèƒ½2å­—èŠ‚é•¿åº¦
+	* @param key åŠ å¯†å¯†é’¥(æ•°ç»„), é•¿åº¦å¿…é¡»ä¸º16, é»˜è®¤ä¸ºå®˜æ–¹å¯†é’¥
 	*/
 	Byteset MatrixEncrypt(const Byteset& data, const Byteset matrix = { 2, 3 }, const Byteset& key = matrixKey);
 	/*
-	* ÕóÁĞ_½âÃÜ
-	* @param data ´ı½âÃÜ×Ö·û´®
-	* @param matrix 2Î¬Êı×é,Ä¬ÈÏ,[2,3],Ö»ÄÜ2×Ö½Ú³¤¶È
-	* @param key ½âÃÜÃÜÔ¿(Êı×é), ³¤¶È±ØĞëÎª16, Ä¬ÈÏÎª¹Ù·½ÃÜÔ¿
+	* é˜µåˆ—_è§£å¯†
+	* @param data å¾…è§£å¯†å­—ç¬¦ä¸²
+	* @param matrix 2ç»´æ•°ç»„,é»˜è®¤,[2,3],åªèƒ½2å­—èŠ‚é•¿åº¦
+	* @param key è§£å¯†å¯†é’¥(æ•°ç»„), é•¿åº¦å¿…é¡»ä¸º16, é»˜è®¤ä¸ºå®˜æ–¹å¯†é’¥
 	*/
 	Byteset MatrixDecrypt(const Byteset& data, const Byteset matrix = { 2, 3 }, const Byteset& key = matrixKey);
+	/*
+	* ç¡¬ç¼–ç _åŠ å¯†
+	* @param data å¾…åŠ å¯†å­—ç¬¦ä¸²
+	* @return åŠ å¯†åçš„æ•°æ®
+	*/
+	Byteset BaseEncrypt(const Byteset& data);
+	/*
+	* ç¡¬ç¼–ç _è§£å¯†
+	* @param data å¾…è§£å¯†å­—ç¬¦ä¸²
+	* @return è§£å¯†åçš„å­—ç¬¦ä¸²
+	*/
+	Byteset BaseDecrypt(const Byteset& data);
 };

@@ -12,6 +12,7 @@ namespace WinGuiPlusPicture {
 			Gdiplus::Color bkcolor = Gdiplus::Color(0, 0, 0); //±³¾°ÑÕÉ«
 		};
 		Picture() = default;
+		Picture(HWND parent, HINSTANCE hInstance, int top, int left, int width, int height, DWORD Id, std::string suffix = "PNG", bool isLayered = false, bool visible = true);
 		~Picture();
 		/*
 		* ´´½¨±à¼­¿ò

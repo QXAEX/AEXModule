@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <comutil.h>
+#include <sstream>
 #pragma comment(lib, "comsuppw.lib")
 std::string __stdcall Text::text_join(std::vector<std::string> text_list, std::string delimiter) {
     std::string result;
@@ -301,58 +302,37 @@ std::wstring __stdcall Text::text_ascii_to_unicode(std::string text)
     return result;
 }
 
-std::string __stdcall Text::text_dec_to_any(size_t num, int base) {
-    if (base < 2 || base > 36) {
-        throw std::invalid_argument("基数必须在2到36之间");
-    }
-
-    if (num == 0) {
-        return "0";
-    }
-
-    std::string result;
-
-    while (num > 0) {
-        int remainder = num % base;
-        num /= base;
-
-        if (remainder < 10) {
-            result += ('0' + remainder);
-        }
-        else {
-            result += ('A' + remainder - 10);
-        }
-    }
-
-    std::reverse(result.begin(), result.end());
-    return result;
+std::string __stdcall Text::text_10_to_16(__int64 num)
+{
+    std::stringstream ss{};
+    ss << std::hex << std::uppercase << num;
+    return ss.str();
 }
 
-size_t __stdcall Text::text_any_to_dec(std::string num, int base) {
-    if (base < 2 || base > 36) {
-        throw std::invalid_argument("基数必须在2到36之间");
+__int64 __stdcall Text::text_16_to_10(std::string hex)
+{
+    hex.erase(std::remove(hex.begin(), hex.end(), ' '), hex.end());
+    if (hex.find("0x") == 0 || hex.find("0X") == 0) {
+        hex = hex.substr(2);
     }
+    
+    return std::stoll(hex, nullptr, 16);
+}
 
-    size_t result = 0;
-
-    for (char digit : num) {
-        int value;
-        if (digit >= '0' && digit <= '9') {
-            value = digit - '0';
-        }
-        else if (digit >= 'A' && digit <= 'Z') {
-            value = digit - 'A' + 10;
-        }
-        else {
-            throw std::invalid_argument("无效的数字字符");
-        }
-
-        if (value >= base) {
-            throw std::invalid_argument("字符超出基数范围");
-        }
-
-        result = result * base + value;
+std::string __stdcall Text::text_10_to_2(size_t num)
+{
+    if (num == 0) return "0";
+    
+    std::string bin;
+    while (num > 0) {
+        bin = (num % 2 ? "1" : "0") + bin;
+        num /= 2;
     }
+    return bin;
+}
 
-    return result;
+size_t __stdcall Text::text_2_to_10(std::string bin)
+{
+    bin.erase(std::remove(bin.begin(), bin.end(), ' '), bin.end());
+    return static_cast<size_t>(std::stoull(bin, nullptr, 2));
 }

@@ -75,7 +75,8 @@ bool Sqlite::exec(const std::string& sql)
         if(errorMessage) sqlite3_free(errorMessage);
         return false;
     }
-    return sqlite3_changes(this->content->db);
+    int rt = sqlite3_changes(this->content->db);
+    return rt == 0 ? rc == SQLITE_OK : true;
 }
 
 

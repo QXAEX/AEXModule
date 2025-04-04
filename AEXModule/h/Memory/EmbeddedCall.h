@@ -5,13 +5,6 @@ namespace MemoryEmbeddedCall {
 	* 嵌入式调用类
 	*/
 	class EmbeddedCall : private MemoryR3::R3 {
-	private:
-		typedef bool (WINAPI* embeddedCall)(int param1);
-	private:
-		DWORD PID;
-		PVOID address;
-		size_t size;
-
 	public:
 		EmbeddedCall();
 		EmbeddedCall(DWORD pid, size_t size);
@@ -52,5 +45,11 @@ namespace MemoryEmbeddedCall {
 			PVOID addr = reinterpret_cast<PVOID>(reinterpret_cast<size_t>(this->address) + index);
 			return (reinterpret_cast<Ret(WINAPI*)(Args...)>(addr))(args...);
 		}
+	private:
+		typedef bool (WINAPI* embeddedCall)(int param1);
+	private:
+		DWORD PID;
+		PVOID address;
+		size_t size;
 	};
 };

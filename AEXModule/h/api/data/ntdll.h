@@ -104,7 +104,7 @@ namespace NTDLL {
 	* @param FreeType 释放类型
 	* @return 返回状态
 	*/
-	NTSTATUS ZwFreeVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, DWORD* RegionSize, size_t FreeType);
+	NTSTATUS ZwFreeVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, PSIZE_T RegionSize, ULONG FreeType);
 	/*
 	* 分配内存
 	* @param ProcessHandle 进程句柄
@@ -115,7 +115,7 @@ namespace NTDLL {
 	* @param Protect 保护级别
 	* @return 返回状态
 	*/
-	NTSTATUS ZwAllocateVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, DWORD* RegionSize, size_t AllocationType, size_t Protect);
+	NTSTATUS ZwAllocateVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, size_t ZeroBits, SIZE_T* RegionSize, size_t AllocationType, size_t Protect);
 	/*
 	* 查询内存信息
 	* @param ProcessHandle 进程句柄

@@ -161,17 +161,27 @@ namespace Text {
 	std::wstring __stdcall text_ascii_to_unicode(std::string text);
 	//====================================进制转换====================================
 	/*
-	* 文本_十进制转任意进制
+	* 文本_10进制转16进制
 	* @param num 待转换的十进制数
-	* @param base 目标进制
 	* @return 转换后的任意进制数
 	*/
-	std::string __stdcall text_dec_to_any(size_t num, int base);
+	std::string __stdcall text_10_to_16(__int64 num);
 	/*
-	* 文本_任意进制转十进制
-	* @param num 待转换的任意进制数
-	* @param base 待转换的进制
+	* 文本_16进制转10进制
+	* @param hex 待转换的十六进制数
 	* @return 转换后的十进制数
 	*/
-	size_t __stdcall text_any_to_dec(std::string num, int base);
+	__int64 __stdcall text_16_to_10(std::string hex);
+	/*
+	* 文本_10进制转2进制
+	* @param num 待转换的十进制数
+	* @return 转换后的任意进制数
+	*/
+	std::string __stdcall text_10_to_2(size_t num);
+	/*
+	* 文本_2进制转10进制
+	* @param bin 待转换的二进制数
+	* @return 转换后的十进制数
+	*/
+	size_t __stdcall text_2_to_10(std::string bin);
 };

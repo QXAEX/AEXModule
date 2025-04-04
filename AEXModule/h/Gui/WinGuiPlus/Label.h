@@ -8,7 +8,7 @@ namespace WinGuiPlusLabel {
 	public:
 		//样式设置
 		struct STYLE {
-			ALIGN align = ALIGN::TOP_RIGHT; //对齐方式, 默认居中左对齐
+			ALIGN align = ALIGN::CENTER_LEFT; //对齐方式, 默认居中左对齐
 			bool wrap = false;//是否换行
 			int size = 12; //字体大小
 			std::wstring name = L"微软雅黑"; //字体名称

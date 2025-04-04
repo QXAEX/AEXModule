@@ -377,6 +377,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -516,6 +517,10 @@
     <ClInclude Include="AEXModule\h\Memory\R3.h" />
     <ClInclude Include="AEXModule\h\Memory\R3HOOK.h" />
     <ClInclude Include="AEXModule\h\Network.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\client.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\server.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h" />
+    <ClInclude Include="AEXModule\h\Network\TCP\tcp.h" />
     <ClInclude Include="AEXModule\h\PortableExecutable.h" />
     <ClInclude Include="AEXModule\h\PortableExecutable\data.h" />
     <ClInclude Include="AEXModule\h\Process.h" />
@@ -547,6 +552,9 @@
     <ClCompile Include="AEXModule\cpp\Memory\VEHhook.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3.cpp" />
     <ClCompile Include="AEXModule\cpp\Network.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\client.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\server.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCP\tcp.cpp" />
     <ClCompile Include="AEXModule\cpp\PortableExecutable.cpp" />
     <ClCompile Include="AEXModule\cpp\Process.cpp" />
     <ClCompile Include="AEXModule\cpp\Sqlite.cpp" />
