@@ -8,6 +8,7 @@
 #include "./WinGuiPlus/Picture.h"
 #include "./WinGuiPlus/Button.h"
 #include "./WinGuiPlus/CheckBox.h"
+#include "./WinGuiPlus/ProgressBar.h"
 namespace WinGuiPlus {
     // 消息循环
     int WINAPI run();
@@ -31,7 +32,6 @@ namespace WinGuiPlus {
             DWORD style = WS_OVERLAPPEDWINDOW;//窗口样式，默认,表示窗口可以拖动,缩放,最大化,最小化
             COLORREF backgroundColor = RGB(255, 255, 255);//背景颜色
             WINGUIPLUS_WINEVENTPROC event;//事件回调中心
-
         } *PINFO;
         /*
         * 窗口回调函数
@@ -60,7 +60,48 @@ namespace WinGuiPlus {
         * 设置INFO结构体
         */
         bool setInfo(WINGUIPLUS_TEMPLATE winInfo);
+        /*
+        * 显示窗口
+        * @return 是否显示成功
+        */
+        bool show() const;
+        /*
+        * 隐藏窗口
+        * @return 是否隐藏成功
+        */
+        bool hide() const;
+        /*
+        * 关闭窗口
+        * @return 是否关闭成功
+        */
+        bool close() const;
+        /*
+        * 最小化窗口
+        * @return 是否最小化成功
+        */
+        bool minimize() const;
+        /*
+        * 最大化窗口
+        * @return 是否最大化成功
+        */
+        bool maximize() const;
+        /*
+        * 恢复窗口
+        * @return 是否恢复成功
+        */
+        bool restore() const;
+        /*
+        * 置顶窗口
+        * @return 是否置顶成功
+        */
+        bool setTopMost() const;
+        /*
+        * 取消置顶窗口
+        * @return 是否取消置顶成功
+        */
+        bool cancelTopMost();
     private:
+        HWND hwnd = NULL;
         HINSTANCE hInstance = NULL;
         std::string token = "";
         DWORD setWindowStyle(INFO& winInfo);
@@ -76,4 +117,6 @@ namespace WinGuiPlus {
     using namespace WinGuiPlusButton;
     // 复选框
     using namespace WinGuiPlusCheckBox;
+    //进度条
+    using namespace WinGuiPlusProgressBar;
 }

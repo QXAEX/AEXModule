@@ -219,6 +219,9 @@
     <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h">
       <Filter>AEXModule\h\Network\TCPPlus</Filter>
     </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\ProgressBar.h">
+      <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\server.cpp">
       <Filter>AEXModule\cpp\Network\TCPPlus\server</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp">
+      <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

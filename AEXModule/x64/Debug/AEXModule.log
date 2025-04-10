@@ -1,12 +1,25 @@
-﻿  R3.cpp
-D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(28,30): warning C4312: “类型强制转换”: 从“DWORD”转换到更大的“HANDLE”
-D:\Project\C\AEXModule\AEXModule\cpp\Memory\R3.cpp(252,30): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  Thread.cpp
+﻿  WinGuiPlus.cpp
+  Button.cpp
+  CheckBox.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\CheckBox.cpp(22,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Edit.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(184,60): warning C4244: “参数”: 从“LPARAM”转换到“UINT”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp(184,48): warning C4244: “参数”: 从“WPARAM”转换到“UINT”，可能丢失数据
+  Label.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\Label.cpp(20,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Picture.cpp
+  ProgressBar.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp(10,20): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp(61,70): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp(61,56): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+  _msg.cpp
+  panel.cpp
+  panel_msg.cpp
   main.cpp
 D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
   (编译源文件“main.cpp”)
   
-D:\Project\C\AEXModule\main.cpp(81,6): warning C4326: “main”的返回类型应为“int”而非“void”
+D:\Project\C\AEXModule\main.cpp(87,6): warning C4326: “main”的返回类型应为“int”而非“void”
   正在生成代码...
   AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序

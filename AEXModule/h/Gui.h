@@ -7,7 +7,7 @@
 #include "./Gui/WinGui.h"
 #include "./Gui/WinGuiPlus.h"
 namespace Gui {
-    //win原生gui
+    //win原生gui(停止维护)
     namespace WinGui =  WinGui;
     //win原生gui+
     namespace WinGuiPlus =  WinGuiPlus;

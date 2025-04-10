@@ -82,6 +82,10 @@ namespace WinGuiPlusPanel {
 		*/
 		bool windowMove(bool isMove = true);
 		/*
+		* 通知重新绘制
+		*/
+		void Redraw() const;
+		/*
 		* 设置事件
 		* @return 事件指针集合
 		*/

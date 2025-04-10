@@ -4,9 +4,11 @@
 #include <windows.h>
 #include <string>
 static std::string key = "Please enter the card password你好";
-static Gdiplus::Color bgColor = Gdiplus::Color(237, 237, 237);
+static Gdiplus::Color bgColor = Gdiplus::Color(255, 237, 237, 237);
 static Byteset mkey = 3220896020;
 static LPCWSTR fontName = L"黑体";// 可用字体：微软雅黑、宋体、黑体、Arial、Verdana、Georgia、Tahoma、Times New Roman
+static float d = 10;
+static WinGuiPlus::ProgressBar pb_progress;
 /*
 * 窗口_登录
 * @param title 标题
@@ -18,7 +20,7 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 	WinGuiPlus::window win;
 	WinGuiPlus::window::INFO info;
 	info.width = 350;
-	info.height = 440;
+	info.height = 440+200;
 	info.alpha = 200;
 	info.backgroundColor = RGB(237, 237, 237);
 	win.create(NULL, title, L"LOGIN", info, [&, info](HWND hwnd, HINSTANCE hInstance, int status) {
@@ -41,6 +43,7 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 		btn_login.Style()->color = Gdiplus::Color(255, 255, 255);
 		btn_login.Style()->radius = 10;
 		btn_login.Event()->mouseLeft = [hwnd, key](int state, int x, int y) {
+			pb_progress.SetProgress(std::stof(Text::text_random_num(2)));
 			if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN) {
 				try {
 					if (mkey == Byteset(std::stoll(*key))) {
@@ -69,16 +72,32 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 		lb_Close.style.align = ALIGN::CENTER;
 		lb_Close.style.underline = true;
 		lb_Close.style.bkcolor = bgColor;
-		lb_Close.Event()->mouseLeft = [](int state, int x, int y) {
+		lb_Close.Event()->mouseLeft = [&](int state, int x, int y) {
 			if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN) {
-				exit(0);
+				win.close();
 			}
 			};
+		pb_progress.create(hwnd, hInstance,400, 0, info.width-35, 50,&d);
+		pb_progress.style.radius = 12;
+		for (auto& c : pb_progress.style.radiusColor) c = bgColor;
 		});
 	return win;
 }
 
 void main() {
+	return;
+	WinGuiPlus::window login = loginWin(L"测试", "测试软件", "测试软件公告", &key);
+	WinGuiPlus::run();
+	return;
+	{
+		Memory::R3 r3(Process::ProcessGetID("PlagueIncEvolved.exe"));
+		__int64 time = System::GetRunTime();
+		std::vector<PVOID> addrList = r3.Search("FF 25 AA 95 ?? ?? ?? ?? 48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 41 54 41 55 41 56");
+		for (auto addr : addrList) {
+			printf("地址：%p\n", addr);
+		}
+		printf("普通查询耗时:%lld毫秒\n", System::GetRunTime() - time);
+	}
 	return;
 	{
 		//小作文
@@ -137,5 +156,4 @@ void main() {
 			printf("【VIP】查询耗时:%lld毫秒\n", System::GetRunTime() - time);
 		}
 	}
-
 }

@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "网络库测试", "网络�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCP++", "AEXModule\template\NetworkTest\TCP++\TCP++.vcxproj", "{AA0014C4-87C0-4221-9644-A77245214460}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gui测试", "Gui测试", "{5F6D6068-37F8-421D-9B44-EF4486331A8A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "登录辅助验证窗口", "AEXModule\template\GUI库\登录辅助验证窗口\登录辅助验证窗口.vcxproj", "{4B19E109-CED6-4E93-A2B0-3110498B1657}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -73,12 +77,37 @@ Global
 		{AA0014C4-87C0-4221-9644-A77245214460}.Release-MTd|x64.Build.0 = Release|x64
 		{AA0014C4-87C0-4221-9644-A77245214460}.Release-MTd|x86.ActiveCfg = Release|Win32
 		{AA0014C4-87C0-4221-9644-A77245214460}.Release-MTd|x86.Build.0 = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Debug|x64.ActiveCfg = Debug|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Debug|x64.Build.0 = Debug|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Debug|x86.ActiveCfg = Debug|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Debug|x86.Build.0 = Debug|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release|x64.ActiveCfg = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release|x64.Build.0 = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release|x86.ActiveCfg = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release|x86.Build.0 = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MD|x64.ActiveCfg = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MD|x64.Build.0 = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MD|x86.ActiveCfg = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MD|x86.Build.0 = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MDd|x64.ActiveCfg = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MDd|x64.Build.0 = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MDd|x86.ActiveCfg = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MDd|x86.Build.0 = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MT|x64.ActiveCfg = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MT|x64.Build.0 = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MT|x86.ActiveCfg = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MT|x86.Build.0 = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MTd|x64.ActiveCfg = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MTd|x64.Build.0 = Release|x64
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MTd|x86.ActiveCfg = Release|Win32
+		{4B19E109-CED6-4E93-A2B0-3110498B1657}.Release-MTd|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AA0014C4-87C0-4221-9644-A77245214460} = {15DB9267-18F0-43D6-8A47-BF92AEAFFC3E}
+		{4B19E109-CED6-4E93-A2B0-3110498B1657} = {5F6D6068-37F8-421D-9B44-EF4486331A8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AB54265-3DBA-4E17-9F43-0AE84A6DA4BD}

@@ -3,8 +3,6 @@
 #include <functional>
 #include <map>
 #include <mutex>
-#include "Byteset.h"
-#include "System.h"
 
 class Thread;
 typedef Thread* PThread;
@@ -46,6 +44,7 @@ typedef struct _THREAD_INFO {
 
 class Thread {
 public:
+    Thread() = default;
     virtual ~Thread();
     /*
     * @brief ÃÌº”œﬂ≥Ã

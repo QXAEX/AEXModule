@@ -18,10 +18,10 @@ namespace WinGuiPlusLabel {
 			bool strikeout = false; //是否删除线
 			float angle = 0.0f; //旋转角度
 			float radius = 0.0f; //圆角半径
-			Gdiplus::Color radiusColor[4] = { Gdiplus::Color(255, 255, 255)/*左上*/, Gdiplus::Color(255, 255, 255)/*右上*/, Gdiplus::Color(255, 255, 255)/*左下*/, Gdiplus::Color(255, 255, 255)/*右下*/ }; //圆角空白补色
+			Gdiplus::Color radiusColor[4] = { Gdiplus::Color(255, 255, 255, 255)/*左上*/, Gdiplus::Color(255, 255, 255, 255)/*右上*/, Gdiplus::Color(255, 255, 255, 255)/*左下*/, Gdiplus::Color(255, 255, 255, 255)/*右下*/ }; //圆角空白补色
 			float padding = 5.0f; //内边距
 			Gdiplus::Color color = Gdiplus::Color(0, 0, 0); //字体颜色,默认黑色
-			Gdiplus::Color bkcolor = 0; //背景颜色, 如果为0则表示透明
+			Gdiplus::Color bkcolor = Gdiplus::Color(255, 255, 255, 255); //背景颜色, 如果为0则表示透明
 		};
 	public:
 		Label() = default;

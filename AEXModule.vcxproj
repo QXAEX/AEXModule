@@ -488,6 +488,7 @@
   <ItemGroup>
     <ClInclude Include="AEXModule.h" />
     <ClCompile Include="AEXModule\cpp\Doubles.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\Inject.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3HOOK.cpp" />
     <ClInclude Include="AEXModule\h\AEXStore.h" />
@@ -509,6 +510,7 @@
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\panel\panel.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\panel\panel_msg.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Picture.h" />
+    <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\ProgressBar.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\_msg.h" />
     <ClInclude Include="AEXModule\h\Memory.h" />
     <ClInclude Include="AEXModule\h\Memory\EmbeddedCall.h" />

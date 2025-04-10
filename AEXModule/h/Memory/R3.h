@@ -96,7 +96,7 @@ namespace MemoryR3 {
 		/*
 		* 搜索内存
 		* @param buffer 要搜索的字节串
-		* @param ifThread 是否线程查询,默认为false
+		* @param ifThread 是否线程查询,默认为false,线程模式下地址范围限制将失效
 		* @param vagueContent 模糊查找的忽略字节集,默认为nullptr
 		* @param startAddress 内存地址(起始), 默认NULL
 		* @param endAddress 内存地址(结束), 默认-1(搜索整个进程)

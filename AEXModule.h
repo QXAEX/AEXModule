@@ -3,7 +3,7 @@
 * CODE: GB2312
 * author: <QX>
 * createBy: 2024-08-5
-* updateBy: 2025-04-3
+* updateBy: 2025-04-10
 */
 #ifndef NDEBUG
 	#ifdef _DLL
@@ -31,13 +31,13 @@
 #include "AEXModule/h/Text.h"										//文本方法集合					<namespace>					updateBy: 2025-04-1
 #include "AEXModule/h/File.h"										//文件方法对象					<class>							updateBy: 2025-01-21
 #include "AEXModule/h/Byteset.h"								//字节集对象						<class>							updateBy: 2025-03-12
-#include "AEXModule/h/Memory.h"								//内存方法集合					<namespace>					updateBy: 2025-04-3
+#include "AEXModule/h/Memory.h"								//内存方法集合					<namespace>					updateBy: 2025-04-9
 #include "AEXModule/h/Network.h"								//网络方法集合					<namespace>					updateBy: 2025-03-10
 #include "AEXModule/h/Encryption.h"							//加密解密集合					<namespace>					updateBy: 2024-08-12
 #include "AEXModule/h/System.h"									//系统方法集合					<namespace>					updateBy: 2024-09-14
 #include "AEXModule/h/AEXStore.h"								//AEX官方数据仓库			<class>							updateBy: 2024-09-14
-#include "AEXModule/h/Gui.h"										//Gui库集合						<namespace>					updateBy: 2025-03-10
-#include "AEXModule/h/Thread.h"									//线程类							<class>							updateBy: 2025-04-3
+#include "AEXModule/h/Gui.h"										//Gui库集合						<namespace>					updateBy: 2025-04-10
+#include "AEXModule/h/Thread.h"									//线程类							<class>							updateBy: 2025-04-4
 #include "AEXModule/h/Sqlite.h"									//sqlite3数据库类				<class>							updateBy: 2025-03-6
 #include "AEXModule/h/PortableExecutable.h"				//进程文件PE解析类			<namespace>					updateBy: 2025-03-12
 #include "AEXModule/h/Doubles.h"								//超级浮点类型集合			<class>							updateBy: 2025-03-5

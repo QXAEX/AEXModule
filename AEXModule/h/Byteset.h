@@ -1,4 +1,5 @@
 #pragma once
+#include "../h/Text.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -43,7 +44,7 @@ public:
     Byteset(bool flag);
 
     //从char类型构造
-    Byteset(char ch);
+    Byteset(unsigned char ch);
 
     //从short类型构造
     Byteset(short num);
@@ -130,12 +131,9 @@ public:
     * 寻找字节集
     * @param other 要寻找的字节集
     * @param pos 开始搜索的位置
-    * @param vague 是否模糊查找,模糊查找时,忽略other中与之匹配的字节,默认 不模糊查找
-    * @param vagueContent 模糊查找的忽略字节集,默认为{0}
     * @return 找到的位置，如果没有找到，则返回-1
     */
-    long long find(const Byteset& other, long long pos = NULL, bool vague = false, const Byteset& vagueContent = nullptr) const;
-
+    long long find(const Byteset& other, long long pos = NULL) const;
     /*
     * 替换字节集
     * @param old 要替换的字节集

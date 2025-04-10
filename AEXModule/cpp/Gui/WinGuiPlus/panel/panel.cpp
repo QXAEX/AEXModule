@@ -99,6 +99,11 @@ bool WinGuiPlusPanel::Panel::windowMove(bool isMove)
 	return this->panelData.dragEnabled = isMove;
 }
 
+void WinGuiPlusPanel::Panel::Redraw() const
+{
+	InvalidateRect(this->panelData.hwnd, NULL, TRUE);
+}
+
 PWINGUIPLUS_TEMPLATE WinGuiPlusPanel::Panel::Event(PWINGUIPLUS_TEMPLATE event)
 {
 	if (event) {

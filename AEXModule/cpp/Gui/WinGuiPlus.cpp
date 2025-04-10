@@ -58,6 +58,11 @@ WinGuiPlus::window::~window() {
     }
 }
 
+bool WinGuiPlus::window::cancelTopMost()
+{
+    return false;
+}
+
 DWORD WinGuiPlus::window::setWindowStyle(INFO& winInfo) {
     DWORD style = winInfo.style;
     if (winInfo.disableResize) style &= ~WS_THICKFRAME;  style &= ~WS_MAXIMIZEBOX;
@@ -95,6 +100,7 @@ HWND WinGuiPlus::window::create(HWND parent, LPCWSTR title, LPCWSTR className, I
     DWORD exStyle = setWindowExStyle(winInfo);
     HWND hwnd = CreateWindowExW(exStyle, className, title, style, winInfo.left, winInfo.top, winInfo.width, winInfo.height, parent, nullptr, wcex.hInstance, &callBackFunc);
     if (!hwnd) return NULL;
+    this->hwnd = hwnd;
     this->hInstance = wcex.hInstance;
     if (!winInfo.iconId == NULL) {
         HICON hIcon = LoadIconW(this->hInstance, MAKEINTRESOURCE(winInfo.iconId));
@@ -136,4 +142,52 @@ bool WinGuiPlus::window::setInfo(WINGUIPLUS_TEMPLATE winInfo)
         }
     }
     return false;
+}
+
+bool WinGuiPlus::window::show() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_SHOW);
+    return IsWindowVisible(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::hide() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_HIDE);
+    return IsWindowVisible(hwnd) == FALSE;
+}
+
+bool WinGuiPlus::window::close() const
+{
+    if (!IsWindow(hwnd)) return false;
+    return SendMessage(hwnd, WM_CLOSE, 0, 0) == 0;
+}
+
+bool WinGuiPlus::window::minimize() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_MINIMIZE);
+    return IsIconic(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::maximize() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_MAXIMIZE);
+    return IsZoomed(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::restore() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_RESTORE);
+    return !IsIconic(hwnd) && !IsZoomed(hwnd);
+}
+
+bool WinGuiPlus::window::setTopMost() const
+{
+    if (!IsWindow(hwnd)) return false;
+    return SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 
+                      SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE) != FALSE;
 }
