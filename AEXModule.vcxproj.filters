@@ -94,6 +94,21 @@
     <Filter Include="AEXModule\h\Network\TCPPlus\server">
       <UniqueIdentifier>{9be9ce32-5d20-44f0-a311-fa00c7b2967c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AEXModule\h\Gui\ImguiPlus">
+      <UniqueIdentifier>{fa6bc9b1-2fa6-468d-87da-be8c032fb482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\imgui">
+      <UniqueIdentifier>{26db74ba-6527-4290-9b89-6c260e51d701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\imgui\backends">
+      <UniqueIdentifier>{49b70ee3-4743-41bb-b28b-eddab516cd7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Imgui">
+      <UniqueIdentifier>{ea340eda-6fab-4adf-8af8-b7f4d1c16f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Imgui\backends">
+      <UniqueIdentifier>{6f977993-429f-4a0c-9319-1635230e4efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AEXModule\h\sqlite3\sqlite3.h">
@@ -222,6 +237,57 @@
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\ProgressBar.h">
       <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
     </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus.h">
+      <Filter>AEXModule\h\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\Animation.h">
+      <Filter>AEXModule\h\Gui\ImguiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imconfig.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imgui.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imgui_internal.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imstb_rectpack.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imstb_textedit.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\imstb_truetype.h">
+      <Filter>AEXModule\h\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx10.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx11.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx12.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx9.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_metal.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_opengl3.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_opengl3_loader.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_osx.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_win32.h">
+      <Filter>AEXModule\h\imgui\backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -331,6 +397,42 @@
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp">
       <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus.cpp">
+      <Filter>AEXModule\cpp\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\imgui.cpp">
+      <Filter>AEXModule\cpp\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\imgui_demo.cpp">
+      <Filter>AEXModule\cpp\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\imgui_draw.cpp">
+      <Filter>AEXModule\cpp\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\imgui_tables.cpp">
+      <Filter>AEXModule\cpp\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\imgui_widgets.cpp">
+      <Filter>AEXModule\cpp\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx10.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx12.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx9.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>AEXModule\cpp\Imgui\backends</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

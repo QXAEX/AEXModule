@@ -10,11 +10,19 @@
 #include "./WinGuiPlus/CheckBox.h"
 #include "./WinGuiPlus/ProgressBar.h"
 namespace WinGuiPlus {
+    /*
+    * 自定义回调消息
+    * @param msg 消息码
+    * @return void
+    */
+    typedef std::function<void WINAPI(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)> customMsg;
     // 消息循环
-    int WINAPI run();
+    int WINAPI run(customMsg msgLoop = nullptr);
     // 窗口类
     class window {
     public:
+        HWND hwnd = NULL;
+        HWND parent = NULL;
         //窗口位置
         typedef struct INFO {
             ALIGN align = CENTER;//将屏幕判定为九宫格,窗口在九宫格内的位置，默认居中
@@ -27,7 +35,7 @@ namespace WinGuiPlus {
             bool disableMaximize = true;//禁用窗口最大化
             bool disableMinimize = false;//禁用窗口最小化
             bool topMost = false;//窗口置顶
-            BYTE alpha = 255;//窗口透明度
+            BYTE alpha = 254;//窗口透明度
             DWORD iconId = NULL;// 图标ID（可选，默认值0）,可用于C++资源文件中的id来加载图标
             DWORD style = WS_OVERLAPPEDWINDOW;//窗口样式，默认,表示窗口可以拖动,缩放,最大化,最小化
             COLORREF backgroundColor = RGB(255, 255, 255);//背景颜色
@@ -39,7 +47,8 @@ namespace WinGuiPlus {
         * @param status 状态码,对应 WINGUIPLUS_STATUS
         * @return void
         */
-        typedef std::function<void WINAPI (HWND hwnd, HINSTANCE hInstance, int status)> callBack;
+        typedef std::function<void WINAPI (HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc)> callBack;
+
     public:
         window();
         ~window();
@@ -49,6 +58,7 @@ namespace WinGuiPlus {
         * @param title 窗口标题
         * @param className 窗口类名
         * @param winInfo 窗口信息, 由createWinInfo函数创建
+        * @param callBackFunc 窗口回调函数, 默认值为空
         * @return 是否创建成功
         */
         HWND create(HWND parent, LPCWSTR title, LPCWSTR className, INFO winInfo, callBack callBackFunc = nullptr);
@@ -100,9 +110,32 @@ namespace WinGuiPlus {
         * @return 是否取消置顶成功
         */
         bool cancelTopMost();
+        /*
+        * 禁止父窗口点击
+        * @return 是否禁止成功
+        */
+        bool disableParentClick() const;
+        /*
+        * 允许父窗口点击
+        * @return 是否允许成功
+        */
+        bool enableParentClick() const;
+        /*
+        * 重绘
+        * @return 是否重绘成功
+        */
+        bool redraw() const;
+        /*
+        * 设置内容区可拖动
+        */
+        void setDragable();
+        /*
+        * 设置内容区不可拖动
+        */
+        void cancelDragable();
     private:
-        HWND hwnd = NULL;
-        HINSTANCE hInstance = NULL;
+        BOOL nchittest;
+        HINSTANCE hInstance = GetModuleHandle(NULL);
         std::string token = "";
         DWORD setWindowStyle(INFO& winInfo);
         DWORD setWindowExStyle(INFO& winInfo);

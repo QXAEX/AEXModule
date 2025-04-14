@@ -488,6 +488,7 @@
   <ItemGroup>
     <ClInclude Include="AEXModule.h" />
     <ClCompile Include="AEXModule\cpp\Doubles.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\Inject.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3HOOK.cpp" />
@@ -500,6 +501,8 @@
     <ClInclude Include="AEXModule\h\Encryption.h" />
     <ClInclude Include="AEXModule\h\File.h" />
     <ClInclude Include="AEXModule\h\Gui.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\Animation.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGui.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Button.h" />
@@ -532,6 +535,21 @@
     <ClInclude Include="AEXModule\h\System.h" />
     <ClInclude Include="AEXModule\h\Text.h" />
     <ClInclude Include="AEXModule\h\Thread.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx10.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx12.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_metal.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_osx.h" />
+    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="AEXModule\imgui\imconfig.h" />
+    <ClInclude Include="AEXModule\imgui\imgui.h" />
+    <ClInclude Include="AEXModule\imgui\imgui_internal.h" />
+    <ClInclude Include="AEXModule\imgui\imstb_rectpack.h" />
+    <ClInclude Include="AEXModule\imgui\imstb_textedit.h" />
+    <ClInclude Include="AEXModule\imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AEXModule\cpp\AEXStore.cpp" />
@@ -565,6 +583,17 @@
     <ClCompile Include="AEXModule\cpp\System.cpp" />
     <ClCompile Include="AEXModule\cpp\Text.cpp" />
     <ClCompile Include="AEXModule\cpp\Thread.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx10.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx12.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="AEXModule\imgui\imgui.cpp" />
+    <ClCompile Include="AEXModule\imgui\imgui_demo.cpp" />
+    <ClCompile Include="AEXModule\imgui\imgui_draw.cpp" />
+    <ClCompile Include="AEXModule\imgui\imgui_tables.cpp" />
+    <ClCompile Include="AEXModule\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

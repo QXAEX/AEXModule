@@ -2,7 +2,7 @@
 // Microsoft Visual C++ 生成的包含文件。
 // 供 登录辅助验证窗口.rc 使用
 //
-#define AEX_LOGO_ICON                       101
+#define IDI_ICON1                       101
 
 // Next default values for new objects
 // 

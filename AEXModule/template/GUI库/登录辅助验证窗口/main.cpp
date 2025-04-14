@@ -4,15 +4,29 @@ static std::string key = "Please enter the card password你好";
 static Gdiplus::Color bgColor = Gdiplus::Color(255, 237, 237, 237);
 static Byteset mkey = 3220896020;
 static LPCWSTR fontName = L"黑体";// 可用字体：微软雅黑、宋体、黑体、Arial、Verdana、Georgia、Tahoma、Times New Roman
-static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, std::string* key) {
-	WinGuiPlus::window win;
+static void loginWin(WinGuiPlus::window* win, LPCWSTR title, LPCSTR name, LPCSTR notice, std::string* key);// 登录窗口
+static void ChangeBind(WinGuiPlus::window* win, HWND parent);// 换绑窗口
+static void FuncWin(WinGuiPlus::window* win);// 功能窗口
+WinGuiPlus::window login;
+WinGuiPlus::window changeBind;
+WinGuiPlus::window funcWin;
+int wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+
+	loginWin(&login, L"AEX测试", "测试软件", "测试软件公告", &key);
+	login.setTopMost();
+	WinGuiPlus::run(); 
+	return 0;
+}
+
+void loginWin(WinGuiPlus::window* win, LPCWSTR title, LPCSTR name, LPCSTR notice, std::string* key) {
 	WinGuiPlus::window::INFO info;
 	info.width = 350;
 	info.height = 440;
 	info.alpha = 200;
 	info.backgroundColor = RGB(237, 237, 237);
-	info.iconId = AEX_LOGO_ICON;
-	win.create(NULL, title, L"LOGIN", info, [&, info](HWND hwnd, HINSTANCE hInstance, int status) {
+	info.iconId = IDI_ICON1;
+	win->create(NULL, title, L"LOGIN", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
+		static WinGuiPlus::Label lb_log;//此页全局log标签
 		static WinGuiPlus::Label lb_title(hwnd, hInstance, 10, 0, info.width, 30, name);
 		lb_title.style.align = ALIGN::CENTER;
 		lb_title.style.size = 20;
@@ -35,15 +49,15 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 			if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN) {
 				try {
 					if (mkey == Byteset(std::stoll(*key))) {
-						MessageBox(hwnd, L"登录成功", L"提示", MB_OK);
+						FuncWin(&funcWin);
 						return;
 					}
 				}
 				catch (...) {
-					MessageBox(hwnd, L"卡密格式错误", L"提示", MB_OK);
+					lb_log.SetText("卡密格式错误");
 					return;
 				}
-				MessageBox(hwnd, L"卡密错误", L"提示", MB_OK);
+				lb_log.SetText("卡密错误");
 			}
 			};
 		for (auto& c : btn_login.Style()->radiusColor) c = bgColor;
@@ -51,27 +65,65 @@ static WinGuiPlus::window loginWin(LPCWSTR title, LPCSTR name, LPCSTR notice, st
 		lb_ChangeBind.style.align = ALIGN::CENTER;
 		lb_ChangeBind.style.underline = true;
 		lb_ChangeBind.style.bkcolor = bgColor;
-		lb_ChangeBind.Event()->mouseLeft = [hwnd](int state, int x, int y) {
+		lb_ChangeBind.Event()->mouseLeft = [&, hwnd](int state, int x, int y) {
 			if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN) {
-				MessageBox(hwnd, L"功能暂未开放", L"提示", MB_OK);
+				ChangeBind(&changeBind, hwnd);
+				changeBind.disableParentClick();
 			}
 			};
+		lb_log.create(hwnd, hInstance, 360, 70, info.width - 35 - 100, 30, "等待操作...");
+		lb_log.style.align = ALIGN::CENTER;
+		lb_log.style.underline = true;
+		lb_log.style.bkcolor = bgColor;
 		static WinGuiPlus::Label lb_Close(hwnd, hInstance, 360, info.width - 35 - 50, 50, 30, "关闭");
 		lb_Close.style.align = ALIGN::CENTER;
 		lb_Close.style.underline = true;
 		lb_Close.style.bkcolor = bgColor;
 		lb_Close.Event()->mouseLeft = [&](int state, int x, int y) {
 			if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN) {
-				win.close();
+				win->close();
 			}
 			};
 		});
-	return win;
 }
 
-int wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
-	WinGuiPlus::window login = loginWin(L"测试", "测试软件", "测试软件公告", &key);
-	login.setTopMost();
-	WinGuiPlus::run(); 
-	return 0;
+void ChangeBind(WinGuiPlus::window* win, HWND parent)
+{
+	WinGuiPlus::window::INFO info;
+	info.width = 350;
+	info.height = 440;
+	info.alpha = 200;
+	info.backgroundColor = RGB(237, 237, 237);
+	info.iconId = IDI_ICON1;
+	win->create(parent, L"换绑", L"CHANGEBIND", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
+		static WinGuiPlus::Label lb_title;
+		lb_title.create(hwnd, hInstance, 10, 0, info.width, 50, "自己绘制此页功能");
+		lb_title.style.align = ALIGN::CENTER;
+		lb_title.style.size = 20;
+		lb_title.style.name = fontName;
+		lb_title.style.bkcolor = bgColor;
+	});
+}
+
+void FuncWin(WinGuiPlus::window* win)
+{
+	WinGuiPlus::window::INFO info;
+	info.width = 350;
+	info.height = 440;
+	info.alpha = 200;
+	info.backgroundColor = RGB(237, 237, 237);
+	info.iconId = IDI_ICON1;
+	win->create(NULL, L"功能页", L"FUNCWIN", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
+		if (status == WINGUIPLUS_STATUS::CREATE) {
+			static WinGuiPlus::Picture picture;
+			picture.create(hwnd, hInstance, 0, 0, info.width, info.height, "D:\\IMG\\bg-1.png");
+			static WinGuiPlus::CheckBox checkbox;
+			static bool flag;
+			checkbox.create(hwnd, hInstance, 10, 10, 100, 30, "选项1", &flag);
+			login.hide();
+		}
+		else if (status == WINGUIPLUS_STATUS::DESTROY) {
+			login.show();
+		}
+	});
 }

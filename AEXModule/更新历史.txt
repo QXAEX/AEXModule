@@ -2,6 +2,7 @@
 BUG/优化:
 	1、重构Byteset数据类型的find方法
 	2、重构Memory库中的R3类的内存搜索线程模式，优化其在大型游戏游戏下效率成倍数降低的问题
+	3、优化Gui库中的GuiPlus类的底层框架
 更新:
 	1、对Gui库中的WinGui的window类新增一系列实用方法
 	2、Gui库中的GuiPlus类新增进度条组件
