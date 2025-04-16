@@ -66,7 +66,7 @@
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -113,7 +113,7 @@
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -195,8 +195,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>AEXModule</TargetName>
-    <OutDir>D:\Project\C\AEXModule\AEXModule\libs\</OutDir>
+    <TargetName>test</TargetName>
+    <OutDir>D:\Project\C\AEXModule\test\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|Win32'">
     <TargetName>AEXModule_MTd</TargetName>
@@ -215,8 +215,8 @@
     <OutDir>D:\Project\C\AEXModule\AEXModule\libs\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>AEXModule_64</TargetName>
-    <OutDir>D:\Project\C\AEXModule\AEXModule\libs\</OutDir>
+    <TargetName>test_64</TargetName>
+    <OutDir>D:\Project\C\AEXModule\test\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|x64'">
     <TargetName>AEXModule_MTd_64</TargetName>
@@ -488,7 +488,9 @@
   <ItemGroup>
     <ClInclude Include="AEXModule.h" />
     <ClCompile Include="AEXModule\cpp\Doubles.cpp" />
-    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImMenu.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImWindow.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\Inject.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3HOOK.cpp" />
@@ -501,8 +503,10 @@
     <ClInclude Include="AEXModule\h\Encryption.h" />
     <ClInclude Include="AEXModule\h\File.h" />
     <ClInclude Include="AEXModule\h\Gui.h" />
-    <ClInclude Include="AEXModule\h\Gui\ImguiPlus.h" />
-    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\Animation.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImMenu.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\config.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImWindow.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGui.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Button.h" />
@@ -559,7 +563,6 @@
     <ClCompile Include="AEXModule\cpp\Encryption.cpp" />
     <ClCompile Include="AEXModule\cpp\File.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGui.cpp" />
-    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Button.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\CheckBox.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\Edit.cpp" />

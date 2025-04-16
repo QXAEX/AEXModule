@@ -1,0 +1,395 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/main.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "4dab37c417047a76b8f5ad5c64462b61a0e231ccf99937385665a8c99ab440bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule.h"
+          },
+          "hashes": {
+            "sha-256": "42ce9f211e7abe3760060b643f3a16c2199f1b2defba8c9387d1bd48abff6da7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/process.h"
+          },
+          "hashes": {
+            "sha-256": "2331f8110410342c88c61a495a31baa98489c624c747470a9fd92abe2d86087b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/text.h"
+          },
+          "hashes": {
+            "sha-256": "2c38b1d50b54cfd0183d796262c4a2a9bf07d93b6b2a9944fec798d93f242d67"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/file.h"
+          },
+          "hashes": {
+            "sha-256": "1fb884ca2fdaa0b4105e0b5a38fa23b692741350d34aba060897184f393579e3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/byteset.h"
+          },
+          "hashes": {
+            "sha-256": "25f1f768fa89c60d22d3272c71f61e336d39db9da7d7fa981faceb09a3d2d99f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/system.h"
+          },
+          "hashes": {
+            "sha-256": "15a12699270dfd0c41864870a20f38a6f90e95a9df4bdd606436038e8c803b96"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory.h"
+          },
+          "hashes": {
+            "sha-256": "98857d31d3f39d6e214615482e1e39b10f6f5a9dc14147426522f8f6093d6a3f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/r3.h"
+          },
+          "hashes": {
+            "sha-256": "a53b1ab392e510482be7737cd9878f081639db3ead9db773e1f2b458f1c31f8f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/r3hook.h"
+          },
+          "hashes": {
+            "sha-256": "7137a2505f2a745ac7869f01a7b20dd6f0e2d71c6e35b66950c0e89398d31a7c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/embeddedcall.h"
+          },
+          "hashes": {
+            "sha-256": "1a2e1cb1f0427856d82d02964e2532b8269d1ffe90797c7093cc304dddf59c50"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/vehhook.h"
+          },
+          "hashes": {
+            "sha-256": "0fd1e74504f09459a2bc4eac4a842eb748f4e06e406d9b903f457bc9d13f968b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network.h"
+          },
+          "hashes": {
+            "sha-256": "19bc2d8546648d666721f0518f3f6b4c13342eacd478aebdc7d16b7a0b3582be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/tcp/tcp.h"
+          },
+          "hashes": {
+            "sha-256": "e1ba2ba02ca0234824e900b66f8f248b38dafe1f34057469764268976fd05191"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/aexstore.h"
+          },
+          "hashes": {
+            "sha-256": "b030d456fefa141838041b34ebdd37ccf3c3d1808fd2a72d185eb7f027450d76"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/encryption.h"
+          },
+          "hashes": {
+            "sha-256": "af574c0999de313d48d7803776a98aed7d4f8af9c67b78eaa2b28e45fbf1dd5b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/tcpplus/tcpplus.h"
+          },
+          "hashes": {
+            "sha-256": "f9c707fe0658c2ab7cd0abb0d98c8263066a24be4988002643494bfa3933171e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/tcpplus/client/client.h"
+          },
+          "hashes": {
+            "sha-256": "0e821a57c8e1f906c0f5874fe6993f7140113bcb9b43b4f1d594d95560e0100c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/tcpplus/server/server.h"
+          },
+          "hashes": {
+            "sha-256": "92954d083e865af6d862b00ffdc238f7a9b06ccdb84c4cea3065785166eb9540"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui.h"
+          },
+          "hashes": {
+            "sha-256": "2137e69ab3c8905b78347da85ed835180f1589d66a889aa82ecf21b86548c21e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/wingui.h"
+          },
+          "hashes": {
+            "sha-256": "ef8f0cf06fc0d047dc7c2793f0d3e9d0b5737ea373ae85e3ac33dcc7f9c8f1b7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus.h"
+          },
+          "hashes": {
+            "sha-256": "caa442bd1417b2d3f3103e19bac33d3da7b07b4bf7e841a806b896b57c7c49d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/data.h"
+          },
+          "hashes": {
+            "sha-256": "900cb9d83b937f9af8f8bf78356783746044d08bc3dfd8e6f3d709dd6a7b1a5f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/label.h"
+          },
+          "hashes": {
+            "sha-256": "b3a91137c559798dea98e8aa90035923423b89bbe5d9f534f0532ec578aa4fb1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/panel/panel.h"
+          },
+          "hashes": {
+            "sha-256": "528db12f7c3749d85cb413971a240299d9be745405203afda95d3f409374f7a7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/edit.h"
+          },
+          "hashes": {
+            "sha-256": "64e8ce297092a7f96a750f7c642f47356314f79699085620c75dfdb97acdbf08"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/picture.h"
+          },
+          "hashes": {
+            "sha-256": "0db9e35b1fac47a5f22aba47078cf3a7e8cbddc232dca08ce38ca21258982619"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/button.h"
+          },
+          "hashes": {
+            "sha-256": "82b475b849370eb6551b7456c3a3253670649eb46009568bf129f6d5cfd48bbb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/checkbox.h"
+          },
+          "hashes": {
+            "sha-256": "3aa5197a15379e0d520dc382671956ebe5b67d5d61542dbed8f062a52115c33b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/progressbar.h"
+          },
+          "hashes": {
+            "sha-256": "9da85293d2d1e602a5cbd65aa4e6359fe96775a8176d9caa01fde6c5afab6c00"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/imguiplus.h"
+          },
+          "hashes": {
+            "sha-256": "bca376eafae55fbe12b52eb9fa9bdfb2aa90db6ce1c68a64e4ca14bba77e3e67"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/imguiplus/imwindow.h"
+          },
+          "hashes": {
+            "sha-256": "beaa3402793852f97df0386c5da1fe978e050569865c12c61b31328c1eb3e6d3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/imguiplus/config.h"
+          },
+          "hashes": {
+            "sha-256": "5211aa101940f96e55695c5e4a7383bbbbc32faf3c8b26e325a2cc343466b919"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "8f80c5db5b85dc94ac1074ef96319e9eb8d50effab627d671c3fb98cfe38dd4f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "ac21980510fd3d7e04e7ece5d49bd0c0b676db59bc469de580817c154d9a7c77"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/backends/imgui_impl_win32.h"
+          },
+          "hashes": {
+            "sha-256": "955683f5a552b5c54eb5dd0a70c79a34f0010fa478cd4521afe18e6db87c9aaa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/backends/imgui_impl_dx11.h"
+          },
+          "hashes": {
+            "sha-256": "a19eb94fc88988458b8232e92d5f844e64f1cd58f64e57587aa459ba47ba183f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "b9d6a839edb77cb951ab8b07df686721656d312b3093ff9013633bd62dfd3850"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "6cba69d37c5fb83c4a4a48fcd7bd77f05ad2325de6bc81af59b671b7ee30aa6c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/imguiplus/imbutton.h"
+          },
+          "hashes": {
+            "sha-256": "d76b7ea3c5b7d22a0ca8b1018fb52e62f66059cac42cc2c7d2f425cbc05dbc48"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/thread.h"
+          },
+          "hashes": {
+            "sha-256": "89fe4209983e781aa802fdbd35e962c3d41e4e1ce649a359d6bac17680900e39"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/sqlite.h"
+          },
+          "hashes": {
+            "sha-256": "cbe910649a006fa67ed0e8726df6d6091cce64e84722b9ea7a4bfb4e42346a0e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/sqlite3/sqlite3.h"
+          },
+          "hashes": {
+            "sha-256": "5182828e4acb80fb691450947b6615d3e9b2faad08c6f4a540d6a9040a4cc78d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/portableexecutable.h"
+          },
+          "hashes": {
+            "sha-256": "534fdc25d61b779190f86d0b824292d09a1b5d83caa56a276e46fca4b65d31c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/portableexecutable/data.h"
+          },
+          "hashes": {
+            "sha-256": "f14367131a8e3fd0f65f9bc3964325e42966466b2018765a325734d50a844019"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/doubles.h"
+          },
+          "hashes": {
+            "sha-256": "ec8ae0fea57dd7b650a8671e7dc752d714bb6e676c5bb90a07f060b546f542a5"
+          }
+        }
+      ]
+    }
+  ]
+}

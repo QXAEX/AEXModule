@@ -1,0 +1,67 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/memory/embeddedcall.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "5be2d82dd160264da420778f0f07bad31abacc0ccf719ba607fb3cff53f921e9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/embeddedcall.h"
+          },
+          "hashes": {
+            "sha-256": "1a2e1cb1f0427856d82d02964e2532b8269d1ffe90797c7093cc304dddf59c50"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/memory/r3.h"
+          },
+          "hashes": {
+            "sha-256": "a53b1ab392e510482be7737cd9878f081639db3ead9db773e1f2b458f1c31f8f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/byteset.h"
+          },
+          "hashes": {
+            "sha-256": "25f1f768fa89c60d22d3272c71f61e336d39db9da7d7fa981faceb09a3d2d99f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/text.h"
+          },
+          "hashes": {
+            "sha-256": "2c38b1d50b54cfd0183d796262c4a2a9bf07d93b6b2a9944fec798d93f242d67"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -34,6 +34,7 @@ namespace WinGuiPlus {
             bool disableResize = true;//禁用窗口大小变化,默认禁用
             bool disableMaximize = true;//禁用窗口最大化
             bool disableMinimize = false;//禁用窗口最小化
+            bool noBorder = false;//是否无边框
             bool topMost = false;//窗口置顶
             BYTE alpha = 254;//窗口透明度
             DWORD iconId = NULL;// 图标ID（可选，默认值0）,可用于C++资源文件中的id来加载图标
@@ -65,7 +66,7 @@ namespace WinGuiPlus {
         /*
         * 获取INFO结构体
         */
-        WINGUIPLUS_TEMPLATE getInfo(HWND hwnd);
+        static WINGUIPLUS_TEMPLATE getInfo(HWND hwnd);
         /*
         * 设置INFO结构体
         */
@@ -133,12 +134,22 @@ namespace WinGuiPlus {
         * 设置内容区不可拖动
         */
         void cancelDragable();
+        /*
+        * 设置鼠标穿透
+        */
+        void setMouseThrough();
+        /*
+        * 取消鼠标穿透
+        */
+        void cancelMouseThrough();
     private:
-        BOOL nchittest;
         HINSTANCE hInstance = GetModuleHandle(NULL);
         std::string token = "";
         DWORD setWindowStyle(INFO& winInfo);
         DWORD setWindowExStyle(INFO& winInfo);
+    public:
+        BOOL nchittest;
+        BOOL mouseThrough;
     };
     // 标签
     using namespace WinGuiPlusLabel;

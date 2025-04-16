@@ -11,6 +11,7 @@ static WINGUIPLUS_TEMPLATE getTempInfo(HWND hwnd) {
     }
     return WINGUIPLUS_TEMPLATE();
 }
+
 static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
     WinGuiPlus::window::callBack customCallBackFunc{};
@@ -96,11 +97,27 @@ void WinGuiPlus::window::cancelDragable()
     this->nchittest = FALSE;
 }
 
+void WinGuiPlus::window::setMouseThrough()
+{
+    this->mouseThrough = TRUE;
+    SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_TRANSPARENT);
+}
+
+void WinGuiPlus::window::cancelMouseThrough()
+{
+    this->mouseThrough = FALSE;
+    SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) & ~WS_EX_TRANSPARENT);
+}
+
 DWORD WinGuiPlus::window::setWindowStyle(INFO& winInfo) {
     DWORD style = winInfo.style;
-    if (winInfo.disableResize) style &= ~WS_THICKFRAME;  style &= ~WS_MAXIMIZEBOX;
+    if (winInfo.disableResize) style &= ~(WS_THICKFRAME | WS_MAXIMIZEBOX);
     if (winInfo.disableMaximize) style &= ~WS_MAXIMIZEBOX;
     if (winInfo.disableMinimize) style &= ~WS_MINIMIZEBOX;
+    if (winInfo.noBorder) {
+        style &= ~(WS_CAPTION | WS_THICKFRAME | WS_DLGFRAME | WS_BORDER);
+        style |= WS_POPUP;
+    }
     return style;
 }
 
@@ -119,7 +136,8 @@ HWND WinGuiPlus::window::create(HWND parent, LPCWSTR title, LPCWSTR className, I
     wcex.hInstance = GetModuleHandle(NULL);
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.lpszClassName = className;
-    wcex.hbrBackground = (HBRUSH)CreateSolidBrush(winInfo.backgroundColor);
+    if (winInfo.noBorder) wcex.hbrBackground = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+    else wcex.hbrBackground = (HBRUSH)CreateSolidBrush(winInfo.backgroundColor);
     if (!RegisterClassEx(&wcex))
     {
         if (!UnregisterClassW(className, wcex.hInstance)) return NULL;
@@ -138,8 +156,8 @@ HWND WinGuiPlus::window::create(HWND parent, LPCWSTR title, LPCWSTR className, I
             SendMessageW(this->hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
         }
     }
-    tempList.push_back({ &this->nchittest, this->token, className, this->hwnd, this->parent, this->hInstance, callBackFunc, winInfo.event });
-    if (winInfo.alpha != 255) {
+    tempList.push_back({ this, this->token, className, this->hwnd, this->parent, this->hInstance, callBackFunc, winInfo.event });
+    if (winInfo.noBorder || winInfo.alpha != 255) {
         DWORD newExStyle = GetWindowLong(this->hwnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_TABSTOP;
         if (SetWindowLong(this->hwnd, GWL_EXSTYLE, newExStyle) == 0) {
             DWORD error = GetLastError();

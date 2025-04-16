@@ -94,9 +94,6 @@
     <Filter Include="AEXModule\h\Network\TCPPlus\server">
       <UniqueIdentifier>{9be9ce32-5d20-44f0-a311-fa00c7b2967c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AEXModule\h\Gui\ImguiPlus">
-      <UniqueIdentifier>{fa6bc9b1-2fa6-468d-87da-be8c032fb482}</UniqueIdentifier>
-    </Filter>
     <Filter Include="AEXModule\h\imgui">
       <UniqueIdentifier>{26db74ba-6527-4290-9b89-6c260e51d701}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,12 @@
     </Filter>
     <Filter Include="AEXModule\cpp\Imgui\backends">
       <UniqueIdentifier>{6f977993-429f-4a0c-9319-1635230e4efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Gui\ImGuiPlus">
+      <UniqueIdentifier>{fa6bc9b1-2fa6-468d-87da-be8c032fb482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Gui\ImGuiPlus">
+      <UniqueIdentifier>{c3465c74-02ba-4452-8f14-c46a3464ca74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -216,12 +219,6 @@
     <ClInclude Include="AEXModule\h\PortableExecutable.h">
       <Filter>AEXModule\h</Filter>
     </ClInclude>
-    <ClInclude Include="AEXModule\h\Doubles.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="AEXModule\h\PortableExecutable\data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="AEXModule\h\Network\TCP\tcp.h">
       <Filter>AEXModule\h\Network\tcp</Filter>
     </ClInclude>
@@ -237,11 +234,8 @@
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\ProgressBar.h">
       <Filter>AEXModule\h\Gui\WinGuiPlus</Filter>
     </ClInclude>
-    <ClInclude Include="AEXModule\h\Gui\ImguiPlus.h">
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus.h">
       <Filter>AEXModule\h\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\Animation.h">
-      <Filter>AEXModule\h\Gui\ImguiPlus</Filter>
     </ClInclude>
     <ClInclude Include="AEXModule\imgui\imconfig.h">
       <Filter>AEXModule\h\imgui</Filter>
@@ -288,6 +282,21 @@
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_win32.h">
       <Filter>AEXModule\h\imgui\backends</Filter>
     </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImMenu.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\config.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImWindow.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Doubles.h">
+      <Filter>AEXModule\h</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\PortableExecutable\data.h">
+      <Filter>AEXModule\h\PortableExecutable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -298,9 +307,6 @@
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\sqlite3\sqlite3.c">
       <Filter>AEXModule\cpp\sqlite3</Filter>
-    </ClCompile>
-    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp">
-      <Filter>AEXModule\cpp\Gui</Filter>
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\AEXStore.cpp">
       <Filter>AEXModule\cpp</Filter>
@@ -398,9 +404,6 @@
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp">
       <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
     </ClCompile>
-    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus.cpp">
-      <Filter>AEXModule\cpp\Gui</Filter>
-    </ClCompile>
     <ClCompile Include="AEXModule\imgui\imgui.cpp">
       <Filter>AEXModule\cpp\Imgui</Filter>
     </ClCompile>
@@ -433,6 +436,15 @@
     </ClCompile>
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_win32.cpp">
       <Filter>AEXModule\cpp\Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImMenu.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImWindow.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp">
+      <Filter>AEXModule\cpp\Gui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

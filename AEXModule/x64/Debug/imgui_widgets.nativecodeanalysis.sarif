@@ -1,0 +1,67 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imgui_widgets.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "f73229a8ff83eca2e9a605f54a33a07eca5756dbf3748baa64e62cb9b4f564aa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "8f80c5db5b85dc94ac1074ef96319e9eb8d50effab627d671c3fb98cfe38dd4f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "ac21980510fd3d7e04e7ece5d49bd0c0b676db59bc469de580817c154d9a7c77"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "b9d6a839edb77cb951ab8b07df686721656d312b3093ff9013633bd62dfd3850"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "6cba69d37c5fb83c4a4a48fcd7bd77f05ad2325de6bc81af59b671b7ee30aa6c"
+          }
+        }
+      ]
+    }
+  ]
+}

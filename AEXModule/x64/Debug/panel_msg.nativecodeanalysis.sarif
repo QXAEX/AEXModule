@@ -1,0 +1,75 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/gui/winguiplus/panel/panel_msg.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "9d8a56c6948de5d65d86746b107d30fd00c2871a4bd1b0a4563fe313836df027"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/panel/panel.h"
+          },
+          "hashes": {
+            "sha-256": "528db12f7c3749d85cb413971a240299d9be745405203afda95d3f409374f7a7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/text.h"
+          },
+          "hashes": {
+            "sha-256": "2c38b1d50b54cfd0183d796262c4a2a9bf07d93b6b2a9944fec798d93f242d67"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/data.h"
+          },
+          "hashes": {
+            "sha-256": "900cb9d83b937f9af8f8bf78356783746044d08bc3dfd8e6f3d709dd6a7b1a5f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/panel/panel_msg.h"
+          },
+          "hashes": {
+            "sha-256": "1f2f114416d3b8b16ec26e9b7dcdde9528fb836fb299dedc3fb326c2a0108fbe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/checkbox.h"
+          },
+          "hashes": {
+            "sha-256": "3aa5197a15379e0d520dc382671956ebe5b67d5d61542dbed8f062a52115c33b"
+          }
+        }
+      ]
+    }
+  ]
+}

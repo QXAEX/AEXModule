@@ -105,7 +105,7 @@ public:
 }*PWINGUIPLUS_WINEVENTPROC;
 //内部结构体
 typedef struct WINGUIPLUS_TEMPLATE {
-    PBOOL nchittest;
+    PVOID win;
     std::string token = "";
     LPCWSTR className = L"";
     HWND hwnd = NULL;

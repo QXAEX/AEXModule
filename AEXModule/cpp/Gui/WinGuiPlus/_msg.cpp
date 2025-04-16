@@ -62,7 +62,7 @@ int wm_nchittest(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& u
 {
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
     LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
-    if (*temp.nchittest && hit == HTCLIENT) // 当启用拖动且命中客户区时
+    if (((WinGuiPlus::window*)(temp.win))->nchittest && hit == HTCLIENT) // 当启用拖动且命中客户区时
     {
         // 转换坐标并检查子控件
         POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
@@ -84,6 +84,7 @@ int wm_paint(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg,
     HDC hdc = BeginPaint(hwnd, &ps);
     if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DRAW, hdc);
     EndPaint(hwnd, &ps);
+
     return 0;
 }
 
