@@ -1,18 +1,37 @@
 #pragma once
 #include <functional>
+//窗口状态
+typedef enum _WINGUIPLUS_STATUS {
+    CREATE,//窗口创建
+    DESTROY,//窗口销毁
+    MOUSE_ENTER,//鼠标进入
+    MOUSE_MOVE,//鼠标移动
+    MOUSE_LEFT_DOWN_MOVE,//鼠标左键按下移动
+    MOUSE_RIGHT_DOWN_MOVE,//鼠标右键按下移动
+    MOUSE_LEAVE,//鼠标离开
+    MOUSE_LEFT_DOWN,//鼠标左键按下
+    MOUSE_LEFT_UP,//鼠标左键松开
+    MOUSE_LEFT_DOUBLE_CLICK,//鼠标左键双击
+    MOUSE_RIGHT_DOWN,//鼠标右键按下
+    MOUSE_RIGHT_UP,//鼠标右键松开
+    MOUSE_RIGHT_DOUBLE_CLICK,//鼠标右键双击
+    KEY_DOWN,//键盘按下
+    KEY_UP,//键盘松开
+    SIZE_CHANGED,//窗口大小变化
+    DRAW,//开始绘制
+}WINGUIPLUS_STATUS, * PWINGUIPLUS_STATUS;
 //窗口事件
 typedef struct WINGUIPLUS_WINEVENTPROC {
 private:
-    typedef std::function<void(int state, int x, int y)> MouseMove;
-    typedef std::function<void(int state, int x, int y)> MouseLeft;
-    typedef std::function<void(int state, int x, int y)> MouseRight;
-    typedef std::function<void(int state, WPARAM& key, LPARAM& lParam)> Key;
+    typedef std::function<void(WINGUIPLUS_STATUS state, int x, int y)> MouseMove;
+    typedef std::function<void(WINGUIPLUS_STATUS state, int x, int y)> MouseLeft;
+    typedef std::function<void(WINGUIPLUS_STATUS state, int x, int y)> MouseRight;
+    typedef std::function<void(WINGUIPLUS_STATUS state, WPARAM& key, LPARAM& lParam)> Key;
     typedef std::function<void(int width, int height)> WinSize;
     typedef std::function<void(int x, int y)> WinMove;
     typedef std::function<void(int direction, int size, int x, int y)> MouseWheel;
     typedef std::function<void()> KillFocus;
     typedef std::function<void()> SetCursor;
-
 public:
     /*
     * 鼠标:操作事件
@@ -86,10 +105,13 @@ public:
 }*PWINGUIPLUS_WINEVENTPROC;
 //内部结构体
 typedef struct WINGUIPLUS_TEMPLATE {
+    PVOID win;
     std::string token = "";
+    LPCWSTR className = L"";
     HWND hwnd = NULL;
+    HWND parent = NULL;
     HINSTANCE hInstance = NULL;
-    std::function<void(HWND hwnd, HINSTANCE hInstance, int status)> callBack = nullptr;
+    std::function<void(HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc)> callBack = nullptr;
     WINGUIPLUS_WINEVENTPROC event{};
 }*PWINGUIPLUS_TEMPLATE;
 //对齐方式
@@ -100,26 +122,8 @@ enum ALIGN {
 };
 //组件标志类型
 typedef enum COMPONENT_TYPE {
-    LABEL, EDIT, PICTURE, CHECKBOX
+    LABEL, EDIT, PICTURE, CHECKBOX, PROGRESSBAR
 } *PCOMPONENT_TYPE;
-//窗口状态
-enum WINGUIPLUS_STATUS {
-    CREATE,//窗口创建
-    DESTROY,//窗口销毁
-    MOUSE_ENTER,//鼠标进入
-    MOUSE_MOVE,//鼠标移动
-    MOUSE_LEFT_DOWN_MOVE,//鼠标左键按下移动
-    MOUSE_RIGHT_DOWN_MOVE,//鼠标右键按下移动
-    MOUSE_LEAVE,//鼠标离开
-    MOUSE_LEFT_DOWN,//鼠标左键按下
-    MOUSE_LEFT_UP,//鼠标左键松开
-    MOUSE_LEFT_DOUBLE_CLICK,//鼠标左键双击
-    MOUSE_RIGHT_DOWN,//鼠标右键按下
-    MOUSE_RIGHT_UP,//鼠标右键松开
-    MOUSE_RIGHT_DOUBLE_CLICK,//鼠标右键双击
-    KEY_DOWN,//键盘按下
-    KEY_UP//键盘松开
-};
 //矩形结构体
 typedef struct WINGUIPLUS_RECT {
     ALIGN align;

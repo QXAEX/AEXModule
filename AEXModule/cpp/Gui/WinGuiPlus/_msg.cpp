@@ -51,11 +51,31 @@ int wm_mousemove(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& u
     return 0;
 }
 
+int wm_nchittest(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
+{
+    WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
+    LRESULT hit = DefWindowProc(hwnd, uMsg, wParam, lParam);
+    if (((WinGuiPlus::window*)(temp.win))->nchittest && hit == HTCLIENT) // 当启用拖动且命中客户区时
+    {
+        // 转换坐标并检查子控件
+        POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+        ::ScreenToClient(hwnd, &pt);
+        HWND hChild = ::ChildWindowFromPoint(hwnd, pt);
+
+        // 空白区域才可拖动（无子控件时）
+        if (hChild == NULL || hChild == hwnd) {
+            return HTCAPTION; // 伪装成标题栏点击
+        }
+    }
+    return hit;
+}
+
 int wm_paint(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
     PAINTSTRUCT ps;
     HDC hdc = BeginPaint(hwnd, &ps);
     EndPaint(hwnd, &ps);
+
     return 0;
 }
 

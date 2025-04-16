@@ -1,0 +1,5 @@
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+LINK : fatal error LNK1104: 无法打开文件“D:\Project\C\AEXModule\test\test_64.exe”

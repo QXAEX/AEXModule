@@ -1,0 +1,143 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "返回值被忽略: “CoInitializeEx”。"
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/gui/winguiplus/picture.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Project/C/AEXModule/AEXModule/cpp/Gui/WinGuiPlus/Picture.cpp"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 5,
+                  "endLine": 5,
+                  "endColumn": 26
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "LoadImageFromResource",
+                  "decoratedName": "?LoadImageFromResource@@YAXPEAVPicture@WinGuiPlusPicture@@PEAVGraphics@Gdiplus@@PEAUPanelData@Panel@WinGuiPlusPanel@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 WINGUIPLUS_TEMPLATE::win。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/gui/winguiplus/picture.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Project/C/AEXModule/AEXModule/h/Gui/WinGuiPlus/data.h"
+                },
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "WINGUIPLUS_TEMPLATE::{ctor}",
+                  "decoratedName": "??0WINGUIPLUS_TEMPLATE@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "WINGUIPLUS_TEMPLATE::win"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/gui/winguiplus/picture.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "c4c9573e3ad9a7b87f06abaf1196c692396c5fba3e5105aec7a141d47a475d3b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///D:/Project/C/AEXModule/AEXModule/h/Gui/WinGuiPlus/data.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "900cb9d83b937f9af8f8bf78356783746044d08bc3dfd8e6f3d709dd6a7b1a5f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/picture.h"
+          },
+          "hashes": {
+            "sha-256": "0db9e35b1fac47a5f22aba47078cf3a7e8cbddc232dca08ce38ca21258982619"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/label.h"
+          },
+          "hashes": {
+            "sha-256": "b3a91137c559798dea98e8aa90035923423b89bbe5d9f534f0532ec578aa4fb1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/gui/winguiplus/panel/panel.h"
+          },
+          "hashes": {
+            "sha-256": "528db12f7c3749d85cb413971a240299d9be745405203afda95d3f409374f7a7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/text.h"
+          },
+          "hashes": {
+            "sha-256": "2c38b1d50b54cfd0183d796262c4a2a9bf07d93b6b2a9944fec798d93f242d67"
+          }
+        }
+      ]
+    }
+  ]
+}

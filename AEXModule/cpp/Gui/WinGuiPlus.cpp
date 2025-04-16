@@ -11,6 +11,7 @@ static WINGUIPLUS_TEMPLATE getTempInfo(HWND hwnd) {
     }
     return WINGUIPLUS_TEMPLATE();
 }
+
 static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
     WinGuiPlus::window::callBack customCallBackFunc{};
@@ -18,6 +19,7 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     case WM_CREATE: return wm_create(tempList, hwnd, uMsg, wParam, lParam); // 窗口创建
     case WM_DESTROY: return wm_destroy(tempList, hwnd, uMsg, wParam, lParam);// 窗口销毁
     case WM_MOUSEMOVE: return wm_mousemove(tempList, hwnd, uMsg, wParam, lParam);// 鼠标移动
+    case WM_NCHITTEST: return wm_nchittest(tempList, hwnd, uMsg, wParam, lParam);// 非客户区命中测试
     case WM_PAINT: return wm_paint(tempList, hwnd, uMsg, wParam, lParam); // 绘制窗口
     case WM_LBUTTONDOWN: return wm_lbuttondown(tempList, hwnd, uMsg, wParam, lParam); // 左键按下
     case WM_LBUTTONUP: return wm_lbuttonup(tempList, hwnd, uMsg, wParam, lParam); // 左键释放
@@ -31,10 +33,11 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     }
 }
 
-int WINAPI WinGuiPlus::run()
+int WINAPI WinGuiPlus::run(customMsg msgLoop)
 {
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0)) {
+        if(msgLoop) msgLoop(msg.hwnd, msg.message, msg.wParam, msg.lParam);
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
@@ -58,11 +61,63 @@ WinGuiPlus::window::~window() {
     }
 }
 
+bool WinGuiPlus::window::cancelTopMost()
+{
+    return false;
+}
+
+bool WinGuiPlus::window::disableParentClick() const
+{
+    if (!IsWindow(hwnd)) return false;
+    if (!this->parent) return false;
+    return EnableWindow(this->parent, FALSE) != FALSE;
+}
+
+bool WinGuiPlus::window::enableParentClick() const
+{
+    if (!IsWindow(hwnd)) return false;
+    if (!this->parent) return false;
+    return EnableWindow(this->parent, TRUE) != FALSE;
+}
+
+bool WinGuiPlus::window::redraw() const
+{
+    if (!IsWindow(hwnd)) return false;
+    InvalidateRect(hwnd, nullptr, FALSE);
+    return true;
+}
+
+void WinGuiPlus::window::setDragable()
+{
+    this->nchittest = TRUE;
+}
+
+void WinGuiPlus::window::cancelDragable()
+{
+    this->nchittest = FALSE;
+}
+
+void WinGuiPlus::window::setMouseThrough()
+{
+    this->mouseThrough = TRUE;
+    SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_TRANSPARENT);
+}
+
+void WinGuiPlus::window::cancelMouseThrough()
+{
+    this->mouseThrough = FALSE;
+    SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) & ~WS_EX_TRANSPARENT);
+}
+
 DWORD WinGuiPlus::window::setWindowStyle(INFO& winInfo) {
     DWORD style = winInfo.style;
-    if (winInfo.disableResize) style &= ~WS_THICKFRAME;  style &= ~WS_MAXIMIZEBOX;
+    if (winInfo.disableResize) style &= ~(WS_THICKFRAME | WS_MAXIMIZEBOX);
     if (winInfo.disableMaximize) style &= ~WS_MAXIMIZEBOX;
     if (winInfo.disableMinimize) style &= ~WS_MINIMIZEBOX;
+    if (winInfo.noBorder) {
+        style &= ~(WS_CAPTION | WS_THICKFRAME | WS_DLGFRAME | WS_BORDER);
+        style |= WS_POPUP;
+    }
     return style;
 }
 
@@ -73,53 +128,51 @@ DWORD WinGuiPlus::window::setWindowExStyle(INFO& winInfo) {
 }
 
 HWND WinGuiPlus::window::create(HWND parent, LPCWSTR title, LPCWSTR className, INFO winInfo, callBack callBackFunc) {
+    this->parent = parent;
     WNDCLASSEX wcex = {};
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_IME;
     wcex.lpfnWndProc = WindowProc;
-    wcex.hInstance = GetModuleHandle(nullptr);
+    wcex.hInstance = GetModuleHandle(NULL);
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.lpszClassName = className;
-    wcex.hbrBackground = (HBRUSH)CreateSolidBrush(winInfo.backgroundColor);
-    if (!RegisterClassEx(&wcex)) return NULL;
-    WINGUIPLUS_RECT Rect{
-    winInfo.align,
-    winInfo.alignType,
-    winInfo.left,
-    winInfo.top,
-    winInfo.width,
-    winInfo.height,
-    };
+    if (winInfo.noBorder) wcex.hbrBackground = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+    else wcex.hbrBackground = (HBRUSH)CreateSolidBrush(winInfo.backgroundColor);
+    if (!RegisterClassEx(&wcex))
+    {
+        if (!UnregisterClassW(className, wcex.hInstance)) return NULL;
+        else RegisterClassEx(&wcex);
+    }
+    WINGUIPLUS_RECT Rect{ winInfo.align, winInfo.alignType, winInfo.left, winInfo.top, winInfo.width, winInfo.height };
     SetWinRectPosition(Rect, winInfo.left, winInfo.top);
     DWORD style = setWindowStyle(winInfo);
     DWORD exStyle = setWindowExStyle(winInfo);
-    HWND hwnd = CreateWindowExW(exStyle, className, title, style, winInfo.left, winInfo.top, winInfo.width, winInfo.height, parent, nullptr, wcex.hInstance, &callBackFunc);
-    if (!hwnd) return NULL;
+    this->hwnd = CreateWindowExW(exStyle, className, title, style, winInfo.left, winInfo.top, winInfo.width, winInfo.height, parent, nullptr, wcex.hInstance, &callBackFunc);
+    if (!this->hwnd) return NULL;
     this->hInstance = wcex.hInstance;
     if (!winInfo.iconId == NULL) {
         HICON hIcon = LoadIconW(this->hInstance, MAKEINTRESOURCE(winInfo.iconId));
         if (hIcon) {
-            SendMessageW(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+            SendMessageW(this->hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
         }
     }
-
-    tempList.push_back({ this->token, hwnd, this->hInstance, callBackFunc, winInfo.event });
-    if (winInfo.alpha != 255) {
-        DWORD newExStyle = GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_TABSTOP;
-        if (SetWindowLong(hwnd, GWL_EXSTYLE, newExStyle) == 0) {
+    tempList.push_back({ this, this->token, className, this->hwnd, this->parent, this->hInstance, callBackFunc, winInfo.event });
+    if (winInfo.noBorder || winInfo.alpha != 255) {
+        DWORD newExStyle = GetWindowLong(this->hwnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_TABSTOP;
+        if (SetWindowLong(this->hwnd, GWL_EXSTYLE, newExStyle) == 0) {
             DWORD error = GetLastError();
             OutputDebugString(L"SetWindowLong failed with error:");
             OutputDebugString(std::to_wstring(error).c_str());
         }
-        if (!SetLayeredWindowAttributes(hwnd, 0, winInfo.alpha, LWA_ALPHA)) {
+        if (!SetLayeredWindowAttributes(this->hwnd, 0, winInfo.alpha, LWA_ALPHA)) {
             DWORD error = GetLastError();
             OutputDebugString(L"SetLayeredWindowAttributes failed with error:");
             OutputDebugString(std::to_wstring(error).c_str());
         }
     }
-    ShowWindow(hwnd, SW_SHOWDEFAULT);
-    UpdateWindow(hwnd);
-    return hwnd;
+    ShowWindow(this->hwnd, SW_SHOWDEFAULT);
+    UpdateWindow(this->hwnd);
+    return this->hwnd;
 }
 
 WINGUIPLUS_TEMPLATE WinGuiPlus::window::getInfo(HWND hwnd)
@@ -136,4 +189,51 @@ bool WinGuiPlus::window::setInfo(WINGUIPLUS_TEMPLATE winInfo)
         }
     }
     return false;
+}
+
+bool WinGuiPlus::window::show() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_SHOW);
+    return IsWindowVisible(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::hide() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_HIDE);
+    return IsWindowVisible(hwnd) == FALSE;
+}
+
+bool WinGuiPlus::window::close() const
+{
+    if (!IsWindow(hwnd)) return false;
+    return SendMessage(hwnd, WM_CLOSE, 0, 0) == 0;
+}
+
+bool WinGuiPlus::window::minimize() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_MINIMIZE);
+    return IsIconic(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::maximize() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_MAXIMIZE);
+    return IsZoomed(hwnd) != FALSE;
+}
+
+bool WinGuiPlus::window::restore() const
+{
+    if (!IsWindow(hwnd)) return false;
+    ShowWindow(hwnd, SW_RESTORE);
+    return !IsIconic(hwnd) && !IsZoomed(hwnd);
+}
+
+bool WinGuiPlus::window::setTopMost() const
+{
+    if (!IsWindow(hwnd)) return false;
+    return SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE) != FALSE;
 }
