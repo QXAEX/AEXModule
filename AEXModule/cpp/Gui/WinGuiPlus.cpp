@@ -37,8 +37,8 @@ int WINAPI WinGuiPlus::run(customMsg msgLoop)
 {
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0)) {
-        if(msgLoop) msgLoop(msg.hwnd, msg.message, msg.wParam, msg.lParam);
         TranslateMessage(&msg);
+        if (msgLoop) msgLoop(msg.hwnd, msg.message, msg.wParam, msg.lParam);
         DispatchMessage(&msg);
     }
     Gdiplus::GdiplusShutdown(gdiplusToken);

@@ -39,6 +39,7 @@ typedef struct _THREAD_INFO {
     bool isJoin;//线程是否等待
     bool isStop;//线程是否停止
     std::mutex* mtx;//线程锁
+    PThread pThread;//线程对象
 } THREAD_INFO, * PTHREAD_INFO;
 
 
@@ -88,6 +89,6 @@ public:
 private:
     static DWORD WINAPI ThreadProc(LPVOID lpParam);
 private:
-    std::mutex mtx;
     std::map<DWORD, THREAD_INFO> threads;
+    std::mutex mtx;
 };

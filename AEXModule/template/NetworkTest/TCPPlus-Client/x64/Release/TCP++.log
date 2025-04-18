@@ -1,0 +1,8 @@
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Text.h(17,58): error C7518: 折叠表达式至少需要 "/std:c++17"
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\template\NetworkTest\TCP++\main.cpp(2,6): warning C4326: “main”的返回类型应为“int”而非“void”

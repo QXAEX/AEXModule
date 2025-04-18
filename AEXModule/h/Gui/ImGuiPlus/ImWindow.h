@@ -1,7 +1,7 @@
 #pragma once
 #include "config.h"
 
-namespace ImguiPlusWindow {
+namespace ImGuiPlusWindow {
     int WINAPI run(WinGuiPlus::customMsg msgLoop = nullptr);
     class window {
     public:

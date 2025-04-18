@@ -200,7 +200,10 @@ void Byteset::clear()
 
 const unsigned char* Byteset::data(long long index) const
 {
-    return this->data_.data() + index;
+    if (data_.size()) {
+        return this->data_.data() + index;
+    }
+    return (unsigned char*)"";
 }
 
 long long Byteset::find(const Byteset& other, long long pos) const
@@ -268,7 +271,8 @@ Byteset& Byteset::insert(long long pos, const Byteset& other, long long len)
 {
     if (pos > this->data_.size()) return *this;
     if (len == -1)  len = other.size();
-    if (pos + len > this->data_.size())len = this->data_.size() - pos;
+    //if (pos + len > this->data_.size())len = this->data_.size() - pos;
+    printf("this-dataBegin: %p, other-dataBegin: %p, len: %lld\n", this->data_.data(), other.data_.data(), len);
     this->data_.insert(this->data_.begin() + pos, other.data_.begin(), other.data_.begin() + len);
     return *this;
 }

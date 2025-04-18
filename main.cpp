@@ -1,38 +1,11 @@
 #include "AEXModule.h"
 
 int main() {
-    {
-        static ImGuiPlus::window win;
-        WinGuiPlus::window::INFO info;
-        //全屏
-        //info.width = GetSystemMetrics(SM_CXSCREEN);
-        //info.height = GetSystemMetrics(SM_CYSCREEN);
-        info.width = 500;
-        info.height = 400;
-        info.noBorder = true;
-        info.topMost = true;
-
-        win.create(true, true, NULL, L"高级组件演示", L"DEMO", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc) {
-            if (WINGUIPLUS_STATUS::DRAW == status) {
-                ImGui::MenuItem(u8"测试1");
-                ImGui::MenuItem(u8"测试2");
-                ImGui::MenuItem(u8"测试3");
-
-                // 添加帧数显示
-                ImGui::Separator(); // 在菜单底部分隔
-                ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %.1f", ImGui::GetIO().Framerate);
-                //ImGuiPlus::Menu(&win, "测试", [&]() {
-                //    ImGui::MenuItem("测试1");
-                //    ImGui::MenuItem("测试2");
-                //    ImGui::MenuItem("测试3");
-                //    // 添加帧数显示（在菜单底部）
-                //    ImGui::Separator();
-                //    ImGui::TextColored(ImVec4(1, 1, 0, 1), "FPS: %.1f", ImGui::GetIO().Framerate);
-                //});
-            }
-         });
-
-        ImGuiPlus::run();
+    Memory::R3 r3;
+    r3.Open(Process::ProcessGetID("TheLastSurvivor-Win64-Shipping.exe"));
+    std::vector<PVOID> result = r3.Search("48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 83 EC 20 49 8B 59 38 48 8B F2 4D 8B F0 48 8B E9 49 8B D1 48 8B CE 49 8B F9 4C 8D 43 04",true);
+    for (auto& ptr : result) {
+        std::cout << "Found at " << ptr << std::endl;
     }
     return 0;
 }

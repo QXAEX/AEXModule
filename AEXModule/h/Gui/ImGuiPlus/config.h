@@ -5,10 +5,16 @@
 #include "../../../imgui/backends/imgui_impl_dx11.h"
 #include "../../../imgui/imgui_internal.h"
 #include <functional>
-#include <d3d11.h>
 #include <dxgi.h>
+#include <d3d11.h>
 #include <d3d11_1.h>
+#include <dxgi1_2.h>
 #include <dxgi1_5.h>
+#include <memory>
+#include <VersionHelpers.h>
+#include <wrl.h>
+#include <string>
+#include <vector>
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 

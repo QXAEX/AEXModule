@@ -1,0 +1,13 @@
+﻿D:\InstallationSpace\Visual Studio\2022\community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(TCP++.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  Client.cpp
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus\Client\Client.h(10,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlusClient::Client::CLIENT_STATUS”的左侧
+  (编译源文件“../../../cpp/Network/TCPPlus/Client/Client.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus\Client\Client.h(8,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlusClient::Client”的左侧
+  (编译源文件“../../../cpp/Network/TCPPlus/Client/Client.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\cpp\Network\TCPPlus\Client\Client.cpp(26,33): warning C4244: “参数”: 从“DWORD”转换到“u_short”，可能丢失数据
+D:\Project\C\AEXModule\AEXModule\cpp\Network\TCPPlus\Client\Client.cpp(109,67): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  TCPPlus-Client.vcxproj -> D:\Project\C\AEXModule\x64\Debug\client.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。

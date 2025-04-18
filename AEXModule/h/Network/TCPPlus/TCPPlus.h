@@ -1,6 +1,6 @@
 #pragma once
-#include "./Client/client.h"
-#include "./Server/server.h"
+#include "./Client/Client.h"
+#include "./Server/Server.h"
 namespace TCPPlus {
 	using namespace TCPPlusClient;
 	using namespace TCPPlusServer;

@@ -19,8 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\cpp\Gui\WinGuiPlus\CheckBox.cpp" />
-    <ClCompile Include="..\..\..\cpp\Gui\WinGuiPlus\panel\panel.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -417,8 +417,6 @@ Byteset __stdcall MemoryR3::R3::pointerChain(PVOID address, std::initializer_lis
     bool flag = true;
     int readSize  = this->Is64() ? sizeof(uint64_t) : sizeof(uint32_t);
     size_t pointer = (size_t)address;
-    this->Read(address, buffer, readSize, isVirtual);
-    pointer = *(size_t*)buffer.data();
     if (offsets.size() > 0) {
         for (int i = 0, size = offsets.size() - 1; i < size; i++) {
             if (!this->Read((PVOID)(pointer + offsets.begin()[i]), buffer, readSize, isVirtual)) {
@@ -430,6 +428,10 @@ Byteset __stdcall MemoryR3::R3::pointerChain(PVOID address, std::initializer_lis
         if (flag && this->Read((PVOID)(pointer + offsets.begin()[offsets.size() - 1]), buffer, readSize, isVirtual)) {
             return buffer.append({ 0,0 });
         }
+    }
+    else {
+        this->Read(address, buffer, readSize, isVirtual);
+        pointer = *(size_t*)buffer.data();
     }
     return pointer;
 }

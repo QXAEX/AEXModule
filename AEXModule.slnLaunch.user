@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "TCPplus调试",
+    "Projects": [
+      {
+        "Path": "AEXModule\\template\\NetworkTest\\TCPPlus-Server\\TCPPlus-Server.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "本地 Windows 调试器"
+      },
+      {
+        "Path": "AEXModule\\template\\NetworkTest\\TCPPlus-Client\\TCPPlus-Client.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "本地 Windows 调试器"
+      }
+    ]
+  }
+]

@@ -222,10 +222,10 @@
     <ClInclude Include="AEXModule\h\Network\TCP\tcp.h">
       <Filter>AEXModule\h\Network\tcp</Filter>
     </ClInclude>
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\client.h">
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\Client.h">
       <Filter>AEXModule\h\Network\TCPPlus\client</Filter>
     </ClInclude>
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\server.h">
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\Server.h">
       <Filter>AEXModule\h\Network\TCPPlus\server</Filter>
     </ClInclude>
     <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h">
@@ -261,9 +261,6 @@
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx11.h">
       <Filter>AEXModule\h\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx12.h">
-      <Filter>AEXModule\h\imgui\backends</Filter>
-    </ClInclude>
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx9.h">
       <Filter>AEXModule\h\imgui\backends</Filter>
     </ClInclude>
@@ -296,6 +293,18 @@
     </ClInclude>
     <ClInclude Include="AEXModule\h\PortableExecutable\data.h">
       <Filter>AEXModule\h\PortableExecutable</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImButton.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImInput.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImCheckbox.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImSliderFloat.h">
+      <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -395,10 +404,10 @@
     <ClCompile Include="AEXModule\cpp\Network\TCP\tcp.cpp">
       <Filter>AEXModule\cpp\Network\tcp</Filter>
     </ClCompile>
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\client.cpp">
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\Client.cpp">
       <Filter>AEXModule\cpp\Network\TCPPlus\client</Filter>
     </ClCompile>
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\server.cpp">
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\Server.cpp">
       <Filter>AEXModule\cpp\Network\TCPPlus\server</Filter>
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp">
@@ -425,9 +434,6 @@
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx11.cpp">
       <Filter>AEXModule\cpp\Imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx12.cpp">
-      <Filter>AEXModule\cpp\Imgui\backends</Filter>
-    </ClCompile>
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx9.cpp">
       <Filter>AEXModule\cpp\Imgui\backends</Filter>
     </ClCompile>
@@ -445,6 +451,18 @@
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp">
       <Filter>AEXModule\cpp\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImButton.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImInput.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImCheckbox.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImSliderFloat.cpp">
+      <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

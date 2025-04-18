@@ -488,7 +488,11 @@
   <ItemGroup>
     <ClInclude Include="AEXModule.h" />
     <ClCompile Include="AEXModule\cpp\Doubles.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImButton.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImCheckbox.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImInput.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImMenu.cpp" />
+    <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImSliderFloat.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImWindow.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp" />
@@ -504,9 +508,13 @@
     <ClInclude Include="AEXModule\h\File.h" />
     <ClInclude Include="AEXModule\h\Gui.h" />
     <ClInclude Include="AEXModule\h\Gui\ImGuiPlus.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImButton.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImCheckbox.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImInput.h" />
     <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImMenu.h" />
     <ClInclude Include="AEXModule\h\Gui\ImguiPlus\config.h" />
     <ClInclude Include="AEXModule\h\Gui\ImguiPlus\ImWindow.h" />
+    <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImSliderFloat.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGui.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Button.h" />
@@ -526,8 +534,8 @@
     <ClInclude Include="AEXModule\h\Memory\R3.h" />
     <ClInclude Include="AEXModule\h\Memory\R3HOOK.h" />
     <ClInclude Include="AEXModule\h\Network.h" />
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\client.h" />
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\server.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\Client.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\Server.h" />
     <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h" />
     <ClInclude Include="AEXModule\h\Network\TCP\tcp.h" />
     <ClInclude Include="AEXModule\h\PortableExecutable.h" />
@@ -541,7 +549,6 @@
     <ClInclude Include="AEXModule\h\Thread.h" />
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx10.h" />
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx11.h" />
-    <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx12.h" />
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_dx9.h" />
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_metal.h" />
     <ClInclude Include="AEXModule\imgui\backends\imgui_impl_opengl3.h" />
@@ -575,8 +582,8 @@
     <ClCompile Include="AEXModule\cpp\Memory\VEHhook.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3.cpp" />
     <ClCompile Include="AEXModule\cpp\Network.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\client.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\server.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\Client.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\Server.cpp" />
     <ClCompile Include="AEXModule\cpp\Network\TCP\tcp.cpp" />
     <ClCompile Include="AEXModule\cpp\PortableExecutable.cpp" />
     <ClCompile Include="AEXModule\cpp\Process.cpp" />
@@ -588,7 +595,6 @@
     <ClCompile Include="AEXModule\cpp\Thread.cpp" />
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx10.cpp" />
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx11.cpp" />
-    <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx12.cpp" />
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_dx9.cpp" />
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="AEXModule\imgui\backends\imgui_impl_win32.cpp" />

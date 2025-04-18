@@ -1,18 +1,21 @@
 #include "../h/Thread.h"
 #include <chrono>
-
+static std::mutex mtx;
 DWORD WINAPI Thread::ThreadProc(LPVOID lpParam) {
     THREAD_INFO* pInfo = static_cast<THREAD_INFO*>(lpParam);
     do {
         try {
-            if (pInfo->callback) pInfo->callback(reinterpret_cast<PThread>(pInfo));
+            if (pInfo->callback) pInfo->callback(pInfo->pThread);
             pInfo->isRunning = false;
             pInfo->isStop = true;
         }
         catch (...) {
             return THREAD_ERROR;
         }
-        if (pInfo->type == THREAD_TYPE_LOOP) std::this_thread::sleep_for(std::chrono::milliseconds(pInfo->interval));
+        if (pInfo->type == THREAD_TYPE_LOOP) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(pInfo->interval));
+            pInfo->isStop = false;
+        }
     } while (pInfo->type == THREAD_TYPE_LOOP && !pInfo->isStop);
     {
         std::lock_guard<std::mutex> lock(*pInfo->mtx);
@@ -53,6 +56,7 @@ THREAD_CODE __stdcall Thread::start(DWORD code, bool join) {
     if (info.isRunning) return THREAD_RUNNING;
     info.isStop = false;
     info.isJoin = join;
+    info.pThread = this;
     info.hThread = CreateThread(nullptr, 0, ThreadProc, &info, 0, nullptr);
     if (!info.hThread) return THREAD_ERROR;
     info.isRunning = true;
