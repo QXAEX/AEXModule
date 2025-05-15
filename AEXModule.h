@@ -41,7 +41,7 @@
 #include "AEXModule/h/Sqlite.h"									//sqlite3数据库类				<class>							updateBy: 2025-03-6
 #include "AEXModule/h/PortableExecutable.h"				//进程文件PE解析类			<namespace>					updateBy: 2025-03-12
 #include "AEXModule/h/Doubles.h"								//超级浮点类型集合			<class>							updateBy: 2025-03-5
-#include "AEXModule/json/include/json/json.h"			//进程文件PE解析类			<namespace>					updateBy: 2025-05-15
+#include "AEXModule/json/include/json/json.h"			//JSON集合						<namespace>					updateBy: 2025-05-15
 
 
 
