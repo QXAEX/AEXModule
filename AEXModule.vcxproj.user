@@ -5,4 +5,9 @@
     <LocalDebuggerAmpDefaultAccelerator>{ADEFF70D-84BF-47A1-91C3-FF6B0FC71218}</LocalDebuggerAmpDefaultAccelerator>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NONE|x64'">
+    <LocalDebuggerDebuggerType>Auto</LocalDebuggerDebuggerType>
+    <LocalDebuggerAmpDefaultAccelerator>{ADEFF70D-84BF-47A1-91C3-FF6B0FC71218}</LocalDebuggerAmpDefaultAccelerator>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

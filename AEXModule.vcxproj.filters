@@ -82,18 +82,6 @@
     <Filter Include="AEXModule\cpp\Network\TCPPlus">
       <UniqueIdentifier>{91c11239-8c7f-4ee4-bbe2-62ec218ddf62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AEXModule\cpp\Network\TCPPlus\client">
-      <UniqueIdentifier>{824212ec-da3e-435a-b467-3f187f7dd86f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AEXModule\cpp\Network\TCPPlus\server">
-      <UniqueIdentifier>{1e2ec74a-13c9-409d-b312-0c7f7d262174}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AEXModule\h\Network\TCPPlus\client">
-      <UniqueIdentifier>{f89e65a7-4008-442b-bbd1-f9aba6ad0789}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AEXModule\h\Network\TCPPlus\server">
-      <UniqueIdentifier>{9be9ce32-5d20-44f0-a311-fa00c7b2967c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="AEXModule\h\imgui">
       <UniqueIdentifier>{26db74ba-6527-4290-9b89-6c260e51d701}</UniqueIdentifier>
     </Filter>
@@ -111,6 +99,48 @@
     </Filter>
     <Filter Include="AEXModule\cpp\Gui\ImGuiPlus">
       <UniqueIdentifier>{c3465c74-02ba-4452-8f14-c46a3464ca74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Network\HTTP">
+      <UniqueIdentifier>{7b62270c-fc6b-4387-9406-6237ea3f7bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Network\HTTP\Client">
+      <UniqueIdentifier>{f8bd0a7f-7c04-4353-8c41-54b7d1acc2fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Network\HTTP\Server">
+      <UniqueIdentifier>{0217e5c2-59fd-44e0-991d-3f7ac0ed5a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Network\TCPPlus\Client">
+      <UniqueIdentifier>{f89e65a7-4008-442b-bbd1-f9aba6ad0789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\Network\TCPPlus\Server">
+      <UniqueIdentifier>{9be9ce32-5d20-44f0-a311-fa00c7b2967c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Network\TCPPlus\Client">
+      <UniqueIdentifier>{824212ec-da3e-435a-b467-3f187f7dd86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Network\TCPPlus\Server">
+      <UniqueIdentifier>{1e2ec74a-13c9-409d-b312-0c7f7d262174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Network\HTTP">
+      <UniqueIdentifier>{db12dbb5-a90f-46be-b063-f7100ce0b718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Network\HTTP\Client">
+      <UniqueIdentifier>{c34f4870-1a52-4ca5-92e7-3cd974527279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\Network\HTTP\Server">
+      <UniqueIdentifier>{954e7a59-a5ca-418b-b10d-25adbd7362c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\JSON">
+      <UniqueIdentifier>{118b74bf-5059-4139-b836-071cb5e67ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\JSON">
+      <UniqueIdentifier>{16d1921b-61d7-4a70-9204-55000c4bf9c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\h\JSON\lib_json">
+      <UniqueIdentifier>{fa9d5487-09c8-46ff-b16c-9c361040f2c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AEXModule\cpp\JSON\lib_json">
+      <UniqueIdentifier>{113067bb-a89e-4002-a821-1cf38eadedfd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,10 +253,10 @@
       <Filter>AEXModule\h\Network\tcp</Filter>
     </ClInclude>
     <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\Client.h">
-      <Filter>AEXModule\h\Network\TCPPlus\client</Filter>
+      <Filter>AEXModule\h\Network\TCPPlus\Client</Filter>
     </ClInclude>
     <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\Server.h">
-      <Filter>AEXModule\h\Network\TCPPlus\server</Filter>
+      <Filter>AEXModule\h\Network\TCPPlus\Server</Filter>
     </ClInclude>
     <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h">
       <Filter>AEXModule\h\Network\TCPPlus</Filter>
@@ -305,6 +335,48 @@
     </ClInclude>
     <ClInclude Include="AEXModule\h\Gui\ImGuiPlus\ImSliderFloat.h">
       <Filter>AEXModule\h\Gui\ImGuiPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Network\HTTP\Client\Client.h">
+      <Filter>AEXModule\h\Network\HTTP\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Network\HTTP\Server\Server.h">
+      <Filter>AEXModule\h\Network\HTTP\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\h\Network\HTTP\HTTP.h">
+      <Filter>AEXModule\h\Network\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\allocator.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\assertions.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\config.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\forwards.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\json.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\json_features.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\reader.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\value.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\version.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\include\json\writer.h">
+      <Filter>AEXModule\h\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="AEXModule\json\src\lib_json\json_tool.h">
+      <Filter>AEXModule\h\JSON\lib_json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -405,10 +477,10 @@
       <Filter>AEXModule\cpp\Network\tcp</Filter>
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\Client.cpp">
-      <Filter>AEXModule\cpp\Network\TCPPlus\client</Filter>
+      <Filter>AEXModule\cpp\Network\TCPPlus\Client</Filter>
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\Server.cpp">
-      <Filter>AEXModule\cpp\Network\TCPPlus\server</Filter>
+      <Filter>AEXModule\cpp\Network\TCPPlus\Server</Filter>
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp">
       <Filter>AEXModule\cpp\Gui\WinGuiPlus</Filter>
@@ -463,6 +535,21 @@
     </ClCompile>
     <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImSliderFloat.cpp">
       <Filter>AEXModule\cpp\Gui\ImGuiPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Network\HTTP\Client\Client.cpp">
+      <Filter>AEXModule\cpp\Network\HTTP\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\cpp\Network\HTTP\Server\Server.cpp">
+      <Filter>AEXModule\cpp\Network\HTTP\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\json\src\lib_json\json_reader.cpp">
+      <Filter>AEXModule\cpp\JSON\lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\json\src\lib_json\json_value.cpp">
+      <Filter>AEXModule\cpp\JSON\lib_json</Filter>
+    </ClCompile>
+    <ClCompile Include="AEXModule\json\src\lib_json\json_writer.cpp">
+      <Filter>AEXModule\cpp\JSON\lib_json</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
