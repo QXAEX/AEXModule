@@ -14,7 +14,16 @@ static WINGUIPLUS_TEMPLATE findTempInfo(std::vector<WINGUIPLUS_TEMPLATE>& tempLi
 static bool destroyTempInfo(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND hwnd) {
         for (auto it = tempList.begin(); it != tempList.end(); ++it) {
             if (it->hwnd == hwnd) {
+                WINGUIPLUS_TEMPLATE temp = *it;
                 tempList.erase(it);
+                bool flag = false;
+                for (auto it2 = tempList.begin(); it2 != tempList.end(); ++it2) {
+                    if (it2->parent == temp.parent) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag) EnableWindow(temp.parent, TRUE);
                 return true;
             }
         }
@@ -24,16 +33,14 @@ int wm_create(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg
 {
     CREATESTRUCT* pCreateStruct = reinterpret_cast<CREATESTRUCT*>(lParam);
     WinGuiPlus::window::callBack* callBack = static_cast<WinGuiPlus::window::callBack*>(pCreateStruct->lpCreateParams);
-    if (callBack) (*callBack)(hwnd, GetModuleHandle(NULL), WINGUIPLUS_STATUS::CREATE);
+    if (callBack) (*callBack)(hwnd, GetModuleHandle(NULL), WINGUIPLUS_STATUS::CREATE, NULL);
     return 0;
 }
 
 int wm_destroy(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
-    if (temp.callBack) {
-        temp.callBack(temp.hwnd,temp.hInstance, WINGUIPLUS_STATUS::DESTROY);
-    }
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DESTROY, NULL);
     destroyTempInfo(tempList, hwnd);
     if (tempList.empty()) {
         PostQuitMessage(0);
@@ -47,7 +54,7 @@ int wm_mousemove(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& u
     if (wParam == MK_LBUTTON) state = WINGUIPLUS_STATUS::MOUSE_LEFT_DOWN_MOVE;
     else if(wParam == MK_RBUTTON) state = WINGUIPLUS_STATUS::MOUSE_RIGHT_DOWN_MOVE;
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
-    if (temp.event.mouse)temp.event.mouse(state,GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+    if (temp.event.mouse)temp.event.mouse((WINGUIPLUS_STATUS)state,GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
     return 0;
 }
 
@@ -73,7 +80,9 @@ int wm_nchittest(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& u
 int wm_paint(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
     PAINTSTRUCT ps;
+    WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
     HDC hdc = BeginPaint(hwnd, &ps);
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DRAW, hdc);
     EndPaint(hwnd, &ps);
 
     return 0;
@@ -126,6 +135,7 @@ int wm_size(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, 
 {
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
     if (temp.event.winSize)temp.event.winSize(LOWORD(lParam), HIWORD(lParam));
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::SIZE_CHANGED, NULL);
     return 0;
 }
 

@@ -15,7 +15,7 @@ namespace WinGuiPlusPicture {
 		Picture(HWND parent, HINSTANCE hInstance, int top, int left, int width, int height, DWORD Id, std::string suffix = "PNG", bool isLayered = false, bool visible = true);
 		~Picture();
 		/*
-		* 创建编辑框
+		* 创建图片框
 		* @param parent 父窗口句柄
 		* @param hInstance 实例句柄
 		* @param top 顶部坐标
@@ -29,7 +29,7 @@ namespace WinGuiPlusPicture {
 		*/
 		void create(HWND parent, HINSTANCE hInstance, int top, int left, int width, int height, DWORD Id,std::string suffix = "PNG", bool isLayered = false, bool visible = true);
 		/*
-		* 创建编辑框
+		* 创建图片框
 		* @param parent 父窗口句柄
 		* @param hInstance 实例句柄
 		* @param top 顶部坐标
@@ -42,12 +42,12 @@ namespace WinGuiPlusPicture {
 		*/
 		void create(HWND parent, HINSTANCE hInstance, int top, int left, int width, int height, std::string imagePath, bool isLayered = false, bool visible = true);
 		/*
-		* 设置编辑框是否可见
+		* 设置图片框是否可见
 		* @param visible 是否可见
 		*/
 		void SetVisible(bool visible);
 		/*
-		* 获取编辑框是否可见
+		* 获取图片框是否可见
 		* @return 是否可见
 		*/
 		bool GetVisible() const;

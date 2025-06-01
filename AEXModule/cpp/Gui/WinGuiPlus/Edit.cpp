@@ -108,7 +108,7 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
     this->panel.Event()->event.setCursor = [&]() {//设置鼠标光标
         SetCursor(LoadCursor(NULL, IDC_IBEAM));
         };
-    this->panel.Event()->event.mouseLeft = [&](int state, int x, int y) {//鼠标左键按下
+    this->panel.Event()->event.mouseLeft = [&](WINGUIPLUS_STATUS state, int x, int y) {//鼠标左键按下
         if (state == WINGUIPLUS_STATUS::MOUSE_LEFT_UP) {
             this->panel.panelData.params[0] = TRUE;//定义鼠标光标焦点状态
             this->panel.panelData.params[1] = TRUE;//定义输入光标显示状态,FALSE为显示光标,TRUE为不显示光标
@@ -122,7 +122,7 @@ void WinGuiPlusEdit::Edit::create(HWND parent, HINSTANCE hInstance, int top, int
         KillTimer(this->panel.panelData.hwnd, NULL);
         InvalidateRect(this->panel.panelData.hwnd, NULL, TRUE);
         };
-    this->panel.Event()->event.key = [&](int state, WPARAM& key, LPARAM& lParam) {
+    this->panel.Event()->event.key = [&](WINGUIPLUS_STATUS state, WPARAM& key, LPARAM& lParam) {
         if (state == WINGUIPLUS_STATUS::KEY_DOWN) {
             switch (key) {
             case VK_BACK: // Backspace键

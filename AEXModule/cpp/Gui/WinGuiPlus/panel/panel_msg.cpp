@@ -36,7 +36,7 @@ int wm_panel_create(HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 	LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
 	WinGuiPlusPanel::Panel* panel = reinterpret_cast<WinGuiPlusPanel::Panel*>(pCreateStruct->lpCreateParams);
 	if (panel) {
-		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::CREATE);
+		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::CREATE, NULL);
 	}
 	return TRUE;
 }
@@ -44,7 +44,7 @@ int wm_panel_destroy(HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
 	WinGuiPlusPanel::Panel* panel = panelListFind(hwnd);
 	if (panel) {
-		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::DESTROY);
+		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::DESTROY, NULL);
 		panelListDelete(hwnd);
 	}
 	return 0;
@@ -71,7 +71,7 @@ int wm_panel_mousemove(HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 			ClientToScreen(hwnd, &pt);
 			SetWindowPos(hwnd, NULL, pt.x - panel->panelData.dragOffset.x, pt.y - panel->panelData.dragOffset.y, panel->panelData.width, panel->panelData.height, SWP_NOZORDER);
 		}
-		else if (panel->Event()->event.mouse) if (panel->Event()->event.mouse)panel->Event()->event.mouse(state, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		else if (panel->Event()->event.mouse) if (panel->Event()->event.mouse)panel->Event()->event.mouse((WINGUIPLUS_STATUS)state, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 	}
 
 	

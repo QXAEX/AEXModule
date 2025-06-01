@@ -72,7 +72,7 @@ Byteset::Byteset(bool flag)
     std::memcpy(this->data_.data(), &flag, sizeof(bool));
 }
 
-Byteset::Byteset(char ch)
+Byteset::Byteset(unsigned char ch)
 {
     this->data_.resize(sizeof(char));
     std::memcpy(this->data_.data(), &ch, sizeof(char));
@@ -203,52 +203,13 @@ const unsigned char* Byteset::data(long long index) const
     return this->data_.data() + index;
 }
 
-long long Byteset::find(const Byteset& other, long long pos, bool vague, const Byteset& vagueContent) const
+long long Byteset::find(const Byteset& other, long long pos) const
 {
-    if (pos >= data_.size()) {
-        return -1;
-    }
-    if (other.size() == 0) {
-        return pos;
-    }
-    if (!vague) {
-        auto it = std::search(data_.begin() + pos, data_.end(),
-            other.data_.begin(), other.data_.end());
-        if (it != data_.end()) {
-            return std::distance(data_.begin(), it);
-        }
-        return -1;
-    }
-    else {
-        long long otherSize = other.size();
-        if (pos > data_.size() - otherSize) {
-            return -1;
-        }
-        std::unordered_set<unsigned char> vagueSet(vagueContent.data_.begin(), vagueContent.data_.end());
-
-        for (long long i = pos; i <= data_.size() - otherSize; ++i) {
-            const unsigned char* textPtr = &data_[i];
-            const unsigned char* otherPtr = other.data_.data();
-            long long j = 0;
-
-            while (j < otherSize) {
-                if (vagueSet.find(otherPtr[j]) != vagueSet.end()) {
-                    ++j;
-                }
-                else if (textPtr[j] != otherPtr[j]) {
-                    break;
-                }
-                else {
-                    ++j;
-                }
-
-                if (j == otherSize) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
+    if (pos >= data_.size()) return -1;
+    if (other.size() == 0) return pos;
+    auto it = std::search(data_.begin() + pos, data_.end(), other.data_.begin(), other.data_.end());
+    if (it != data_.end()) return std::distance(data_.begin(), it);
+    return -1;
 }
 
 
@@ -262,7 +223,7 @@ long long Byteset::replace(const Byteset& old, const Byteset& new_str, int count
     long long old_size = old.size();
     long long new_size = new_str.size();
 
-    while (count != 0 && (pos = this->find(old, pos, false)) != -1) {
+    while (count != 0 && (pos = this->find(old, pos)) != -1) {
         this->data_.erase(this->data_.begin() + pos, this->data_.begin() + pos + old_size);
         this->data_.insert(this->data_.begin() + pos, new_str.data_.begin(), new_str.data_.end());
         pos += new_size;
@@ -282,7 +243,7 @@ long long Byteset::remove(const Byteset& other, long long pos, int count)
     long long removed = 0;
     long long other_size = other.size();
 
-    while (count != 0 && (pos = this->find(other, pos, false)) != -1) {
+    while (count != 0 && (pos = this->find(other, pos)) != -1) {
         this->data_.erase(this->data_.begin() + pos, this->data_.begin() + pos + other_size);
         ++removed;
         --count;
