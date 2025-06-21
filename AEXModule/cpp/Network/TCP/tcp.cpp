@@ -1,4 +1,4 @@
-#include "../../../h/Network/TCP/tcp.h"
+#include "../../../h/Network/Tcp.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -16,7 +16,7 @@ static INT MSG_(std::string message, int result = NULL, std::string title = "ERR
     return pfnMessageBoxA(NULL, std::string(message).append(result ? std::to_string(result) : "").c_str(), "Error", MB_OK);
 }
 
-Network_TCP::TCP::Server::Server() {
+TCP::Server::Server() {
     this->started = false;
     this->ip = "";
     this->port = 0;
@@ -24,11 +24,11 @@ Network_TCP::TCP::Server::Server() {
     this->_serverAddr_ = {};
 }
 
-Network_TCP::TCP::Server::~Server() {
+TCP::Server::~Server() {
     this->stop();
 }
 
-Network_TCP::TCP::Server& Network_TCP::TCP::Server::operator=(const Server& other)
+TCP::Server& TCP::Server::operator=(const Server& other)
 {
     if (this == &other) return *this;
     this->started = other.started;
@@ -40,7 +40,7 @@ Network_TCP::TCP::Server& Network_TCP::TCP::Server::operator=(const Server& othe
     return *this;
 }
 
-bool Network_TCP::TCP::Server::start(int port) {
+bool TCP::Server::start(int port) {
     if (started) return false;
 
     WSADATA wsaData;
@@ -82,7 +82,7 @@ bool Network_TCP::TCP::Server::start(int port) {
     return true;
 }
 
-void Network_TCP::TCP::Server::stop() {
+void TCP::Server::stop() {
     if (!started) return;
 
     for (auto& client : clients) {
@@ -96,7 +96,7 @@ void Network_TCP::TCP::Server::stop() {
     this->started = false;
 }
 
-Network_TCP::TCP::CLIENT Network_TCP::TCP::Server::Listen(int timeout) {
+TCP::CLIENT TCP::Server::Listen(int timeout) {
     if (!this->started) return CLIENT();
     CLIENT newClient = {};
     int addrlen = sizeof(newClient.addr);
@@ -133,7 +133,7 @@ Network_TCP::TCP::CLIENT Network_TCP::TCP::Server::Listen(int timeout) {
     return clients[clients.size() - 1];
 }
 
-bool Network_TCP::TCP::Server::disconnect(PCLIENT client) {
+bool TCP::Server::disconnect(PCLIENT client) {
     for (auto it = this->clients.begin(); it != this->clients.end(); ++it) {
         if (it->handle == client->handle) {
             closesocket(client->handle);
@@ -144,7 +144,7 @@ bool Network_TCP::TCP::Server::disconnect(PCLIENT client) {
     return false;
 }
 
-bool Network_TCP::TCP::Server::Send(PCLIENT client, Byteset data, int timeout) const
+bool TCP::Server::Send(PCLIENT client, Byteset data, int timeout) const
 {
     if (!started) return false;
     if (timeout != -1) {
@@ -175,7 +175,7 @@ bool Network_TCP::TCP::Server::Send(PCLIENT client, Byteset data, int timeout) c
     return true;
 }
 
-bool Network_TCP::TCP::Server::Sends(PSERVER_MSG_INFO info) const
+bool TCP::Server::Sends(PSERVER_MSG_INFO info) const
 {
     if (!started) return false;
     __int64 maxLen = info->file->Size();
@@ -196,7 +196,7 @@ bool Network_TCP::TCP::Server::Sends(PSERVER_MSG_INFO info) const
     return true;
 }
 
-Byteset Network_TCP::TCP::Server::Recv(PCLIENT client, int timeout) const
+Byteset TCP::Server::Recv(PCLIENT client, int timeout) const
 {
     if (!started) return Byteset();
     if (timeout != -1) {
@@ -230,7 +230,7 @@ Byteset Network_TCP::TCP::Server::Recv(PCLIENT client, int timeout) const
     return data;
 }
 
-bool Network_TCP::TCP::Server::Recvs(PSERVER_MSG_INFO info) const
+bool TCP::Server::Recvs(PSERVER_MSG_INFO info) const
 {
     if (!started) return false;
     __int64 index = NULL, time = NULL, size = NULL;
@@ -255,35 +255,35 @@ bool Network_TCP::TCP::Server::Recvs(PSERVER_MSG_INFO info) const
     return false;
 }
 
-size_t Network_TCP::TCP::Server::GetClientCount() {
+size_t TCP::Server::GetClientCount() {
     return clients.size();
 }
 
-Network_TCP::TCP::PCLIENT Network_TCP::TCP::Server::GetClient(__int64 index) {
+TCP::PCLIENT TCP::Server::GetClient(__int64 index) {
     if (index < 0 || index >= clients.size()) {
         return nullptr;
     }
     return &clients[index];
 }
 
-int Network_TCP::TCP::Server::GetLastError() const
+int TCP::Server::GetLastError() const
 {
     return WSAGetLastError();
 }
 
-Network_TCP::TCP::Client::Client()
+TCP::Client::Client()
 {
     this->started = false;
     this->_socket_ = INVALID_SOCKET;
     this->_serverAddr_ = {};
 }
 
-Network_TCP::TCP::Client::~Client()
+TCP::Client::~Client()
 {
     this->disconnect();
 }
 
-Network_TCP::TCP::Client& Network_TCP::TCP::Client::operator=(const Client& other)
+TCP::Client& TCP::Client::operator=(const Client& other)
 {
     if (this == &other) return *this;
     this->started = other.started;
@@ -292,7 +292,7 @@ Network_TCP::TCP::Client& Network_TCP::TCP::Client::operator=(const Client& othe
     return *this;
 }
 
-bool Network_TCP::TCP::Client::Connect(const std::string& ip, int port)
+bool TCP::Client::Connect(const std::string& ip, int port)
 {
     if (started) return false;
 
@@ -370,7 +370,7 @@ bool Network_TCP::TCP::Client::Connect(const std::string& ip, int port)
     return true;
 }
 
-bool Network_TCP::TCP::Client::disconnect()
+bool TCP::Client::disconnect()
 {
     if (!started) return false;
 
@@ -381,7 +381,7 @@ bool Network_TCP::TCP::Client::disconnect()
     return true;
 }
 
-bool Network_TCP::TCP::Client::Send(Byteset data, int timeout) const
+bool TCP::Client::Send(Byteset data, int timeout) const
 {
     if (!started) return false;
     if (timeout != -1) {
@@ -408,7 +408,7 @@ bool Network_TCP::TCP::Client::Send(Byteset data, int timeout) const
     return false;
 }
 
-bool Network_TCP::TCP::Client::Sends(PCLIENTS_MSG_INFO info) const
+bool TCP::Client::Sends(PCLIENTS_MSG_INFO info) const
 {
     if (!started) return false;
     __int64 maxLen = info->file->Size();
@@ -430,7 +430,7 @@ bool Network_TCP::TCP::Client::Sends(PCLIENTS_MSG_INFO info) const
     return true;
 }
 
-Byteset Network_TCP::TCP::Client::Recv(int timeout) const
+Byteset TCP::Client::Recv(int timeout) const
 {
     if (!started) return Byteset();
     if (timeout != -1) {
@@ -461,7 +461,7 @@ Byteset Network_TCP::TCP::Client::Recv(int timeout) const
     return data;
 }
 
-bool Network_TCP::TCP::Client::Recvs(PCLIENTS_MSG_INFO info) const
+bool TCP::Client::Recvs(PCLIENTS_MSG_INFO info) const
 {
     if (!started) return false;
     bool flag = false;
@@ -484,7 +484,7 @@ bool Network_TCP::TCP::Client::Recvs(PCLIENTS_MSG_INFO info) const
     return true;
 }
 
-int Network_TCP::TCP::Client::GetLastError() const
+int TCP::Client::GetLastError() const
 {
     return WSAGetLastError();
 }

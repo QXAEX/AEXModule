@@ -6,8 +6,9 @@ namespace System {
 	/*
 	* 获取系统时间
 	* @param format 是否格式化
+	* @param hideSecond 是否不显示时分秒
 	*/
-	std::string WINAPI GetTime(bool format = false);
+	std::string WINAPI GetTime(bool format = false, bool hideSecond = false);
 	/*
 	* 取运行目录
 	* @param pid 进程ID,默认为当前进程ID
@@ -30,7 +31,7 @@ namespace System {
 	/*
 	* 创建目录
 	* @param path 目录路径
-	* @return 是否成功
+	* @return 是否成功，只有当目录不存在时才创建，如果没有创建操作或着权限不足时返回false
 	*/
 	bool WINAPI CreateDir(std::string path);
 	/*

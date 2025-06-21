@@ -15,7 +15,7 @@ int main()
     info.topMost = false;
     static std::string buf;
 
-    win.create(false, true, NULL, L"高级组件演示", L"DEMO", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc) {
+    win.create(false, true, NULL, L"高级组件演示", L"DEMO", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
         if (WINGUIPLUS_STATUS::DRAW == status) {
             ImGui::MenuItem(u8"测试1");
             ImGui::MenuItem(u8"测试2");
@@ -33,7 +33,7 @@ int main()
             ImGuiPlus::Input(&win, &buf);
         }
         });
-    win1.create(true, true, NULL, L"高级组件演示2", L"DEMO1", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc) {
+    win1.create(true, true, NULL, L"高级组件演示2", L"DEMO1", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
         if (WINGUIPLUS_STATUS::DRAW == status) {
             win1.getWin()->setDragable();
             ImGuiPlus::Menu(&win1, "测试", [&]() {
@@ -46,7 +46,7 @@ int main()
         }
         });
     info.noBorder = true;
-    win2.create(true, true, NULL, L"高级组件演示3", L"DEMO2", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc) {
+    win2.create(true, true, NULL, L"高级组件演示3", L"DEMO2", info, [&, info](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
         if (WINGUIPLUS_STATUS::DRAW == status) {
             ImGui::MenuItem(u8"测试1");
             ImGui::MenuItem(u8"测试2");

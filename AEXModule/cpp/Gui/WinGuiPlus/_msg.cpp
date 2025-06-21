@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <windowsx.h>
 #include "../../../h/Gui/WinGuiPlus.h"
-
 static WINGUIPLUS_TEMPLATE findTempInfo(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND hwnd) {
     for (auto it = tempList.begin(); it != tempList.end(); ++it) {
         if (it->hwnd == hwnd) {
@@ -33,14 +32,14 @@ int wm_create(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg
 {
     CREATESTRUCT* pCreateStruct = reinterpret_cast<CREATESTRUCT*>(lParam);
     WinGuiPlus::window::callBack* callBack = static_cast<WinGuiPlus::window::callBack*>(pCreateStruct->lpCreateParams);
-    if (callBack) (*callBack)(hwnd, GetModuleHandle(NULL), WINGUIPLUS_STATUS::CREATE, NULL);
+    if (callBack) (*callBack)(hwnd, GetModuleHandle(NULL), WINGUIPLUS_STATUS::CREATE);
     return 0;
 }
 
 int wm_destroy(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
-    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DESTROY, NULL);
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DESTROY);
     destroyTempInfo(tempList, hwnd);
     if (tempList.empty()) {
         PostQuitMessage(0);
@@ -79,12 +78,8 @@ int wm_nchittest(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& u
 
 int wm_paint(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
-    PAINTSTRUCT ps;
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
-    HDC hdc = BeginPaint(hwnd, &ps);
-    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DRAW, hdc);
-    EndPaint(hwnd, &ps);
-
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::DRAW);
     return 0;
 }
 
@@ -135,7 +130,7 @@ int wm_size(std::vector<WINGUIPLUS_TEMPLATE>& tempList, HWND& hwnd, UINT& uMsg, 
 {
     WINGUIPLUS_TEMPLATE temp = findTempInfo(tempList, hwnd);
     if (temp.event.winSize)temp.event.winSize(LOWORD(lParam), HIWORD(lParam));
-    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::SIZE_CHANGED, NULL);
+    if (temp.callBack) temp.callBack(temp.hwnd, temp.hInstance, WINGUIPLUS_STATUS::SIZE_CHANGED);
     return 0;
 }
 

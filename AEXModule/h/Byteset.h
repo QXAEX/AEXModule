@@ -48,7 +48,7 @@ public:
 
     //从short类型构造
     Byteset(short num);
-    
+
     /*
     * 初始内存大小
     * @param initSize 初始内存大小
@@ -159,7 +159,7 @@ public:
     * @param len 子集长度
     * @return 子集
     */
-    Byteset subBytes(long long pos, long long len) const;
+    Byteset subBytes(long long pos, long long len = -1) const;
 
     /*
     * 插入字节集

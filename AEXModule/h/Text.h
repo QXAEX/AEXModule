@@ -62,9 +62,10 @@ namespace Text {
 	* 文本_寻找指定文本
 	* @param text 被查找的文本
 	* @param find_text 待查找的文本
+	* @param start 开始查找位置, 默认0
 	* @return 找到的位置
 	*/
-	int __stdcall text_find(std::string text, std::string find_text);
+	int __stdcall text_find(std::string text, std::string find_text, size_t start = 0);
 	/*
 	* 文本_替换
 	* @param text 待替换的文本
@@ -159,6 +160,18 @@ namespace Text {
 	* @return 转换后的文本
 	*/
 	std::wstring __stdcall text_ascii_to_unicode(std::string text);
+	/*
+	* 文本_URL编码
+	* @param str 待编码的文本
+	* @return 编码后的文本
+	*/
+	std::string text_url_decode(const std::string& str);
+	/*
+	* 文本_URL解码
+	* @param str 待解码的文本
+	* @return 解码后的文本
+	*/
+	std::string text_url_encode(const std::string& str);
 	//====================================进制转换====================================
 	/*
 	* 文本_10进制转16进制

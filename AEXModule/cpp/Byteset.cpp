@@ -261,7 +261,7 @@ Byteset Byteset::subBytes(long long pos, long long len) const
         return Byteset();
     }
 
-    if (pos + len > this->data_.size()) {
+    if (pos + len > this->data_.size() || len == -1) {
         len = this->data_.size() - pos;
     }
     return Byteset(this->data_.data() + pos, len);
@@ -270,10 +270,8 @@ Byteset Byteset::subBytes(long long pos, long long len) const
 Byteset& Byteset::insert(long long pos, const Byteset& other, long long len)
 {
     if (pos > this->data_.size()) return *this;
-    if (len == -1)  len = other.size();
-    //if (pos + len > this->data_.size())len = this->data_.size() - pos;
-    printf("this-dataBegin: %p, other-dataBegin: %p, len: %lld\n", this->data_.data(), other.data_.data(), len);
-    this->data_.insert(this->data_.begin() + pos, other.data_.begin(), other.data_.begin() + len);
+    if (len == -1 || len > other.size())  len = other.size();
+    this->data_.insert(this->data_.begin() + pos, other.begin(), other.begin() + len);
     return *this;
 }
 

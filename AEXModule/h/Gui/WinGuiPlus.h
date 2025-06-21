@@ -48,7 +48,7 @@ namespace WinGuiPlus {
         * @param status ×´Ì¬Âë,¶ÔÓ¦ WINGUIPLUS_STATUS
         * @return void
         */
-        typedef std::function<void WINAPI (HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc)> callBack;
+        typedef std::function<void WINAPI (HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status)> callBack;
 
     public:
         window();

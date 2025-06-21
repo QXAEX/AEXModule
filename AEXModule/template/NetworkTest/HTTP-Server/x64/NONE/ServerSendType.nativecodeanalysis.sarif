@@ -1,0 +1,75 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/cpp/network/http/server/serversendtype.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "54764b57b65239e1c8d8766c36ba427149da3a2254a40ccea1740158464bc180"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/http/server/serversendtype.h"
+          },
+          "hashes": {
+            "sha-256": "be1a2eea3ed43edca0654ef329568462a168d74a65b0bb7e15acbdd4ca25d377"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/network/tcpplus/server/server.h"
+          },
+          "hashes": {
+            "sha-256": "c4dc7f1c63dfdd041b879e0705eeb8734abdbfae6e0b1d1256f2ca8b0055a7b2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/thread.h"
+          },
+          "hashes": {
+            "sha-256": "e066ffc8e875089e268ae9e67c38d98568c4f125d6ca833fc9f9ac7663b69272"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/byteset.h"
+          },
+          "hashes": {
+            "sha-256": "25f1f768fa89c60d22d3272c71f61e336d39db9da7d7fa981faceb09a3d2d99f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/project/c/aexmodule/aexmodule/h/text.h"
+          },
+          "hashes": {
+            "sha-256": "2c38b1d50b54cfd0183d796262c4a2a9bf07d93b6b2a9944fec798d93f242d67"
+          }
+        }
+      ]
+    }
+  ]
+}

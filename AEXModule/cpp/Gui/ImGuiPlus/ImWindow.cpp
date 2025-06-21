@@ -240,7 +240,7 @@ HWND ImGuiPlusWindow::window::create(bool drawAll, bool useFrame, HWND parent, L
     windows.push_back({ this->code, new WinGuiPlus::window() });
     PIMGUIWINS w = FindIMGUIWINS(this->code);
     WinGuiPlus::window* win = this->getWin();
-    HWND hwnd = win->create(parent, title, className, winInfo, [&, winInfo, useFrame, title, win, callBackFunc, drawAll](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc) {
+    HWND hwnd = win->create(parent, title, className, winInfo, [&, winInfo, useFrame, title, win, callBackFunc, drawAll](HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status) {
             PIMGUIWINS w = FindIMGUIWINS(this->code);
             if (w == nullptr) {
                 if (WINGUIPLUS_STATUS::DRAW == status) {
@@ -250,10 +250,14 @@ HWND ImGuiPlusWindow::window::create(bool drawAll, bool useFrame, HWND parent, L
             }
             int newWidth = max(1, winInfo.width - 16);
             int newHeight = max(1, winInfo.height - 39);
+            HDC hdc; 
+            PAINTSTRUCT ps;
             switch (status) {
             case WINGUIPLUS_STATUS::CREATE:
+                 hdc = BeginPaint(hwnd, &ps);
                 Init(drawAll, this->code, hwnd, winInfo, hdc, *win, "c:\\Windows\\Fonts\\msyh.ttc");
-                if (callBackFunc) callBackFunc(hwnd, hInstance, status, hdc);
+                EndPaint(hwnd, &ps);
+                if (callBackFunc) callBackFunc(hwnd, hInstance, status);
                 break;
             case WINGUIPLUS_STATUS::SIZE_CHANGED:
                 CleanupRenderTarget(this->code);
@@ -309,20 +313,20 @@ HWND ImGuiPlusWindow::window::create(bool drawAll, bool useFrame, HWND parent, L
                             ImGui::Separator();
                             ImGui::BeginChild("CONTENT", ImVec2(0, 0), true);
                             {
-                                if (callBackFunc) callBackFunc(hwnd, hInstance, status, hdc);
+                                if (callBackFunc) callBackFunc(hwnd, hInstance, status);
                             }
                             ImGui::EndChild();
                         }
                         ImGui::EndChild();
                     }
                     else if (callBackFunc) {
-                        callBackFunc(hwnd, hInstance, status, hdc);
+                        callBackFunc(hwnd, hInstance, status);
                     }
                     ImGui::PopStyleVar(3);
                     ImGui::End();
                 }
                 else {
-                    if (callBackFunc) callBackFunc(hwnd, hInstance, status, hdc);
+                    if (callBackFunc) callBackFunc(hwnd, hInstance, status);
                 }
                 ImGui::Render();
                 w->pd3dContext->OMSetRenderTargets(1, &w->pRenderTarget, nullptr);

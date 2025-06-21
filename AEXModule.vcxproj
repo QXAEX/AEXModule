@@ -70,14 +70,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>false</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NONE|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>false</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -86,7 +86,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -94,7 +94,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MDd|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -102,7 +102,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MD|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -110,7 +110,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -118,7 +118,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -140,7 +140,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -148,7 +148,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MDd|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -156,7 +156,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MD|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -164,7 +164,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -172,7 +172,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -281,12 +281,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -297,12 +298,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NONE|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -312,16 +314,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -333,16 +333,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -354,16 +353,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MDd|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -375,16 +373,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MD|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -396,16 +393,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -417,12 +413,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -434,12 +432,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NONE|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -450,16 +450,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -471,16 +470,16 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MTd|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -492,16 +491,16 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MDd|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -513,16 +512,16 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MD|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -534,16 +533,16 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>MinSpace</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <CompileAs>Default</CompileAs>
-      <ShowIncludes>false</ShowIncludes>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <UseFullPaths>true</UseFullPaths>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -554,6 +553,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AEXModule.h" />
+    <ClCompile Include="AEXModule\cpp\AnalogKey.cpp" />
     <ClCompile Include="AEXModule\cpp\Doubles.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImButton.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\ImGuiPlus\ImCheckbox.cpp" />
@@ -563,9 +563,11 @@
     <ClCompile Include="AEXModule\cpp\Gui\ImguiPlus\ImWindow.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus.cpp" />
     <ClCompile Include="AEXModule\cpp\Gui\WinGuiPlus\ProgressBar.cpp" />
+    <ClCompile Include="AEXModule\cpp\Hotkeys.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\Inject.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3HOOK.cpp" />
     <ClInclude Include="AEXModule\h\AEXStore.h" />
+    <ClInclude Include="AEXModule\h\AnalogKey.h" />
     <ClInclude Include="AEXModule\h\api\api.h" />
     <ClInclude Include="AEXModule\h\api\data\kernel32.h" />
     <ClInclude Include="AEXModule\h\api\data\ntdll.h" />
@@ -594,6 +596,7 @@
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\Picture.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\ProgressBar.h" />
     <ClInclude Include="AEXModule\h\Gui\WinGuiPlus\_msg.h" />
+    <ClInclude Include="AEXModule\h\Hotkeys.h" />
     <ClInclude Include="AEXModule\h\Memory.h" />
     <ClInclude Include="AEXModule\h\Memory\EmbeddedCall.h" />
     <ClInclude Include="AEXModule\h\Memory\Inject.h" />
@@ -601,13 +604,9 @@
     <ClInclude Include="AEXModule\h\Memory\R3.h" />
     <ClInclude Include="AEXModule\h\Memory\R3HOOK.h" />
     <ClInclude Include="AEXModule\h\Network.h" />
-    <ClInclude Include="AEXModule\h\Network\HTTP\Client\Client.h" />
-    <ClInclude Include="AEXModule\h\Network\HTTP\HTTP.h" />
-    <ClInclude Include="AEXModule\h\Network\HTTP\Server\Server.h" />
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Client\Client.h" />
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\Server\Server.h" />
-    <ClInclude Include="AEXModule\h\Network\TCPPlus\TCPPlus.h" />
-    <ClInclude Include="AEXModule\h\Network\TCP\tcp.h" />
+    <ClInclude Include="AEXModule\h\Network\Http.h" />
+    <ClInclude Include="AEXModule\h\Network\Tcp.h" />
+    <ClInclude Include="AEXModule\h\Network\TCPPlus.h" />
     <ClInclude Include="AEXModule\h\PortableExecutable.h" />
     <ClInclude Include="AEXModule\h\PortableExecutable\data.h" />
     <ClInclude Include="AEXModule\h\Process.h" />
@@ -663,11 +662,12 @@
     <ClCompile Include="AEXModule\cpp\Memory\VEHhook.cpp" />
     <ClCompile Include="AEXModule\cpp\Memory\R3.cpp" />
     <ClCompile Include="AEXModule\cpp\Network.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\HTTP\Client\Client.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\HTTP\Server\Server.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client\Client.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server\Server.cpp" />
-    <ClCompile Include="AEXModule\cpp\Network\TCP\tcp.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\HTTP\Client.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\HTTP\Http.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\HTTP\Server.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Client.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCPPlus\Server.cpp" />
+    <ClCompile Include="AEXModule\cpp\Network\TCP\Tcp.cpp" />
     <ClCompile Include="AEXModule\cpp\PortableExecutable.cpp" />
     <ClCompile Include="AEXModule\cpp\Process.cpp" />
     <ClCompile Include="AEXModule\cpp\Sqlite.cpp" />

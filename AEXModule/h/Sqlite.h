@@ -2,12 +2,14 @@
 #include "../h/sqlite3/sqlite3.h"
 #include "../h/Text.h"
 #include <vector>
+#include <map>
 #include <string>
 #include <sstream>
+#include <regex>
 #include <iostream>
 typedef struct SQLITE_RESULT {
     std::vector<std::string> tabName; // 表名
-    std::vector<std::vector<std::string>> data; // 数据
+    std::vector<std::map<std::string, std::string>> data; // 数据
 } PSQLITE_RESULT;
 // sqlite操作类
 class Sqlite {
@@ -51,13 +53,8 @@ public:
     * @param args 可变参数，用于替换SQL中的?占位符
     * @return 成功返回true，失败返回false
     */
-    bool execs(const std::string& sql, std::initializer_list<std::string> args = {}) {
-        std::string temp = sql;
-        for (std::string arg : args) {
-            temp = Text::text_replace(temp, "?", arg);
-        }
-        return this->exec(temp);
-    }
+    bool execs(const std::string& sql, std::initializer_list<std::string> args = {});
+    bool execs(const std::string& sql, std::vector<std::string> args = {});
     /*
      * 查询指令
      * @param sql 查询的 SQL 语句
@@ -70,22 +67,23 @@ public:
      * @param args 可变参数，用于替换SQL中的?占位符
      * @return 如果成功，返回查询结果；如果失败，返回空
     */
-    SQLITE_RESULT querys(const std::string& sql, std::initializer_list<std::string> args = {}) {
-        std::string temp = sql;
-        for (std::string arg : args) {
-            temp = Text::text_replace(temp, "?", arg);
-        }
-        return this->query(temp);
-    }
+    SQLITE_RESULT querys(const std::string& sql, std::initializer_list<std::string> args = {});
+    SQLITE_RESULT querys(const std::string& sql, std::vector<std::string> args = {});
     /*
     * 获取错误信息
     * @return 错误信息
     */
     std::string getError();
     /*
-    * 添加获取最后插入ID的方法
+    * 获取最后插入的ID
     */
     int lastInsertRowid() const;
+    /*
+    * 获取表的总行数
+    * @param tableName 表名
+    * @return 表的总行数，如果失败，返回-1
+    */
+    int getTableTotal(const std::string& tableName);
 private:
     typedef struct sqlite3_content {
         int id; // 数据库标识符
@@ -96,4 +94,7 @@ private:
     std::vector<sqlite3_content> dbList; // 存储数据库指针的列表
     psqlite3_content content;// 当前数据库指针
     std::string error; // 错误信息
+private:
+    bool isValidIdentifier(const std::string& str);
+    std::string escapeString(const std::string& input);
 };

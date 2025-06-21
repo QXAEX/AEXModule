@@ -38,6 +38,7 @@ typedef struct _THREAD_INFO {
     bool isRunning;//线程是否运行
     bool isJoin;//线程是否等待
     bool isStop;//线程是否停止
+    bool isForceStop;//线程是否强制停止
     std::mutex* mtx;//线程锁
     PThread pThread;//线程对象
 } THREAD_INFO, * PTHREAD_INFO;
@@ -45,7 +46,7 @@ typedef struct _THREAD_INFO {
 
 class Thread {
 public:
-    Thread() = default;
+    Thread();
     virtual ~Thread();
     /*
     * @brief 添加线程
@@ -59,9 +60,10 @@ public:
     /*
     * @brief 移除线程
     * @param code 线程代码
+    * @param isForce 是否强制移除,默认为false
     * @return 线程状态
     */
-    THREAD_CODE WINAPI remove(DWORD code);
+    THREAD_CODE WINAPI remove(DWORD code, bool isForce = false);
     /*
     * @brief 启动线程
     * @param code 线程代码
@@ -86,9 +88,12 @@ public:
     * @return 线程状态
     */
     THREAD_CODE WINAPI wait(DWORD code);
+public:
+    std::mutex mtx;
 private:
     static DWORD WINAPI ThreadProc(LPVOID lpParam);
 private:
+    bool isExit;
     std::map<DWORD, THREAD_INFO> threads;
-    std::mutex mtx;
+    std::vector<DWORD> removeThreads; //待移除线程列表
 };

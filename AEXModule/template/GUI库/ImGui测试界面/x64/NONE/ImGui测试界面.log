@@ -1,0 +1,19 @@
+﻿  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Network\Http.h(15,16): warning C4091: “typedef ”: 没有声明变量时忽略“HTTP::HClient”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\Http.h(99,16): warning C4091: “typedef ”: 没有声明变量时忽略“HTTP::HServer”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus.h(9,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlus::Client”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus.h(62,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlus::Server”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+  ImGui测试界面.vcxproj -> D:\Project\C\AEXModule\x64\NONE\ImGui测试界面.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。

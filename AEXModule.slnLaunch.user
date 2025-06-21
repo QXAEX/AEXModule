@@ -13,5 +13,20 @@
         "DebugTarget": "本地 Windows 调试器"
       }
     ]
+  },
+  {
+    "Name": "HTTP通讯测试",
+    "Projects": [
+      {
+        "Path": "AEXModule\\template\\NetworkTest\\HTTP-Client\\HTTP-Client.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "本地 Windows 调试器"
+      },
+      {
+        "Path": "AEXModule\\template\\NetworkTest\\HTTP-Server\\HTTP-Server.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "本地 Windows 调试器"
+      }
+    ]
   }
 ]

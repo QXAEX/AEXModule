@@ -36,7 +36,7 @@ int wm_panel_create(HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 	LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
 	WinGuiPlusPanel::Panel* panel = reinterpret_cast<WinGuiPlusPanel::Panel*>(pCreateStruct->lpCreateParams);
 	if (panel) {
-		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::CREATE, NULL);
+		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::CREATE);
 	}
 	return TRUE;
 }
@@ -44,7 +44,7 @@ int wm_panel_destroy(HWND& hwnd, UINT& uMsg, WPARAM& wParam, LPARAM& lParam)
 {
 	WinGuiPlusPanel::Panel* panel = panelListFind(hwnd);
 	if (panel) {
-		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::DESTROY, NULL);
+		if (panel->Event()->callBack) panel->Event()->callBack(hwnd, panel->panelData.hInstance, WINGUIPLUS_STATUS::DESTROY);
 		panelListDelete(hwnd);
 	}
 	return 0;

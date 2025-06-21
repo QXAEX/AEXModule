@@ -1,10 +1,15 @@
 #include "../h/Thread.h"
 #include <chrono>
-static std::mutex mtx;
+
 DWORD WINAPI Thread::ThreadProc(LPVOID lpParam) {
     THREAD_INFO* pInfo = static_cast<THREAD_INFO*>(lpParam);
     do {
         try {
+            if (pInfo->isForceStop) {
+                return THREAD_OK;
+            }
+            pInfo->isStop = false;
+            pInfo->isRunning = true;
             if (pInfo->callback) pInfo->callback(pInfo->pThread);
             pInfo->isRunning = false;
             pInfo->isStop = true;
@@ -17,13 +22,47 @@ DWORD WINAPI Thread::ThreadProc(LPVOID lpParam) {
             pInfo->isStop = false;
         }
     } while (pInfo->type == THREAD_TYPE_LOOP && !pInfo->isStop);
-    {
-        std::lock_guard<std::mutex> lock(*pInfo->mtx);
-    }
+    //{
+    //    std::lock_guard<std::mutex> lock(*pInfo->mtx);
+    //}
     return THREAD_OK;
 }
 
+Thread::Thread()
+{
+    this->add(-404, [&](PThread pThread) {
+        std::vector<DWORD> removeCodes;//已删除线程的code
+        while (!this->isExit) {
+            for (DWORD code : removeThreads) {
+                auto it = threads.find(code);
+                if (it == threads.end()) continue;
+                if (!it->second.isRunning && it->second.isStop && it->second.isForceStop && it->second.hThread) {
+                    CloseHandle(it->second.hThread);
+                    threads.erase(it);
+                    removeCodes.push_back(code);
+                }
+            }
+            if (removeCodes.size()) {
+                std::lock_guard<std::mutex> lock(this->mtx);
+                for (DWORD code : removeCodes) {
+                    for (DWORD _code : removeThreads) {
+                        for (DWORD i = 0; i < removeThreads.size(); i++) {
+                            if (_code == code) {
+                                removeThreads.erase(removeThreads.begin() + i);
+                                break;
+                            }
+                        }
+                    }
+                }
+                removeCodes.clear();
+            }
+            Sleep(1000);
+        }
+        });
+}
+
 Thread::~Thread() {
+    this->isExit = true;
     wait();
 }
 
@@ -38,11 +77,18 @@ THREAD_CODE __stdcall Thread::add(DWORD code, THREAD_CALLBACK callback, THREAD_T
     else return THREAD_OK;
 }
 
-THREAD_CODE __stdcall Thread::remove(DWORD code) {
+THREAD_CODE __stdcall Thread::remove(DWORD code, bool isForce) {
     std::lock_guard<std::mutex> lock(mtx);
     auto it = threads.find(code);
     if (it == threads.end()) return THREAD_NOT_FOUND;
-    if (it->second.isRunning) return THREAD_RUNNING;
+    it->second.isForceStop = true;
+    if (it->second.isRunning) {
+        if (isForce) {
+            this->removeThreads.push_back(code);
+            return THREAD_OK;
+        }
+        return THREAD_RUNNING;
+    }
     if (it->second.hThread) CloseHandle(it->second.hThread);
     threads.erase(it);
     return THREAD_OK;
@@ -54,12 +100,11 @@ THREAD_CODE __stdcall Thread::start(DWORD code, bool join) {
     if (it == threads.end()) return THREAD_NOT_FOUND;
     THREAD_INFO& info = it->second;
     if (info.isRunning) return THREAD_RUNNING;
-    info.isStop = false;
+    info.isForceStop = false;
     info.isJoin = join;
     info.pThread = this;
     info.hThread = CreateThread(nullptr, 0, ThreadProc, &info, 0, nullptr);
     if (!info.hThread) return THREAD_ERROR;
-    info.isRunning = true;
     return THREAD_OK;
 }
 
@@ -67,7 +112,13 @@ THREAD_CODE __stdcall Thread::stop(DWORD code) {
     std::lock_guard<std::mutex> lock(mtx);
     auto it = threads.find(code);
     if (it == threads.end()) return THREAD_NOT_FOUND;
+    if (it->second.hThread) {
+        CloseHandle(it->second.hThread);
+        it->second.hThread = nullptr;
+    }
     it->second.isStop = true;
+    it->second.isForceStop = false;
+    it->second.isRunning = false;
     return THREAD_OK;
 }
 

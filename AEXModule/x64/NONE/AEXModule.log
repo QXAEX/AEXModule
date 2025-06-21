@@ -1,0 +1,27 @@
+﻿D:\InstallationSpace\Visual Studio\2022\community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1119,5): warning MSB8027: 名为 Client.cpp 的两个或更多文件将生成到同一位置的输出。这会导致错误的生成结果。   调用的文件是 AEXModule\cpp\Network\HTTP\Client.cpp, AEXModule\cpp\Network\TCPPlus\Client.cpp。
+D:\InstallationSpace\Visual Studio\2022\community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1119,5): warning MSB8027: 名为 Server.cpp 的两个或更多文件将生成到同一位置的输出。这会导致错误的生成结果。   调用的文件是 AEXModule\cpp\Network\HTTP\Server.cpp, AEXModule\cpp\Network\TCPPlus\Server.cpp。
+  _msg.cpp
+D:\Project\C\AEXModule\AEXModule\cpp\Gui\WinGuiPlus\_msg.cpp(76,12): warning C4244: “return”: 从“LRESULT”转换到“int”，可能丢失数据
+  main.cpp
+D:\Project\C\AEXModule\AEXModule\h\Network\Http.h(15,16): warning C4091: “typedef ”: 没有声明变量时忽略“HTTP::HClient”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\Http.h(99,16): warning C4091: “typedef ”: 没有声明变量时忽略“HTTP::HServer”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus.h(9,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlus::Client”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus.h(62,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlus::Server”的左侧
+  (编译源文件“main.cpp”)
+  
+D:\Project\C\AEXModule\AEXModule\h\PortableExecutable\data.h(142,16): warning C4091: “typedef ”: 没有声明变量时忽略“PE_EXPORT_FUNCTION”的左侧
+  (编译源文件“main.cpp”)
+  
+  正在生成代码...
+AEXModule\x64\NONE\Client.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+AEXModule\x64\NONE\Server.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+LINK : warning LNK4067: 不明确的入口点；选定“mainCRTStartup”
+  AEXModule.vcxproj -> D:\Project\C\AEXModule\test\test.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。

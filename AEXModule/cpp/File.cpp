@@ -18,7 +18,13 @@ bool File::Open(std::string path, bool create)
     if (this->hfile != INVALID_HANDLE_VALUE && this->hfile != NULL) {
         return this->is_open;
     }
-
+    // 相对路径补全
+    if (path.find(':') == std::string::npos) {
+        std::string base = System::GetRunPath();
+        path = path.empty() || (path[0] != '\\' && path.find("\\\\") != 0)
+            ? base + "\\" + path
+            : base + path;
+    }
     this->path = path;
     DWORD dwCreationDisposition = create ? CREATE_ALWAYS : OPEN_EXISTING;
     if (create) {
@@ -67,6 +73,9 @@ bool File::Close()
 
 bool File::DelFile()
 {
+	if (this->is_open) {
+        this->Close();
+	}
 	if (!DeleteFileA(path.c_str())) {
 		return false;
 	}

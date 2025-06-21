@@ -1,11 +1,1 @@
-﻿  main.cpp
-D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus\Server\Server.h(11,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlusServer::Server::SERVER_STATUS”的左侧
-  (编译源文件“main.cpp”)
-  
-D:\Project\C\AEXModule\AEXModule\h\Network\TCPPlus\Server\Server.h(9,16): warning C4091: “typedef ”: 没有声明变量时忽略“TCPPlusServer::Server”的左侧
-  (编译源文件“main.cpp”)
-  
-D:\Project\C\AEXModule\AEXModule\template\NetworkTest\TCPPlus-Server\main.cpp(3,6): warning C4326: “main”的返回类型应为“int”而非“void”
-  TCPPlus-Server.vcxproj -> D:\Project\C\AEXModule\x64\Debug\server.exe
-  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
-  或批处理文件。
+﻿

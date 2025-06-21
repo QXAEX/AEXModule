@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <comutil.h>
 #include <sstream>
+#include <iomanip>
 #pragma comment(lib, "comsuppw.lib")
 std::string __stdcall Text::text_join(std::vector<std::string> text_list, std::string delimiter) {
     std::string result;
@@ -47,8 +48,8 @@ std::string __stdcall Text::text_right_del(std::string text, size_t length) {
     return text.substr(0, text.size() - length);
 }
 
-int __stdcall Text::text_find(std::string text, std::string find_text) {
-    size_t position = text.find(find_text);
+int __stdcall Text::text_find(std::string text, std::string find_text, size_t start) {
+    size_t position = text.find(find_text, start);
     if (position != std::string::npos) {
         return static_cast<int>(position);
     }
@@ -299,6 +300,60 @@ std::wstring __stdcall Text::text_ascii_to_unicode(std::string text)
     int size_needed = MultiByteToWideChar(CP_ACP, 0, text.c_str(), (int)text.size(), NULL, 0);
     std::wstring result(size_needed, 0);
     MultiByteToWideChar(CP_ACP, 0, text.c_str(), (int)text.size(), &result[0], size_needed);
+    return result;
+}
+
+std::string Text::text_url_decode(const std::string& str)
+{
+    std::string result;
+    result.reserve(str.size());
+    for (size_t i = 0; i < str.size(); ++i) {
+        if (str[i] == '%' && i + 2 < str.size()) {
+            int value;
+            std::istringstream iss(str.substr(i + 1, 2));
+
+            // 分步处理流操作
+            iss >> std::hex;  // 设置十六进制模式
+            if (iss >> value) { // 读取数值
+                result += static_cast<char>(value);
+                i += 2;
+            }
+            else {
+                result += str[i];
+            }
+        }
+        else if (str[i] == '+') {
+            result += ' ';
+        }
+        else {
+            result += str[i];
+        }
+    }
+    return result;
+}
+
+std::string Text::text_url_encode(const std::string& str)
+{
+    std::string result;
+    result.reserve(str.size());
+    for (size_t i = 0; i < str.size(); ++i) {
+        if (str[i] == ' ') {
+            result += '+';
+        }
+        else if (str[i] == '%') {
+            result += "%25";
+        }
+        else if ((str[i] >= '0' && str[i] <= '9') ||
+            (str[i] >= 'A' && str[i] <= 'Z') ||
+            (str[i] >= 'a' && str[i] <= 'z')) {
+            result += str[i];
+        }
+        else {
+            result += "%";
+            result += std::string(1, static_cast<char>(std::toupper(static_cast<unsigned char>(str[i]))));
+            result += std::string(1, static_cast<char>(std::tolower(static_cast<unsigned char>(str[i]))));
+        }
+    }
     return result;
 }
 

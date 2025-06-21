@@ -111,7 +111,7 @@ typedef struct WINGUIPLUS_TEMPLATE {
     HWND hwnd = NULL;
     HWND parent = NULL;
     HINSTANCE hInstance = NULL;
-    std::function<void(HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status, HDC hdc)> callBack = nullptr;
+    std::function<void(HWND hwnd, HINSTANCE hInstance, WINGUIPLUS_STATUS status)> callBack = nullptr;
     WINGUIPLUS_WINEVENTPROC event{};
 }*PWINGUIPLUS_TEMPLATE;
 //¶ÔÆë·½Ê½

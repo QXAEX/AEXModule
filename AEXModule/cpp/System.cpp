@@ -6,8 +6,7 @@
 #include <Psapi.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-std::string WINAPI System::GetTime(bool format)
+std::string WINAPI System::GetTime(bool format, bool hideSecond)
 {
     auto now = std::chrono::system_clock::now();
     std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
@@ -16,11 +15,21 @@ std::string WINAPI System::GetTime(bool format)
     std::ostringstream oss;
     if (format)
     {
-        oss << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S");
+        if (hideSecond) {
+            oss << std::put_time(&now_tm, "%Y-%m-%d");
+        }
+        else {
+            oss << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S");
+        }
     }
     else
     {
-        oss << std::put_time(&now_tm, "%Y%m%d%H%M%S");
+        if (hideSecond) {
+            oss << std::put_time(&now_tm, "%Y%m%d");
+        }
+        else {
+            oss << std::put_time(&now_tm, "%Y%m%d%H%M%S");
+        }
     }
     return oss.str();
 }
@@ -80,9 +89,52 @@ double WINAPI System::DataSizeConversion(double size, int& type, __int64 time)
     return result;
 }
 
-bool WINAPI System::CreateDir(std::string path)
-{
-    return CreateDirectoryA(path.c_str(), nullptr);
+bool WINAPI System::CreateDir(std::string path) {
+    // 统一路径分隔符
+    for (char& c : path) {
+        if (c == '/') c = '\\';
+    }
+
+    // 智能截断文件路径
+    size_t file_pos = path.find_last_of('\\');
+    if (file_pos != std::string::npos && path.find('.', file_pos) != std::string::npos) {
+        path = path.substr(0, file_pos);
+    }
+
+    // 相对路径补全
+    if (path.find(':') == std::string::npos) {
+        std::string base = GetRunPath();
+        path = path.empty() || (path[0] != '\\' && path.find("\\\\") != 0) 
+               ? base + "\\" + path 
+               : base + path;
+    }
+
+    // 层级式目录创建
+    bool created = false;  // 新增创建状态标记
+    size_t start = 0;
+    while ((start = path.find_first_not_of('\\', start)) != std::string::npos) {
+        size_t end = path.find('\\', start);
+        std::string segment = path.substr(0, end != std::string::npos ? end : path.size());
+        
+        // 跳过根目录校验
+        if (segment.size() > 3 || segment.back() != '\\') {
+            DWORD attrs = GetFileAttributesA(segment.c_str());
+            if (attrs == INVALID_FILE_ATTRIBUTES) {
+                // 仅当实际创建成功时标记
+                if (CreateDirectoryA(segment.c_str(), nullptr)) {
+                    created = true;  // 记录成功创建操作
+                } else if (GetLastError() != ERROR_ALREADY_EXISTS) {
+                    return false;    // 非预期错误立即返回
+                }
+            } else if (!(attrs & FILE_ATTRIBUTE_DIRECTORY)) {
+                return false;  // 路径被文件占用
+            }
+            // 已存在目录不更新created状态
+        }
+        
+        start = end != std::string::npos ? end + 1 : path.size();
+    }
+    return created;  // 最终返回创建状态
 }
 
 bool WINAPI System::RemoveDir(std::string path)
